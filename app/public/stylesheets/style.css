@@ -1,8 +1,107 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body, html {
+  height: 100%;
 }
 
-a {
-  color: #00B7FF;
+.bg {
+  /* The image used */
+  background-image: url("images/hotel.jpg");
+
+  /* Full height */
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  left: 0;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.centered-form{
+	margin-top: 150px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
+/* Adds borders for tabs */
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
+    height: 20%;
+    margin-bottom: 0;
+}
+
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+
+}
+
+.nav>li>a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color:black;
+}
+
+#btn-checkavailability {
+  margin-right: 15px;
+}
+
+#check-availability {
+  position: relative;
+  margin-top: 100px;
+}
+
+#dropdown-adult, #dropdown-children {
+  margin-right: 30px;
+  width: 25%;
+}
+
+#header-label {
+  padding-top: 10px;
+  text-align: center;
+  color: black;
+  font-size: 3em;
+}
+
+#home-navbar {
+    position: relative;
+    width: 100%;
+    left: 0;
+}
+
+#link-registernow {
+  padding-top: 5px;
+  font-size: 15px;
+}
+
+#login-btn {
+    padding-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+}
+
+#viewrooms-btn {
+  padding-top: 20px;
+  text-align: center;
+}
+
+#viewrooms-btn>a {
+  background-color:burlywood;
+  border:none;
 }
