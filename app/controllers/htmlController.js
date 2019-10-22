@@ -29,7 +29,6 @@ module.exports = function(app) {
             con.query(sql, function(err, result) {
                 console.log(result);
                 if(err) throw err;
-                res.render('login');
             });
         });
     });
@@ -54,11 +53,11 @@ module.exports = function(app) {
             con.query(sql, function(err, result) {
                 console.log(result);
                 if(err) throw err;
-                
-                if(result[0].username == req.body.username && result[0].password == req.body.password){
+
+                if(result[0] != undefined && result[0].username == req.body.username && result[0].password == req.body.password){
                     res.render('index');
                 }
-                
+                else res.render('login');
             });
         });
     });

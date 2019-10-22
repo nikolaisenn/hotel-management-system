@@ -124,9 +124,9 @@ body, html {
 
     <div class="container">
         <div class="row centered-form">
-        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12 col-sm-offset-2 col-md-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12 col-sm-offset-2 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         <h3 class="panel-title">Sign up <small>book your room now!</small></h3>
                         </div>
                         <div class="panel-body">
@@ -182,6 +182,7 @@ body, html {
             </div>
         </div>
     </div>
+</div>
 
     <script type="text/javascript">
         function validation(){
@@ -191,6 +192,7 @@ body, html {
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
             var confirm_password = document.getElementById('password_confirmation').value;
+            var validationSuccess = false;
 
             if (username == ""){
                 document.getElementById('username_id').innerHTML = " ** Please fill the field";
@@ -250,11 +252,36 @@ body, html {
                 document.getElementById('password_check').innerHTML = " ** Passwords do not match";
                 return false;
             }
+
+            validationSuccess = true;
+            if (validationSuccess){
+                swal({
+                    title: 'Registration successful!',
+                    text: 'Book your room now!',
+                    type: 'success'
+                }
+                ).then(function() {
+                    window.location = "logins";
+                })
+            }
+
         }
     </script>
-</div>
+
+<!-- <script>
+        function registrationSuccess(){
+            Swal.fire(
+                'Registration successful!',
+                'Book your room now!',
+                'success'
+            ).then(function() {
+                window.location = "logins";
+            })
+        };
+    </script> -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
-<script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.2/sweetalert2.all.min.js"></script>
 </body>
 </html>
