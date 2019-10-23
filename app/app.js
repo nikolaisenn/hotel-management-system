@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mysql = require('mysql');
+var flash = require('connect-flash');
+var session = require('express-session');
 
 var htmlController = require('./controllers/htmlController');
 
@@ -21,6 +23,15 @@ htmlController(app);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Express Session
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}))
+
+// Connect flash
+app.use(flash());
 
 
 app.use(logger('dev'));
