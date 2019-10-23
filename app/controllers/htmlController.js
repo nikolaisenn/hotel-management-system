@@ -22,30 +22,33 @@ module.exports = function(app) {
         con.connect(function(err) {
             if(err) throw err;
             console.log("Connected!");
+            var hashed;
             
-            // Hash password
-            // Generate a salt
-            var salt = bcrypt.genSaltSync(10);
-            // Hash the password with salt
-            var hash = bcrypt.hashSync("my password", salt);
+            // Encrypt the password
+            function encryptPassword(callback) {
+                bcrypt.genSalt(10, function(err, salt) {
+                    bcrypt.hash(req.body.password, salt, function(err, hash) {
+                        // Store hash in your password DB.
+                        hashed = hash;
+                        console.log("Before encryption: " + hashed);
+                        callback(hashed);
+                    });
+                });
+            }
+            
+            // Store the model into the db 
+            encryptPassword(function(hashed) {
+                console.log("After encryption: " + hashed);
+                var sql = "INSERT INTO `client` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `client_id`) " + 
+                            "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
+                            " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
+                console.log(sql);
 
-            // var hashedPassword;
-            // bcrypt.genSalt(10, function(err, salt) {
-            //     bcrypt.hash(req.body.password, salt, function(err, hash) {
-            //         if(err) throw err;
-            //         hashedPassword = hash;
-            //     })
-            // })
-            // console.log(hashedPassword);
-            var sql = "INSERT INTO `client` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `client_id`) " + 
-                    "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
-                            " '"+req.body.username+"', '"+hash+"', NULL, NULL)";
-            console.log(sql);
-
-            con.query(sql, function(err, result) {
-                console.log(result);
-                if(err) throw err;
-            });
+                con.query(sql, function(err, result) {
+                    console.log(result);
+                    if(err) throw err;
+                });
+            })
         });
     });
 
@@ -62,19 +65,45 @@ module.exports = function(app) {
         con.connect(function(err) {
             if(err) throw err;
             console.log("Connected!");
-            
-            var sql = "SELECT username, password FROM `client` WHERE `username`='"+req.body.username+"' and password = '"+req.body.password+"'";
+
+            var hashedPassword;
+            var sql = "SELECT password FROM `client` WHERE `username`='"+req.body.username+"'";
             console.log(sql);
+            
+            // Decrypt the password
+            function decryptPassword(callback) {
+                con.query(sql, function(err, result) {
+                    console.log(result);
+                    if(err) throw err;
+                    
+                    hashedPassword = result[0].password;
+                    console.log("Before decryption: " + hashedPassword); 
+                    callback(hashedPassword);
+                })
+            }
 
-            con.query(sql, function(err, result) {
-                console.log(result);
-                if(err) throw err;
-
-                if(result[0] != undefined && result[0].username == req.body.username && result[0].password == req.body.password){
-                    res.render('index');
-                }
-                else res.render('login');
-            });
+            // Verify login
+            decryptPassword(function(hashedPassword) {
+                console.log("After decryption: " + hashedPassword);
+                bcrypt.compare(req.body.password, hashedPassword, function(err, isMatch) {
+                    if(err) throw err;
+    
+                    if(isMatch){
+                        sql = "SELECT username, password FROM `client` WHERE `username`='"+req.body.username+"' and password = '"+hashedPassword+"'";
+                        console.log(sql);
+    
+                        con.query(sql, function(err, result) {
+                            console.log(result);
+                            if(err) throw err;
+                            
+                            if(result[0] != undefined && result[0].username == req.body.username && result[0].password == hashedPassword){
+                                res.render('index');
+                            }
+                            else res.render('login');
+                        });
+                    }
+                });
+            })
         });
-    });
+    })
 }
