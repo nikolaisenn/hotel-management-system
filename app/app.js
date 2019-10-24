@@ -29,7 +29,7 @@ var roomsRouter = require('./api/routes/rooms');
 var app = express();
 
 // Use controllers
-usersController(app);
+//usersController(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

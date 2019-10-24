@@ -130,7 +130,7 @@ body, html {
                         <h3 class="panel-title">Sign up <small>book your room now!</small></h3>
                         </div>
                         <div class="panel-body">
-                        <form role="form" method="POST" action="/register" onsubmit=" return validation()">
+                        <form role="form" method="POST" action="/users/register" onsubmit=" return validation()">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -261,7 +261,7 @@ body, html {
                     type: 'success'
                 }
                 ).then(function() {
-                    window.location = "logins";
+                    window.location = "login";
                 })
             }
 
