@@ -30,7 +30,6 @@ module.exports = function(app) {
                     bcrypt.hash(req.body.password, salt, function(err, hash) {
                         // Store hash in your password DB.
                         hashed = hash;
-                        console.log("Before encryption: " + hashed);
                         callback(hashed);
                     });
                 });
@@ -38,7 +37,6 @@ module.exports = function(app) {
             
             // Store the model into the db 
             encryptPassword(function(hashed) {
-                console.log("After encryption: " + hashed);
                 var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `client_id`) " + 
                             "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
                             " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
@@ -77,14 +75,12 @@ module.exports = function(app) {
                     if(err) throw err;
                     
                     hashedPassword = result[0].password;
-                    console.log("Before decryption: " + hashedPassword); 
                     callback(hashedPassword);
                 })
             }
 
             // Verify login
             decryptPassword(function(hashedPassword) {
-                console.log("After decryption: " + hashedPassword);
                 bcrypt.compare(req.body.password, hashedPassword, function(err, isMatch) {
                     if(err) throw err;
     
