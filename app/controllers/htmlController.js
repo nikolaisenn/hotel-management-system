@@ -39,7 +39,7 @@ module.exports = function(app) {
             // Store the model into the db 
             encryptPassword(function(hashed) {
                 console.log("After encryption: " + hashed);
-                var sql = "INSERT INTO `client` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `client_id`) " + 
+                var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `client_id`) " + 
                             "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
                             " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
                 console.log(sql);
@@ -67,7 +67,7 @@ module.exports = function(app) {
             console.log("Connected!");
 
             var hashedPassword;
-            var sql = "SELECT password FROM `client` WHERE `username`='"+req.body.username+"'";
+            var sql = "SELECT password FROM `clients` WHERE `username`='"+req.body.username+"'";
             console.log(sql);
             
             // Decrypt the password
@@ -89,7 +89,7 @@ module.exports = function(app) {
                     if(err) throw err;
     
                     if(isMatch){
-                        sql = "SELECT username, password FROM `client` WHERE `username`='"+req.body.username+"' and password = '"+hashedPassword+"'";
+                        sql = "SELECT username, password FROM `clients` WHERE `username`='"+req.body.username+"' and password = '"+hashedPassword+"'";
                         console.log(sql);
     
                         con.query(sql, function(err, result) {

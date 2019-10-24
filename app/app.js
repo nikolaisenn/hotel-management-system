@@ -7,6 +7,19 @@ var mysql = require('mysql');
 var flash = require('connect-flash');
 var session = require('express-session');
 
+// Database
+const db = require('./config/database');
+
+// Test database
+db 
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 var htmlController = require('./controllers/htmlController');
 
 var indexRouter = require('./api/routes/index');
@@ -14,6 +27,7 @@ var usersRouter = require('./api/routes/users');
 var accommodationRouter = require('./api/routes/accommodations');
 var loginRouter = require('./api/routes/logins');
 var registrationRouter = require('./api/routes/registration');
+var clientRouter = require('./api/routes/client');
 
 var app = express();
 
@@ -45,6 +59,7 @@ app.use('/users', usersRouter);
 app.use('/accommodations', accommodationRouter);
 app.use('/logins', loginRouter);
 app.use('/registration', registrationRouter);
+app.use('/client', clientRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
