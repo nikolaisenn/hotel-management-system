@@ -20,18 +20,16 @@ db
     console.error('Unable to connect to the database:', err);
   });
 
-var htmlController = require('./controllers/htmlController');
+var usersController = require('./controllers/usersController');
 
 var indexRouter = require('./api/routes/index');
 var usersRouter = require('./api/routes/users');
-var accommodationRouter = require('./api/routes/accommodations');
-var loginRouter = require('./api/routes/logins');
-var registrationRouter = require('./api/routes/registration');
-var clientRouter = require('./api/routes/client');
+var roomsRouter = require('./api/routes/rooms');
 
 var app = express();
 
-htmlController(app);
+// Use controllers
+usersController(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,10 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/accommodations', accommodationRouter);
-app.use('/logins', loginRouter);
-app.use('/registration', registrationRouter);
-app.use('/client', clientRouter);
+app.use('/rooms', roomsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
