@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
 var Client = require('../models/Client');
+var passport = require('passport');
 
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });

@@ -6,6 +6,10 @@ var logger = require('morgan');
 var mysql = require('mysql');
 var flash = require('connect-flash');
 var session = require('express-session');
+var passport = require('passport');
+
+// Passport config
+require('./config/passport')(passport);
 
 // Database
 const db = require('./config/database');
@@ -41,6 +45,10 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Connect flash
 app.use(flash());
