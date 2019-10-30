@@ -75,55 +75,59 @@ module.exports.registerAccount = function(req, res) {
 
 /* POST - Login */
 
-module.exports.loginAccount = function (req, res) {
+module.exports.loginAccount = function (req, res, next) {
 
-    // Connect to the database
-    var con = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "hotel-management"
-    });
+    passport.authenticate('local', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/users/login'
+    }) (req, res, next);
+    // // Connect to the database
+    // var con = mysql.createConnection({
+    //     host: "localhost",
+    //     user: "root",
+    //     password: "root",
+    //     database: "hotel-management"
+    // });
 
-    con.connect(function(err) {
-        if(err) throw err;
-        console.log("Connected!");
+    // con.connect(function(err) {
+    //     if(err) throw err;
+    //     console.log("Connected!");
 
-        var hashedPassword;
-        var sql = "SELECT password FROM `clients` WHERE `username`='"+req.body.username+"'";
-        console.log(sql);
+    //     var hashedPassword;
+    //     var sql = "SELECT password FROM `clients` WHERE `username`='"+req.body.username+"'";
+    //     console.log(sql);
         
-        // Decrypt the password
-        function decryptPassword(callback) {
-            con.query(sql, function(err, result) {
-                console.log(result);
-                if(err) throw err;
+    //     // Decrypt the password
+    //     function decryptPassword(callback) {
+    //         con.query(sql, function(err, result) {
+    //             console.log(result);
+    //             if(err) throw err;
                 
-                hashedPassword = result[0].password;
-                callback(hashedPassword);
-            })
-        }
+    //             hashedPassword = result[0].password;
+    //             callback(hashedPassword);
+    //         })
+    //     }
 
-        // Verify login
-        decryptPassword(function(hashedPassword) {
-            bcrypt.compare(req.body.password, hashedPassword, function(err, isMatch) {
-                if(err) throw err;
+    //     // Verify login
+    //     decryptPassword(function(hashedPassword) {
+    //         bcrypt.compare(req.body.password, hashedPassword, function(err, isMatch) {
+    //             if(err) throw err;
 
-                if(isMatch){
-                    sql = "SELECT username, password FROM `clients` WHERE `username`='"+req.body.username+"' and password = '"+hashedPassword+"'";
-                    console.log(sql);
+    //             if(isMatch){
+    //                 sql = "SELECT username, password FROM `clients` WHERE `username`='"+req.body.username+"' and password = '"+hashedPassword+"'";
+    //                 console.log(sql);
 
-                    con.query(sql, function(err, result) {
-                        console.log(result);
-                        if(err) throw err;
+    //                 con.query(sql, function(err, result) {
+    //                     console.log(result);
+    //                     if(err) throw err;
                         
-                        if(result[0] != undefined && result[0].username == req.body.username && result[0].password == hashedPassword){
-                            res.render('index');
-                        }
-                        else res.render('login');
-                    });
-                }
-            });
-        })
-    });
+    //                     if(result[0] != undefined && result[0].username == req.body.username && result[0].password == hashedPassword){
+    //                         res.render('index');
+    //                     }
+    //                     else res.render('login');
+    //                 });
+    //             }
+    //         });
+    //     })
+    // });
 }

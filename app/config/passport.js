@@ -1,21 +1,15 @@
 const LocalStrategy = require('passport-local').Strategy;
-const mysql = require('mysql');
+const Sequelize = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 // Load User Model
 const Client = require('../models/Client');
 
-var con = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root'
-  });
-
 module.exports = function(passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'username'}, function(username, password, done) {
             // Match User
-            User.findOne({ username: username})
+            Client.findOne({ username: username})
                 .then(function(user) { 
                     if(!user) {
                         return done(null, false, { message: 'That username is not registered'});
@@ -41,7 +35,7 @@ module.exports = function(passport) {
     });
       
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+        Client.findById(id, function(err, user) {
             done(err, user);
         });
     });
