@@ -33,44 +33,80 @@ module.exports.getAllClients = function(req, res) {
 
 /* POST - Register an account */
 module.exports.registerAccount = function(req, res) {
+    
+    const {username, first_name, last_name, email, password, password_confirmation} = req.body;
+    let errors = [];
 
-    // Connect to the database
-    var con = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "hotel-management"
-    });
+    // Check required fields
+    if(!username || !first_name || !last_name || !email || !password || !password_confirmation) {
+        errors.push({ msg: 'Please fill in all fields'});
+    }
+    // Check username
+    if (!isNaN(username)){
+        errors.push({ msg: 'Username must contain at least one character'});
+    }
+    // Check first name
+    if (Number.isInteger(first_name)){
+        errors.push({ msg: 'Invalid first name'});
+    }
+    // Check passwords match
+    if(password !== password_confirmation) {
+        errors.push({ msg: 'Passwords do not match'});
+    }
+    // Check pass length
+    if(password.length < 6) {
+        errors.push({ msg: 'Password should be at least 6 characters'})
+    }
 
-    con.connect(function(err) {
-        if(err) throw err;
-        console.log("Connected!");
-        var hashed;
-        
-        // Encrypt the password
-        function encryptPassword(callback) {
-            bcrypt.genSalt(10, function(err, salt) {
-                bcrypt.hash(req.body.password, salt, function(err, hash) {
-                    // Store hash in your password DB.
-                    hashed = hash;
-                    callback(hashed);
+    if(errors.length > 0) {
+        res.render('register', {
+            errors,
+            username,
+            first_name,
+            last_name,
+            email,
+            password,
+            password_confirmation
+        });
+    } else {
+        // Connect to the database
+        var con = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "root",
+            database: "hotel-management"
+        });
+
+        con.connect(function(err) {
+            if(err) throw err;
+            console.log("Connected!");
+            var hashed;
+            
+            // Encrypt the password
+            function encryptPassword(callback) {
+                bcrypt.genSalt(10, function(err, salt) {
+                    bcrypt.hash(req.body.password, salt, function(err, hash) {
+                        // Store hash in your password DB.
+                        hashed = hash;
+                        callback(hashed);
+                    });
                 });
-            });
-        }
-        
-        // Store the model into the db 
-        encryptPassword(function(hashed) {
-            var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `id`) " + 
-                        "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
-                        " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
-            console.log(sql);
+            }
+            
+            // Store the model into the db 
+            encryptPassword(function(hashed) {
+                var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `id`) " + 
+                            "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
+                            " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
+                console.log(sql);
 
-            con.query(sql, function(err, result) {
-                console.log(result);
-                if(err) throw err;
-            });
-        })
-    });
+                con.query(sql, function(err, result) {
+                    console.log(result);
+                    if(err) throw err;
+                });
+            })
+        });
+    }
 };
 
 /* POST - Login */

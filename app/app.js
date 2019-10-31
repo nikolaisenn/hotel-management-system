@@ -8,6 +8,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var bodyParser = require('body-parser');
+var expressLayouts = require('express-ejs-layouts');
 
 // Passport config
 require('./config/passport')(passport);
@@ -33,10 +34,11 @@ var roomsRouter = require('./api/routes/rooms');
 
 var app = express();
  
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+// EJS
+// app.use(expressLayouts);
 
 // Connect flash
 app.use(flash());

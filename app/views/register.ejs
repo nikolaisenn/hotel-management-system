@@ -129,12 +129,12 @@ body, html {
                     <div class="panel-heading">
                         <h3 class="panel-title">Sign up <small>book your room now!</small></h3>
                         </div>
-                        <div class="panel-body">
-                        <form role="form" method="POST" action="/users/register" onsubmit=" return validation()">
+                        <div class="panel-body">  
+                        <form role="form" method="POST" action="/users/register">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <input type="text" name="username" id="username" class="form-control input-sm" placeholder="Username">
+                                        <input type="text" name="username" id="username" class="form-control input-sm" placeholder="Username" value="<%= typeof username != 'undefined' ? username : '' %>">
                                     </div>
                                     <span id="username_id" class="input-error text-danger font-weight-bold"></span>
                                 </div>
@@ -142,39 +142,39 @@ body, html {
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+                                        <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name" value="<%= typeof first_name != 'undefined' ? first_name : '' %>">
                                     </div>
                                     <span id="first_name_id" class="input-error text-danger font-weight-bold"></span>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+                                        <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name" value="<%= typeof last_name != 'undefined' ? last_name : '' %>">
                                     </div>
                                     <span id="last_name_id" class="input-error text-danger font-weight-bold"></span>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" value="<%= typeof email != 'undefined' ? email : '' %>">
                                 <span id="email_id" class="input-error text-danger font-weight-bold"></span>
                             </div>
 
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" value="<%= typeof password != 'undefined' ? password : '' %>">
                                     </div>
                                     <span id="password_id" class="input-error text-danger font-weight-bold"></span>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" value="<%= typeof password_confirmation != 'undefined' ? password_confirmation : '' %>">
                                     </div>
                                     <span id="password_confirmation_id" class="input-error text-danger font-weight-bold"></span>
                                 </div>
                             </div>
                             
-                            <input type="submit" value="Register" class="btn btn-info btn-block">
+                            <input type="submit" value="Register" class="btn btn-info btn-block" onclick="return validation()">
                             <span id="password_check" class="input-error text-danger font-weight-bold"></span>
                         </form>
                     </div>
@@ -192,93 +192,25 @@ body, html {
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
             var confirm_password = document.getElementById('password_confirmation').value;
-            var validationSuccess = false;
 
-            if (username == ""){
-                document.getElementById('username_id').innerHTML = " ** Please fill the field";
-                return false;
-            }
-            if (username.length < 3){
-                document.getElementById('username_id').innerHTML = " ** Username must be at least three characters";
-                return false;
-            }
-            if (!isNaN(username)){
-                document.getElementById('username_id').innerHTML = " ** Username must contain characters";
+            if (username == "" || username.length < 3 || !isNaN(username) || first_name == "" || Number.isInteger(first_name)
+                || last_name == "" || Number.isInteger(last_name) || email == "" || email.indexOf('@') <= 0 || password == ""
+                || password.length < 5 || confirm_password == "" || password != confirm_password){
+                // document.getElementById('username_id').innerHTML = " ** Please fill the field";
                 return false;
             }
 
-
-            if (first_name == ""){
-                document.getElementById('first_name_id').innerHTML = " ** Please fill the field";
-                return false;
+            swal({
+                title: 'Registration successful!',
+                text: 'Book your room now!',
+                type: 'success'
             }
-            if (Number.isInteger(first_name)){
-                document.getElementById('first_name_id').innerHTML = " ** Invalid first name";
-                return false;
-            }
-            if (last_name == ""){
-                document.getElementById('last_name_id').innerHTML = " ** Please fill the field";
-                return false;
-            }
-            if (Number.isInteger(first_name)){
-                document.getElementById('last_name_id').innerHTML = " ** Invalid last name";
-                return false;
-            }
-
-
-            if (email == ""){
-                document.getElementById('email_id').innerHTML = " ** Please fill the field";
-                return false;
-            }
-            if (email.indexOf('@') <= 0){
-                document.getElementById('email_id').innerHTML = " ** Email is not in proper format";
-                return false;
-            }
-
-
-            if (password == ""){
-                document.getElementById('password_id').innerHTML = " ** Please fill the field";
-                return false;
-            }
-            if (password.length < 5){
-                document.getElementById('password_id').innerHTML = " ** Password must be at least five characters";
-                return false;
-            }
-            if (confirm_password == ""){
-                document.getElementById('password_confirmation_id').innerHTML = " ** Please fill the field";
-                return false;
-            }
-            if (password != confirm_password){
-                document.getElementById('password_check').innerHTML = " ** Passwords do not match";
-                return false;
-            }
-
-            validationSuccess = true;
-            if (validationSuccess){
-                swal({
-                    title: 'Registration successful!',
-                    text: 'Book your room now!',
-                    type: 'success'
-                }
-                ).then(function() {
-                    window.location = "login";
-                })
-            }
+            ).then(function() {
+                window.location = "login";
+            })
 
         }
     </script>
-
-<!-- <script>
-        function registrationSuccess(){
-            Swal.fire(
-                'Registration successful!',
-                'Book your room now!',
-                'success'
-            ).then(function() {
-                window.location = "logins";
-            })
-        };
-    </script> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
