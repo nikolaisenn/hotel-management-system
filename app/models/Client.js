@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 const Client = db.define('client', {
-    client_id: {
+    id: {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true

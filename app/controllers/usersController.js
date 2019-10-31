@@ -60,7 +60,7 @@ module.exports.registerAccount = function(req, res) {
         
         // Store the model into the db 
         encryptPassword(function(hashed) {
-            var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `client_id`) " + 
+            var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `id`) " + 
                         "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
                         " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
             console.log(sql);
@@ -79,7 +79,9 @@ module.exports.loginAccount = function (req, res, next) {
 
     passport.authenticate('local', {
         successRedirect: '/dashboard',
-        failureRedirect: '/users/login'
+        failureRedirect: '/users/login',
+        failureFlash: false,
+        successFlash: false
     }) (req, res, next);
     // // Connect to the database
     // var con = mysql.createConnection({
