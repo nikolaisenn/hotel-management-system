@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var expressLayouts = require('express-ejs-layouts');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -8,7 +9,6 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var bodyParser = require('body-parser');
-var expressLayouts = require('express-ejs-layouts');
 
 // Passport config
 require('./config/passport')(passport);
@@ -27,22 +27,26 @@ db
   });
 
 var usersController = require('./controllers/usersController');
-
 var indexRouter = require('./api/routes/index');
 var usersRouter = require('./api/routes/users');
 var roomsRouter = require('./api/routes/rooms');
 
 var app = express();
- 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('layout', false);
 // EJS
-// app.use(expressLayouts);
-
-// Connect flash
-app.use(flash());
-
+app.use(expressLayouts);
+app.get('/', function(req, res) {
+  var locals = {
+    title: 'Page Title',
+    description: 'Page Description',
+    header: 'Page Header'
+  };
+  res.render('index', locals);
+});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -50,16 +54,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Express Session
+// Passport middleware
+app.use(passport.initialize());
+// Selectively apply passport
+app.use(function(req, res, next){
+  if(req.url.match('/users'))
+    passport.session()(req, res, next)
+  else
+    next(); // do not invoke passport
+});
+
+// // Express Session
 app.use(session({
   secret: 'secret',
   resave: true,
   saveUninitialized: true
-}))
+}));
 
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+// Connect flash
+app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

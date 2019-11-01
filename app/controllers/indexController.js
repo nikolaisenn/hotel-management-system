@@ -7,5 +7,5 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* GET - Index page */
 module.exports.indexPage = function(req, res) {
-    res.render('index');
+    res.render('index', { layout: 'index.ejs' });
 };
