@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/accommodation', function(req, res, next) {
-  res.render('accommodation');
-});
+// Require controllers
+var roomsController = require('../../controllers/roomsController');
+
+/* GET login page */
+router.get('/accommodation', roomsController.accommodationPage);
 
 module.exports = router;

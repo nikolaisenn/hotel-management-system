@@ -12,7 +12,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* GET - Login page */
 module.exports.loginPage = function(req, res) {
-    res.render('login', { layout: 'login.ejs' });
+    res.render('login', { layout: 'login.ejs'});
 };
 
 /* GET - Register page */
@@ -27,8 +27,8 @@ module.exports.dashboardPage = function(req, res) {
 };
 
 /* GET - get all clients */
-module.exports.getAllClients = async function(req, res) {
-    await Client.findAll()
+module.exports.getAllClients = function(req, res) {
+    Client.findAll()
     .then(function(client) {
         console.log(client);
         res.json(client);
@@ -42,6 +42,7 @@ module.exports.getAllClients = async function(req, res) {
 module.exports.registerAccount = function(req, res) {
     const {username, first_name, last_name, email, password, password_confirmation} = req.body;
     let errors = [];
+    req.flash('success_msg', 'You are now registered and can log in');
 
     // Check required fields
     if(!username || !first_name || !last_name || !email || !password || !password_confirmation) {
@@ -111,6 +112,8 @@ module.exports.registerAccount = function(req, res) {
                             // Save user
                             newClient.save()
                                 .then(function(user) {
+                                    // Create a flash message
+                                    req.flash('success_msg', 'You are now registered and can log in');
                                     res.redirect('login');
                                 })
                                 .catch(function(err) { console.log(err)} );

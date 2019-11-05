@@ -38,7 +38,6 @@ app.set('views', path.join(__dirname, 'views'));
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
-//app.set('layout', false);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -48,23 +47,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Passport middleware
 app.use(passport.initialize());
-// Selectively apply passport
-// app.use(function(req, res, next){
-//   if(req.url.match('/users'))
-//     passport.session()(req, res, next)
-//   else
-//     next(); // do not invoke passport
-// });
 
-// // Express Session
+// Express Session
 app.use(session({
   secret: 'secret',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
 }));
 
 // Connect flash
 app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+  res.locals.succcess_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
