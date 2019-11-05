@@ -35,18 +35,10 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.set('layout', false);
 // EJS
 app.use(expressLayouts);
-app.get('/', function(req, res) {
-  var locals = {
-    title: 'Page Title',
-    description: 'Page Description',
-    header: 'Page Header'
-  };
-  res.render('index', locals);
-});
+app.set('view engine', 'ejs');
+//app.set('layout', false);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -57,18 +49,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Passport middleware
 app.use(passport.initialize());
 // Selectively apply passport
-app.use(function(req, res, next){
-  if(req.url.match('/users'))
-    passport.session()(req, res, next)
-  else
-    next(); // do not invoke passport
-});
+// app.use(function(req, res, next){
+//   if(req.url.match('/users'))
+//     passport.session()(req, res, next)
+//   else
+//     next(); // do not invoke passport
+// });
 
 // // Express Session
 app.use(session({
   secret: 'secret',
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false
 }));
 
 // Connect flash

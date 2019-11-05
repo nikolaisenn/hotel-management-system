@@ -129,7 +129,8 @@ body, html {
                     <div class="panel-heading">
                         <h3 class="panel-title">Sign up <small>book your room now!</small></h3>
                         </div>
-                        <div class="panel-body">  
+                        <div class="panel-body"> 
+                        <% include ./partials/messages %>
                         <form role="form" method="POST" action="/users/register">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -174,7 +175,7 @@ body, html {
                                 </div>
                             </div>
                             
-                            <input type="submit" value="Register" class="btn btn-info btn-block" onclick="return validation()">
+                            <input type="submit" value="Register" class="btn btn-info btn-block">
                             <span id="password_check" class="input-error text-danger font-weight-bold"></span>
                         </form>
                     </div>
@@ -184,7 +185,7 @@ body, html {
     </div>
 </div>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         function validation(){
             var username = document.getElementById('username').value;
             var first_name = document.getElementById('first_name').value;
@@ -210,7 +211,7 @@ body, html {
             })
 
         }
-    </script>
+    </script> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>

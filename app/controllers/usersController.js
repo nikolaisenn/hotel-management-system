@@ -5,6 +5,7 @@ var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
 var Client = require('../models/Client');
 var passport = require('passport');
+var Sequelize = require('sequelize');
 
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -26,11 +27,11 @@ module.exports.dashboardPage = function(req, res) {
 };
 
 /* GET - get all clients */
-module.exports.getAllClients = function(req, res) {
-    Client.findAll()
+module.exports.getAllClients = async function(req, res) {
+    await Client.findAll()
     .then(function(client) {
         console.log(client);
-        res.sendStatus(200);
+        res.json(client);
     })
     .catch(function(err) {
         console.log(err);
@@ -39,7 +40,6 @@ module.exports.getAllClients = function(req, res) {
 
 /* POST - Register an account */
 module.exports.registerAccount = function(req, res) {
-    
     const {username, first_name, last_name, email, password, password_confirmation} = req.body;
     let errors = [];
 
@@ -75,43 +75,86 @@ module.exports.registerAccount = function(req, res) {
             password_confirmation
         });
     } else {
-        // Connect to the database
-        var con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "root",
-            database: "hotel-management"
-        });
-
-        con.connect(function(err) {
-            if(err) throw err;
-            console.log("Connected!");
-            var hashed;
-            
-            // Encrypt the password
-            function encryptPassword(callback) {
-                bcrypt.genSalt(10, function(err, salt) {
-                    bcrypt.hash(req.body.password, salt, function(err, hash) {
-                        // Store hash in your password DB.
-                        hashed = hash;
-                        callback(hashed);
+        console.log("Finding user in database...");
+        const Op = Sequelize.Op;
+        Client.findOne({ where: {[Op.or]: [{username: username}, {email: email}]} })
+            .then(user => {
+                if(user) {
+                    // User Exists
+                    errors.push({ msg: 'Username or email is already registered'})
+                    res.render('register', {
+                        errors,
+                        username,
+                        first_name,
+                        last_name,
+                        email,
+                        password,
+                        password_confirmation
                     });
-                });
-            }
-            
-            // Store the model into the db 
-            encryptPassword(function(hashed) {
-                var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `id`) " + 
-                            "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
-                            " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
-                console.log(sql);
+                } else {
+                    const newClient = Client.build({
+                        firstname: first_name,
+                        lastname: last_name,
+                        email: email,
+                        username: username,
+                        password: password
+                    })
+                    console.log("New client details...");
+                    console.log(newClient);
 
-                con.query(sql, function(err, result) {
-                    console.log(result);
-                    if(err) throw err;
-                });
+                    // Hash password
+                    bcrypt.genSalt(10, function(err, salt) {
+                        bcrypt.hash(newClient.password, salt, function(err, hash) {
+                            if(err) throw err;
+                            // Set password to hashed
+                            newClient.password = hash;
+                            // Save user
+                            newClient.save()
+                                .then(function(user) {
+                                    res.redirect('login');
+                                })
+                                .catch(function(err) { console.log(err)} );
+                        })
+                    })
+                }
             })
-        });
+        // // Connect to the database
+        // var con = mysql.createConnection({
+        //     host: "localhost",
+        //     user: "root",
+        //     password: "root",
+        //     database: "hotel-management"
+        // });
+
+        // con.connect(function(err) {
+        //     if(err) throw err;
+        //     console.log("Connected!");
+        //     var hashed;
+            
+        //     // Encrypt the password
+        //     function encryptPassword(callback) {
+        //         bcrypt.genSalt(10, function(err, salt) {
+        //             bcrypt.hash(req.body.password, salt, function(err, hash) {
+        //                 // Store hash in your password DB.
+        //                 hashed = hash;
+        //                 callback(hashed);
+        //             });
+        //         });
+        //     }
+            
+        //     // Store the model into the db 
+        //     encryptPassword(function(hashed) {
+        //         var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `id`) " + 
+        //                     "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
+        //                     " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
+        //         console.log(sql);
+
+        //         con.query(sql, function(err, result) {
+        //             console.log(result);
+        //             if(err) throw err;
+        //         });
+        //     })
+        // });
     }
 };
 
@@ -124,13 +167,15 @@ module.exports.loginAccount = function (req, res, next) {
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             console.log('[Controller] is authenticated?: ' + req.isAuthenticated());
-            if (req.isAuthenticated())
+            if (req.isAuthenticated()){
                 res.redirect('/users/dashboard');
+                console.log("Going to dashboard");
+            }
             else{
-                res.redirect('/users/login');
+                res.redirect('/users/loginnnnn');
+                console.log("Going to login");
             }
             return next();
         });
     }) (req, res, next);
-    console.log(req.isAuthenticated());
 }
