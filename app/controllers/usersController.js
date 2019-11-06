@@ -42,7 +42,6 @@ module.exports.getAllClients = function(req, res) {
 module.exports.registerAccount = function(req, res) {
     const {username, first_name, last_name, email, password, password_confirmation} = req.body;
     let errors = [];
-    req.flash('success_msg', 'You are now registered and can log in');
 
     // Check required fields
     if(!username || !first_name || !last_name || !email || !password || !password_confirmation) {
