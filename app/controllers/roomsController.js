@@ -9,3 +9,9 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 module.exports.accommodationPage = function(req, res) {
     res.render('accommodation', { layout: 'accommodation.ejs' });
 };
+
+/* GET - Availability page */
+module.exports.availabilityPage = function(req, res) {
+    
+    res.render('accommodation', { layout: 'accommodation.ejs' });
+};
