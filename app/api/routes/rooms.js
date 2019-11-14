@@ -8,6 +8,6 @@ var roomsController = require('../../controllers/roomsController');
 router.get('/accommodation', roomsController.accommodationPage);
 
 /* GET availability page */
-router.get('/availability', roomsController.availabilityPage);
+router.post('/availability', roomsController.availabilityPage);
 
 module.exports = router;
