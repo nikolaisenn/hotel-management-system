@@ -12,18 +12,19 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* GET - Login page */
 module.exports.loginPage = function(req, res) {
-    res.render('login', { layout: 'login.ejs'});
+    res.render('login');
+};
+
+/* GET - Logout */
+module.exports.logout = function(req, res) {
+    req.logout();
+    req.flash('success_msg', 'You have successfully logged out');
+    res.redirect('/users/login');
 };
 
 /* GET - Register page */
 module.exports.registerPage = function(req, res) {
-    res.render('register', { layout: 'register.ejs' });
-};
-
-/* GET - Dashboard page */
-module.exports.dashboardPage = function(req, res) {
-    res.render('dashboard', { layout: 'dashboard.ejs' });
-    console.log(req.session.passport.user);
+    res.render('register');
 };
 
 /* GET - get all clients */
@@ -120,64 +121,33 @@ module.exports.registerAccount = function(req, res) {
                     })
                 }
             })
-        // // Connect to the database
-        // var con = mysql.createConnection({
-        //     host: "localhost",
-        //     user: "root",
-        //     password: "root",
-        //     database: "hotel-management"
-        // });
-
-        // con.connect(function(err) {
-        //     if(err) throw err;
-        //     console.log("Connected!");
-        //     var hashed;
-            
-        //     // Encrypt the password
-        //     function encryptPassword(callback) {
-        //         bcrypt.genSalt(10, function(err, salt) {
-        //             bcrypt.hash(req.body.password, salt, function(err, hash) {
-        //                 // Store hash in your password DB.
-        //                 hashed = hash;
-        //                 callback(hashed);
-        //             });
-        //         });
-        //     }
-            
-        //     // Store the model into the db 
-        //     encryptPassword(function(hashed) {
-        //         var sql = "INSERT INTO `clients` (`firstname`, `lastname`, `email`, `username`, `password`, `address`, `id`) " + 
-        //                     "VALUES ('"+req.body.first_name+"', '"+req.body.last_name+"', '"+req.body.email+"', " +
-        //                     " '"+req.body.username+"', '"+hashed+"', NULL, NULL)";
-        //         console.log(sql);
-
-        //         con.query(sql, function(err, result) {
-        //             console.log(result);
-        //             if(err) throw err;
-        //         });
-        //     })
-        // });
     }
 };
 
 /* POST - Login */
 
 module.exports.loginAccount = function (req, res, next) {
-    passport.authenticate('local', function(err, user, info){
-        if (err) { return next(err); }
-        if (!user) { return res.redirect('/login'); }
-        req.logIn(user, function(err) {
-            if (err) { return next(err); }
-            console.log('[Controller] is authenticated?: ' + req.isAuthenticated());
-            if (req.isAuthenticated()){
-                res.redirect('/users/dashboard');
-                console.log("Going to dashboard");
-            }
-            else{
-                res.redirect('/users/loginnnnn');
-                console.log("Going to login");
-            }
-            return next();
-        });
+    passport.authenticate('local', {
+        successRedirect: '../dashboard',
+        failureRedirect: '/users/login',
+        failureFlash: true
     }) (req, res, next);
+    console.log("Exactly after authentication: " + req.isAuthenticated());
 }
+
+
+//   if (err) { return next(err); }
+//         if (!user) { return res.redirect('/login'); }
+//         req.logIn(user, function(err) {
+//             if (err) { return next(err); }
+//             console.log('[Controller] is authenticated?: ' + req.isAuthenticated());
+//             if (req.isAuthenticated()){
+//                 res.redirect('/users/dashboard');
+//                 console.log("Going to dashboard");
+//             }
+//             else{
+//                 res.redirect('/users/loginnnnn');
+//                 console.log("Going to login");
+//             }
+//             return next();
+//         });

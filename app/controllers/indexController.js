@@ -7,5 +7,13 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* GET - Index page */
 module.exports.indexPage = function(req, res) {
-    res.render('index', { layout: 'index.ejs' });
+    res.render('index');
+};
+
+/* GET - Dashboard page */
+module.exports.dashboardPage = function(req, res) {
+    res.send("HELLO");
+    // res.render('dashboard', {
+    //     name: req.user.name
+    // });
 };
