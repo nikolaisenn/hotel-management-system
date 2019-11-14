@@ -150,30 +150,54 @@ body, html {
         <!--  Check availability part  -->
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-8" id ="check-availability">
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
                 <p class="text-center col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    Check-in:
                 </p>
-                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
+                <div class="bootstrap-iso">
+									<div class="container-fluid">
+										<div class="row">
+										<div class="col-md-8 col-sm-8 col-xs-8">
+											<form method="post">
+												<div class="form-group ">
+													<div class="input-group">
+														<div class="input-group-addon">
+															Check-in
+														</div>
+													<input class="form-control" id="date-checkin" name="date" placeholder="DD/MM/YYYY" type="text"/>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										</div>
+									</div>
+								</div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
                 <p class="text-center col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    Check-out:
                 </p>
-                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
+                <div class="bootstrap-iso">
+									<div class="container-fluid">
+										<div class="row">
+										<div class="col-md-8 col-sm-8 col-xs-8">
+											<form method="post">
+												<div class="form-group ">
+													<div class="input-group">
+														<div class="input-group-addon">
+															Check-out
+														</div>
+													<input class="form-control" id="date-checkout" name="date" placeholder="DD/MM/YYYY" type="text"/>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										</div>
+								</div>
+							</div>
             </div>
             <div class="row">
                 <p class="text-right">
@@ -202,9 +226,9 @@ body, html {
                 </p>
             </div>
             <div class="row">
-                <p>
-                    <button type="submit" class = "btn btn-warning btn-md pull-right" id="btn-checkavailability">Check Availability</button>
-                </p>
+                <form role="form" action="/rooms/availability" method="GET">
+                    <button type="submit" class="btn btn-warning btn-md pull-right" id="btn-checkavailability">Check Availability</button>
+                </form>
             </div>
         </div>
 
@@ -212,6 +236,46 @@ body, html {
     </div>
 
 </div>
+
+<!--  jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        var options={
+        format: 'dd/mm/yyyy',
+        container: container,
+        autoclose: true,
+        };
+        date_input.datepicker(options);
+    })
+</script>
+<script>
+		$('#date-checkin').datepicker({
+			orientation: "auto",
+			startDate: "+1d",
+			format: 'dd/mm/yyyy'
+		}).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('#date-checkout').datepicker('setStartDate', minDate);
+    });
+</script>
+<script>
+		$('#date-checkout').datepicker({
+			orientation: "auto",
+			startDate: "+1d",
+			format: 'dd/mm/yyyy'
+		}).on('changeDate', function (selected) {
+				var maxDate = new Date(selected.date.valueOf());
+				$('#date-checkin').datepicker('setEndDate', maxDate);
+		});
+</script>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
