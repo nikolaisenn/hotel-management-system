@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 module.exports = new Sequelize('hotel-management', 'root', 'root', {
   host: 'localhost',
   dialect: 'mysql',
+  define: { timestamps: false },
 
   pool: {
     max: 5,

@@ -1,273 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 
-<!-- If IE use the latest rendering engine -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- If IE use the latest rendering engine -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Set the page to the width of the device and set the zoon level -->
-<meta name="viewport" content="width = device-width, initial-scale = 1">
-<title>Hotel Management System - Accommodation</title>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Set the page to the width of the device and set the zoon level -->
+	<meta name="viewport" content="width = device-width, initial-scale = 1">
+	<title>Hotel Management System - Accommodation</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-<style>
-body, html {
-  height: 100%;
-}
+	<style>
+		body,
+		html {
+			height: 100%;
+		}
 
-.bg {
-    /* The image used */
-    background-image: url("images/room.jpg");
+		.bg {
+			/* The image used */
+			background-image: url("images/room.jpg");
 
-    /* Full height */
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    left: 0;
+			/* Full height */
+			height: 100%;
+			position: absolute;
+			width: 100%;
+			left: 0;
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 
-.jumbotron{
-    background: none;
-    color:rgb(0, 0, 0);
-}
-/* Adds borders for tabs */
-.tab-content {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
-}
+		.jumbotron {
+			background: none;
+			color: rgb(0, 0, 0);
+		}
 
-.nav-tabs, .nav-pills {
-    text-align:center;
-    height: 20%;
-    margin-bottom: 0;
-}
+		/* Adds borders for tabs */
+		.tab-content {
+			border-left: 1px solid #ddd;
+			border-right: 1px solid #ddd;
+			border-bottom: 1px solid #ddd;
+			padding: 10px;
+		}
 
-.nav-tabs > li, .nav-pills > li {
-    float:none;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
+		.nav-tabs,
+		.nav-pills {
+			text-align: center;
+			height: 20%;
+			margin-bottom: 0;
+		}
 
-}
+		.nav-tabs>li,
+		.nav-pills>li {
+			float: none;
+			display: inline-block;
+			*display: inline;
+			/* ie7 fix */
+			zoom: 1;
+			/* hasLayout ie7 trigger */
 
-.nav>li>a {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color:black;
-}
+		}
 
-#btn-checkavailability {
-    margin-right: 15px;
-}
+		.nav>li>a {
+			padding-top: 20px;
+			padding-bottom: 20px;
+			color: black;
+		}
 
-#check-availability {
-    position: relative;
-    margin-top: 100px;
-}
+		#btn-checkavailability {
+			margin-right: 15px;
+		}
 
-#dropdown_adult, #dropdown_children {
-    margin-right: 30px;
-    width: 30%;
-}
+		#check-availability {
+			position: relative;
+			margin-top: 100px;
+		}
 
-#home-navbar {
-    position: relative;
-    width: 100%;
-    left: 0;
-}
+		#dropdown_adult,
+		#dropdown_children {
+			margin-right: 30px;
+			width: 30%;
+		}
 
-#header-label {
-    padding-top: 10px;
-    text-align: center;
-    color: black;
-    font-size: 3em;
-}
+		#home-navbar {
+			position: relative;
+			width: 100%;
+			left: 0;
+		}
 
-#login-btn {
-    padding-top: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
-}
+		#header-label {
+			padding-top: 10px;
+			text-align: center;
+			color: black;
+			font-size: 3em;
+		}
 
-#viewrooms-btn {
-    padding-top: 20px;
-    text-align: center;
-}
+		#login-btn {
+			padding-top: 5px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			display: inline-block;
+			*display: inline;
+			/* ie7 fix */
+			zoom: 1;
+			/* hasLayout ie7 trigger */
+		}
 
-#viewrooms-btn>a {
-    background-color:burlywood;
-    border:none;
-}
+		#viewrooms-btn {
+			padding-top: 20px;
+			text-align: center;
+		}
 
-</style>
+		#viewrooms-btn>a {
+			background-color: burlywood;
+			border: none;
+		}
+	</style>
 
 </head>
+
 <body>
-<div class="container bg">
+	<div class="container bg">
 
-    <!-- Navigation Bar -->
-    <div class="container-fluid">
-        <div class="row" id="home-navbar">
+		<!-- Navigation Bar -->
+		<div class="container-fluid">
+			<div class="row" id="home-navbar">
 
-        <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
-        <ul class="nav nav-pills">
-            
-            <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <li class="text-center"><a href="/">HOME</a></li>
-            </div>
+				<!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
+				<ul class="nav nav-pills">
 
-            <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
-                <li class="active text-center"><a href="accommodation">ACCOMMODATION</a></li>
-            </div>
+					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<li class="text-center"><a href="/">HOME</a></li>
+					</div>
 
-            <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <li class="text-center"><a href="#booking">BOOKING</a></li>
-            </div>
+					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
+						<li class="active text-center"><a href="accommodation">ACCOMMODATION</a></li>
+					</div>
 
-            <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
-                <a href="../users/login"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGIN</button></a>
-            </div>
-        </ul>
-            
-        </div> <!-- home-navbar -->
-        </div> <!-- container-fluid // END OF TOP NAV BAR // -->
+					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<li class="text-center"><a href="#booking">BOOKING</a></li>
+					</div>
 
-        <!--  Accommodation page contents  -->
-        <div class="container-fluid">
-        <div class="row">
+					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
+						<a href="../users/login"><button type="submit" class="btn btn-danger" role="button"
+								id="login-btn">LOGIN</button></a>
+					</div>
+				</ul>
 
-        <!--  Check availability part  -->
-        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-8" id ="check-availability">
-            <div class="row">
-                <p class="text-center col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                </p>
-                <div class="bootstrap-iso">
-									<div class="container-fluid">
-										<div class="row">
-										<div class="col-md-8 col-sm-8 col-xs-8">
-											<form role="form" method="POST" action="/rooms/availability" id="form1">
-												<div class="form-group ">
-													<div class="input-group">
-														<div class="input-group-addon">
-															Check-in
-														</div>
-														<input class="form-control" id="date_checkin" name="date_checkin" placeholder="DD/MM/YYYY" type="text"/>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-calendar"></span>
-														</div>
+			</div> <!-- home-navbar -->
+		</div> <!-- container-fluid // END OF TOP NAV BAR // -->
+
+		<!--  Accommodation page contents  -->
+		<div class="container-fluid">
+			<div class="row">
+
+				<!--  Check availability part  -->
+				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-8" id="check-availability">
+					<div class="row">
+						<p class="text-center col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						</p>
+						<div class="bootstrap-iso">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-8 col-sm-8 col-xs-8">
+										<form role="form" method="POST" action="/rooms/availability" id="form1">
+											<div class="form-group ">
+												<div class="input-group">
+													<div class="input-group-addon">
+														Check-in
 													</div>
-													<div class="input-group">
-														<div class="input-group-addon">
-															Check-out
-														</div>
-														<input class="form-control" id="date_checkout" name="date_checkout" placeholder="DD/MM/YYYY" type="text"/>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-calendar"></span>
-														</div>
+													<input class="form-control" id="date_checkin" name="date_checkin"
+														placeholder="DD/MM/YYYY" type="text" />
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
 													</div>
-													<p class="text-right">
-															<div class="form-group row">
-																	<select class="form-control pull-right" id="dropdown_adult" name="dropdown_adult">
-																			<option disabled>Adults</option>
-																			<option>0</option>
-																			<option>1</option>
-																			<option>2</option>
-																			<option>3</option>
-																			<option>4</option>
-																	</select>
-															</div>
-													</p>
-													<p class="text-right">
-															<div class="form-group row">
-																	<select class="form-control pull-right" id="dropdown_children" name="dropdown_children">
-																			<option disabled>Children</option>
-																			<option>0</option>
-																			<option>1</option>
-																			<option>2</option>
-																			<option>3</option>
-																			<option>4</option>
-																	</select>
-															</div>
-													</p>
 												</div>
-											</form>
-										</div>
-										</div>
+												<div class="input-group">
+													<div class="input-group-addon">
+														Check-out
+													</div>
+													<input class="form-control" id="date_checkout" name="date_checkout"
+														placeholder="DD/MM/YYYY" type="text" />
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</div>
+												</div>
+												<p class="text-right">
+													<div class="form-group row">
+														<select class="form-control pull-right" id="dropdown_adult"
+															name="dropdown_adult">
+															<option disabled>Adults</option>
+															<option>0</option>
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+														</select>
+													</div>
+												</p>
+												<p class="text-right">
+													<div class="form-group row">
+														<select class="form-control pull-right" id="dropdown_children"
+															name="dropdown_children">
+															<option disabled>Children</option>
+															<option>0</option>
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+														</select>
+													</div>
+												</p>
+											</div>
+										</form>
 									</div>
 								</div>
-            </div>
-            <div class="row">
-							<button type="submit" class="btn btn-warning btn-md pull-right" id="btn-checkavailability" onclick="submitForms()">Check Availability</button>
-            </div>
-        </div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<button type="submit" class="btn btn-warning btn-md pull-right" id="btn-checkavailability"
+							onclick="submitForms()">Check Availability</button>
+					</div>
+				</div>
 
-        </div>
-    </div>
+			</div>
+		</div>
 
-</div>
+	</div>
 
-<!--  jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<!--  jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-<!-- Bootstrap Date-Picker Plugin -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+	<!-- Bootstrap Date-Picker Plugin -->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
-<!-- Datepicker functionality-->
-<script>
-    $(document).ready(function(){
-        var date_input=$('input[name="date"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        var options={
-        format: 'dd/mm/yyyy',
-        container: container,
-        autoclose: true,
-        };
-        date_input.datepicker(options);
-    })
-</script>
-<script>
+	<!-- Datepicker functionality-->
+	<script>
+		$(document).ready(function () {
+			var date_input = $('input[name="date"]'); //our date input has the name "date"
+			var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+			var options = {
+				format: 'yyyy/mm/dd',
+				container: container,
+				autoclose: true,
+			};
+			date_input.datepicker(options);
+		})
+	</script>
+	<script>
 		$('#date_checkin').datepicker({
 			orientation: "auto",
 			startDate: "+1d",
-			format: 'dd/mm/yyyy'
+			format: 'yyyy/mm/dd'
 		}).on('changeDate', function (selected) {
-        var minDate = new Date(selected.date.valueOf());
-        $('#date_checkout').datepicker('setStartDate', minDate);
-    });
-</script>
-<script>
+			var minDate = new Date(selected.date.valueOf());
+			$('#date_checkout').datepicker('setStartDate', minDate);
+		});
+	</script>
+	<script>
 		$('#date_checkout').datepicker({
 			orientation: "auto",
 			startDate: "+1d",
-			format: 'dd/mm/yyyy'
+			format: 'yyyy/mm/dd'
 		}).on('changeDate', function (selected) {
-				var maxDate = new Date(selected.date.valueOf());
-				$('#date_checkin').datepicker('setEndDate', maxDate);
+			var maxDate = new Date(selected.date.valueOf());
+			$('#date_checkin').datepicker('setEndDate', maxDate);
 		});
-</script>
+	</script>
 
-<!-- Submit both forms with one button -->
-<script>
-	submitForms = function(){
-    document.getElementById("form1").submit();
-    document.getElementById("form2").submit();
-	}
-</script>
+	<!-- Submit both forms with one button -->
+	<script>
+		submitForms = function () {
+			document.getElementById("form1").submit();
+			document.getElementById("form2").submit();
+		}
+	</script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.2/sweetalert2.all.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.2/sweetalert2.all.min.js"></script>
 </body>
+
 </html>

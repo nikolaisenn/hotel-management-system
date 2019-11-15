@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const Room = require('./Room');
 
 const Reservation = db.define('reservation', {
     id: {
@@ -14,10 +15,15 @@ const Reservation = db.define('reservation', {
         references: 'rooms',
         referencesKey: 'id'
     },
-    status: {
-        type: Sequelize.STRING,
-        allowNull: false
+    date_in: {
+        type: Sequelize.DATE,
+        allowNull: true
+    },
+    date_out: {
+        type: Sequelize.DATE,
+        allowNull: true
     }
 })
 
+// Reservation.belongsTo(Room, { foreignKey: 'room_id'});
 module.exports = Reservation;

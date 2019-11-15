@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const Reservation = require('./Reservation');
 
 const Room = db.define('room', {
     id: {
@@ -18,4 +19,5 @@ const Room = db.define('room', {
     }
 })
 
+Room.hasMany(Reservation, { foreignKey: 'room_id'});
 module.exports = Room;
