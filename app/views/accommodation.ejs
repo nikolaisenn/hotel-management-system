@@ -71,6 +71,12 @@
 			color: black;
 		}
 
+		#availabilityTable {
+			position: relative;
+			margin-top: 100px;
+			background-color:#f0ac4ed7;
+		}
+
 		#btn-checkavailability {
 			margin-right: 15px;
 		}
@@ -159,7 +165,7 @@
 			<div class="row">
 
 				<!--  Check availability part  -->
-				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-8" id="check-availability">
+				<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12" id="check-availability">
 					<div class="row">
 						<p class="text-center col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						</p>
@@ -228,6 +234,37 @@
 					</div>
 				</div>
 
+				<div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
+				</div>
+
+				<!-- Display available rooms -->
+				<div class="col-lg-7 col-md-7 col-sm-5 col-xs-12">
+					<% if(typeof rooms != 'undefined' && rooms.length > 0) { %>
+						<table class="table table-hover" id="availabilityTable">
+							<thead>
+								<tr>
+									<th scope="col" class="text-center">Room Number</th>
+									<th scope="col" class="text-center">Capacity</th>
+									<th scope="col" class="text-center">Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% rooms.forEach(function(room) { %>
+									<tr>
+										<th scope="row" class="text-center"><%= room.id %></th>
+										<td class="text-center"><%= room.capacity %></td>
+										<td class="text-center"><%= (dropdown_adult * 49.99) + (dropdown_children) * 24.99 %>&euro;</td>
+									</tr>
+								<% }); %>
+							</tbody>
+						</table>
+						<div class="alert alert-success" role="alert">
+							<span type="button" data-dismiss="alert"><span aria-hidden="true"></span></span>
+							**NOTE: Price for adult: 49.99&euro;; Price for child: 24.99&euro;
+						</div>
+					<% } %>
+				</div>
+
 			</div>
 		</div>
 
@@ -284,6 +321,7 @@
 		}
 	</script>
 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.2/sweetalert2.all.min.js"></script>
