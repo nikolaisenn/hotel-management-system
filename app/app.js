@@ -2,8 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var expressLayouts = require('express-ejs-layouts');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cookieParser = require('cookie-parser');
 var mysql = require('mysql');
 var flash = require('connect-flash');
 var session = require('express-session');
@@ -26,7 +26,6 @@ db
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-
 var app = express();
 
 app.use(cors());
@@ -41,7 +40,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(logger('dev'));
-app.use(cookieParser('secret'));
+app.use(cookieParser());
 
 // Express Session
 app.use(session({

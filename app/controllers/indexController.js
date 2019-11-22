@@ -2,6 +2,7 @@
 
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
+var jwt = require('jsonwebtoken');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -12,8 +13,16 @@ module.exports.indexPage = function(req, res) {
 
 /* GET - Dashboard page */
 module.exports.dashboardPage = function(req, res) {
-    res.send("HELLO");
-    // res.render('dashboard', {
-    //     name: req.user.name
-    // });
+    // console.log("TOKEN: " + req.token);
+    // res.render('dashboard');
+    jwt.verify(req.token, 'secret', function(err, authData) {
+        if(err) {
+            res.sendStatus(403);
+        } else {
+            console.log(authData);
+            res.render('dashboard', {
+                authData
+            });
+        }
+    });
 };
