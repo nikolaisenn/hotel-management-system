@@ -1,238 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 
-<!-- If IE use the latest rendering engine -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- If IE use the latest rendering engine -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Set the page to the width of the device and set the zoon level -->
-<meta name="viewport" content="width = device-width, initial-scale = 1">
-<title>Hotel Management System - Dashboard</title>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Set the page to the width of the device and set the zoon level -->
+	<meta name="viewport" content="width = device-width, initial-scale = 1">
+	<title>Hotel Management System - Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-<style>
-body, html {
-  height: 100%;
-}
+	<style>
+		body,
+		html {
+			height: 100%;
+		}
 
-.bg {
-    /* The image used */
-    background-image: url("images/room.jpg");
+		.bg {
+			/* The image used */
+			background-image: url("images/room.jpg");
 
-    /* Full height */
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    left: 0;
+			/* Full height */
+			height: 100%;
+			position: absolute;
+			width: 100%;
+			left: 0;
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 
-.details-component {
-    margin-top: 15px;
-    font-size: 2em;
-}
+		.details-component {
+			margin-top: 15px;
+			font-size: 2em;
+		}
 
-.glyphicon.glyphicon-home{
-    font-size: 30px;
-}
+		.glyphicon.glyphicon-home {
+			font-size: 20px;
+			color: black;
+		}
 
-.glyphicon.glyphicon-user{
-    font-size: 150px;
-}
+		.glyphicon.glyphicon-user {
+			font-size: 150px;
+		}
 
-.jumbotron{
-    background: none;
-    color:rgb(0, 0, 0);
-}
-/* Adds borders for tabs */
-.tab-content {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
-}
+		.jumbotron {
+			background: none;
+			color: rgb(0, 0, 0);
+		}
 
-.nav-item {
-    margin-left: 50px;
-    font-size: 20px;
-}
+		/* Adds borders for tabs */
+		.tab-content {
+			border-left: 1px solid #ddd;
+			border-right: 1px solid #ddd;
+			border-bottom: 1px solid #ddd;
+			padding: 10px;
+		}
 
-.nav-tabs, .nav-pills {
-    text-align:center;
-    height: 20%;
-    margin-bottom: 0;
-}
+		.nav-item {
+			margin-left: 50px;
+			font-size: 20px;
+		}
 
-.nav-tabs > li, .nav-pills > li {
-    float:none;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
+		.nav-tabs,
+		.nav-pills {
+			text-align: center;
+			height: 20%;
+			margin-bottom: 0;
+		}
 
-}
+		.nav-tabs>li,
+		.nav-pills>li {
+			float: none;
+			display: inline-block;
+			*display: inline;
+			/* ie7 fix */
+			zoom: 1;
+			/* hasLayout ie7 trigger */
 
-.nav>li>a {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color:black;
-}
+		}
 
-#btn-checkavailability {
-    margin-right: 15px;
-}
+		.nav>li>a {
+			padding-top: 20px;
+			padding-bottom: 20px;
+			color: black;
+		}
 
-#userMenu {
-    position: relative;
-    margin-top: 40px;
-}
+		#btn-checkavailability {
+			margin-right: 15px;
+		}
 
-#dropdown-adult, #dropdown-children {
-    margin-right: 30px;
-    width: 25%;
-}
+		#userMenu {
+			position: relative;
+			margin-top: 40px;
+		}
 
-#home-navbar {
-    position: relative;
-    width: 100%;
-    left: 0;
-}
+		#dropdown-adult,
+		#dropdown-children {
+			margin-right: 30px;
+			width: 25%;
+		}
 
-#header-label {
-    padding-top: 10px;
-    text-align: center;
-    color: black;
-    font-size: 3em;
-}
+		#home-navbar {
+			position: relative;
+			width: 100%;
+			left: 0;
+		}
 
-#personalDetails {
-    padding-top: 30px;
-    text-align: center;
-    font-size: 3em;
-}
+		#header-label {
+			padding-top: 10px;
+			text-align: center;
+			color: black;
+			font-size: 3em;
+		}
 
-#userIndicator {
-    padding-top: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
-}
+		#login-btn {
+			padding-top: 5px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			display:inline-block;
+			*display:inline; /* ie7 fix */
+			zoom:1; /* hasLayout ie7 trigger */
+		}
 
-#viewrooms-btn {
-    padding-top: 20px;
-    text-align: center;
-}
+		#personalDetails {
+			padding-top: 30px;
+			text-align: center;
+			font-size: 3em;
+		}
 
-#viewrooms-btn>a {
-    background-color:burlywood;
-    border:none;
-}
+		#profile-indicator {
+			padding-top: 10px;
+			text-align: center;
+		}
 
-</style>
+		#userIndicator {
+			padding-top: 5px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			display: inline-block;
+			*display: inline;
+			/* ie7 fix */
+			zoom: 1;
+			/* hasLayout ie7 trigger */
+		}
+
+		#viewrooms-btn {
+			padding-top: 20px;
+			text-align: center;
+		}
+
+		#viewrooms-btn>a {
+			background-color: burlywood;
+			border: none;
+		}
+	</style>
 
 </head>
+
 <body>
-<div class="container bg">
+	<div class="container bg">
 
-    <!-- Navigation Bar -->
-    <div class="container-fluid">
-        <div class="row" id="home-navbar">
+		<!-- Navigation Bar -->
+		<div class="container-fluid">
+			<div class="row" id="home-navbar">
 
-        <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
-        <ul class="nav nav-pills">
-            
-            <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <li class="text-center"><a href="/">HOME</a></li>
-            </div>
+				<!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
+				<ul class="nav nav-pills">
 
-            <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
-                <li class="text-center"><a href="../rooms/accommodation">ACCOMMODATION</a></li>
-            </div>
+					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<li class="text-center"><a href="/">HOME</a></li>
+					</div>
 
-            <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <li class="text-center"><a href="#booking">BOOKING</a></li>
-            </div>
+					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
+						<li class="text-center"><a href="../rooms/accommodation">ACCOMMODATION</a></li>
+					</div>
 
-            <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
-                <li class="text-center" id="userIndicator">
-                    <span class="glyphicon glyphicon-home"></span>
-                    <p>Logged in as <%= authData.user.username %></p>
-                    <a href="/users/logout"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGOUT</button></a>
-                </li>
-            </div>
-        </ul>
-            
-        </div> <!-- home-navbar -->
-        </div> <!-- container-fluid // END OF TOP NAV BAR // -->
+					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<li class="text-center"><a href="#booking">BOOKING</a></li>
+					</div>
 
-        <!--  Accommodation page contents  -->
-        <div class="container-fluid">
-        <div class="row">
+					<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
+						<a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
+						<p>Logged in as <%= userData.user.username %></p>
+					</div>
+					<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
+						<a href="/users/logout"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGOUT</button></a>
+					</div>
 
-        <!--  Profile menu part  -->
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" id ="userMenu">
-            <div class="row">
-                <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <span class="glyphicon glyphicon-user"> 
-                </div>
-            </div>
-            <div class="row">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Messages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notifications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Progress</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">System settings</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+				</ul>
 
-        <div class="col-lg-9 col-md-6 col-sm-8 col-xs-12">
-            <div class="row" id="personalDetails">
-                <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p><span class="glyphicon glyphicon-edit">&nbsp;PERSONAL DETAILS</p>
-                </div>
-            </div>
-            <div class="row details-component">
-                <div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p><span class="glyphicon glyphicon-info-sign">&nbsp;User ID:</p>
-                </div>
-            </div>
-            <div class="row details-component">
-                <div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p><span class="glyphicon glyphicon-info-sign">&nbsp;Full name:</p>
-                </div>
-            </div>
-            <div class="row details-component">
-                <div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p><span class="glyphicon glyphicon-envelope">&nbsp;E-mail:</p>
-                </div>
-            </div>
-            <div class="row details-component">
-                <div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p><span class="glyphicon glyphicon-earphone">&nbsp;Phone:</p>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
+			</div> <!-- home-navbar -->
+		</div> <!-- container-fluid // END OF TOP NAV BAR // -->
 
-</div>
+		<!--  Accommodation page contents  -->
+		<div class="container-fluid">
+			<div class="row">
+
+				<!--  Profile menu part  -->
+				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" id="userMenu">
+					<div class="row">
+						<div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<span class="glyphicon glyphicon-user">
+						</div>
+					</div>
+					<div class="row">
+						<ul class="nav flex-column">
+							<li class="nav-item">
+								<a class="nav-link active" href="#">Profile</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Messages</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Notifications</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Progress</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">System settings</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-lg-9 col-md-6 col-sm-8 col-xs-12">
+					<div class="row" id="personalDetails">
+						<div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<p><span class="glyphicon glyphicon-edit">&nbsp;PERSONAL DETAILS</p>
+						</div>
+					</div>
+					<div class="row details-component">
+						<div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<p><span class="glyphicon glyphicon-info-sign">&nbsp;User ID: <%= userData.user.id %></p>
+						</div>
+					</div>
+					<div class="row details-component">
+						<div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<p><span class="glyphicon glyphicon-info-sign">&nbsp;Full name:
+									<%= (userData.user.firstname + ' ' + userData.user.lastname) %></p>
+						</div>
+					</div>
+					<div class="row details-component">
+						<div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<p><span class="glyphicon glyphicon-envelope">&nbsp;E-mail: <%= userData.user.email %></p>
+						</div>
+					</div>
+					<div class="row details-component">
+						<div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<p><span class="glyphicon glyphicon-earphone">&nbsp;Phone:</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </body>
+
 </html>

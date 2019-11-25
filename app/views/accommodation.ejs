@@ -34,6 +34,11 @@
 			background-size: cover;
 		}
 
+		.glyphicon.glyphicon-home {
+			font-size: 20px;
+			color: black;
+		}
+
 		.jumbotron {
 			background: none;
 			color: rgb(0, 0, 0);
@@ -105,6 +110,11 @@
 			font-size: 3em;
 		}
 
+		#profile-indicator {
+			padding-top: 10px;
+			text-align: center;
+		}
+
 		#login-btn {
 			padding-top: 5px;
 			margin-top: 10px;
@@ -151,10 +161,19 @@
 						<li class="text-center"><a href="#booking">BOOKING</a></li>
 					</div>
 
+					<% if(userData != 'undefined') { %>
+						<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
+							<a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
+							<p>Logged in as <%= userData.user.username %></p>
+						</div>
+						<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
+							<a href="/users/logout"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGOUT</button></a>
+						</div>
+					<% } else { %>
 					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
-						<a href="../users/login"><button type="submit" class="btn btn-danger" role="button"
-								id="login-btn">LOGIN</button></a>
+						<a href="../users/login"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGIN</button></a>
 					</div>
+					<% } %>
 				</ul>
 
 			</div> <!-- home-navbar -->

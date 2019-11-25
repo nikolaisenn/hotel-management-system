@@ -19,10 +19,9 @@ module.exports.dashboardPage = function(req, res) {
         if(err) {
             res.sendStatus(403);
         } else {
-            console.log(authData);
-            res.render('dashboard', {
-                authData
-            });
+            userData = authData;
+            console.log(userData);
+            res.render('dashboard');
         }
     });
 };
