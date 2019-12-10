@@ -79,7 +79,7 @@
 		#availabilityTable {
 			position: relative;
 			margin-top: 100px;
-			background-color:#f0ac4ed7;
+			background-color: #f0ac4ed7;
 		}
 
 		#btn-checkavailability {
@@ -162,16 +162,18 @@
 					</div>
 
 					<% if(userData != 'undefined') { %>
-						<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
-							<a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
-							<p>Logged in as <%= userData.user.username %></p>
-						</div>
-						<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
-							<a href="/users/logout"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGOUT</button></a>
-						</div>
+					<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
+						<a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
+						<p>Logged in as <%= userData.user.username %></p>
+					</div>
+					<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
+						<a href="/users/logout"><button type="submit" class="btn btn-danger" role="button"
+								id="login-btn">LOGOUT</button></a>
+					</div>
 					<% } else { %>
 					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
-						<a href="../users/login"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGIN</button></a>
+						<a href="../users/login"><button type="submit" class="btn btn-danger" role="button"
+								id="login-btn">LOGIN</button></a>
 					</div>
 					<% } %>
 				</ul>
@@ -192,6 +194,7 @@
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-md-8 col-sm-8 col-xs-8">
+										<% include ./partials/messages %>
 										<form role="form" method="POST" action="/rooms/availability" id="form1">
 											<div class="form-group ">
 												<div class="input-group">
@@ -218,7 +221,8 @@
 													<div class="form-group row">
 														<select class="form-control pull-right" id="dropdown_adult"
 															name="dropdown_adult">
-															<option disabled>Adults</option>
+															<option disabled>Adults
+															</option>
 															<option>0</option>
 															<option>1</option>
 															<option>2</option>
@@ -231,7 +235,8 @@
 													<div class="form-group row">
 														<select class="form-control pull-right" id="dropdown_children"
 															name="dropdown_children">
-															<option disabled>Children</option>
+															<option disabled>Children
+															</option>
 															<option>0</option>
 															<option>1</option>
 															<option>2</option>
@@ -259,28 +264,51 @@
 				<!-- Display available rooms -->
 				<div class="col-lg-7 col-md-7 col-sm-5 col-xs-12">
 					<% if(typeof rooms != 'undefined' && rooms.length > 0) { %>
-						<table class="table table-hover" id="availabilityTable">
-							<thead>
-								<tr>
-									<th scope="col" class="text-center">Room Number</th>
-									<th scope="col" class="text-center">Capacity</th>
-									<th scope="col" class="text-center">Price</th>
-								</tr>
-							</thead>
-							<tbody>
-								<% rooms.forEach(function(room) { %>
-									<tr>
-										<th scope="row" class="text-center"><%= room.id %></th>
-										<td class="text-center"><%= room.capacity %></td>
-										<td class="text-center"><%= (dropdown_adult * 49.99) + (dropdown_children) * 24.99 %>&euro;</td>
-									</tr>
-								<% }); %>
-							</tbody>
-						</table>
-						<div class="alert alert-success" role="alert">
-							<span type="button" data-dismiss="alert"><span aria-hidden="true"></span></span>
-							**NOTE: Price for adult: 49.99&euro;; Price for child: 24.99&euro;
-						</div>
+					<table class="table table-hover" id="availabilityTable">
+						<thead>
+							<tr>
+								<th scope="col" class="text-center">Room Number</th>
+								<th scope="col" class="text-center">Capacity</th>
+								<th scope="col" class="text-center">Price</th>
+								<th scope="col" class="text-center">Check-in</th>
+								<th scope="col" class="text-center">Check-out</th>
+								<% if(userData != 'undefined') { %>
+								<th scope="col" class="text-center">Options</th>
+								<% } %>
+							</tr>
+						</thead>
+						<tbody>
+							<% rooms.forEach(function(room) { %>
+							<tr>
+								<th scope="row" class="text-center" name="room_id"><p id="roomid"><%= room.id %></p></th>
+								<td class="text-center"><%= room.capacity %></td>
+								<td class="text-center">
+									<%= (Math.ceil(Math.abs(date_checkout - date_checkin) / (1000 * 60 * 60 * 24))) * (dropdown_adult * 50 + dropdown_children * 25) %>&euro;
+								</td>
+								<td class="text-center">
+									<p id="checkin"><%= date_checkin.getFullYear() + "/" + date_checkin.getMonth() + "/" +  date_checkin.getDate() %></p>
+								</td>
+								<td class="text-center">
+									<p id="checkout"><%= date_checkout.getFullYear() + "/" + date_checkout.getMonth() + "/" +  date_checkout.getDate() %></p>
+								</td>
+								<% if(userData != 'undefined') { %>
+								<td class="text-center">
+									<form role="form" id="book-form" action="/rooms/booking" method="POST">
+										<input type="hidden" id="fromDate_data" name="fromDate" value="" />
+										<input type="hidden" id="toDate_data" name="toDate" value="" />
+										<input type="hidden" id="roomid_data" name="roomid" value="" />
+										<button type="submit" class="btn btn-primary" id="book-btn" onclick="return beforeSubmit()">Book Room</button>
+									</form>
+								</td>
+								<% } %>
+							</tr>
+							<% }); %>
+						</tbody>
+					</table>
+					<div class="alert alert-success" role="alert">
+						<span type="button" data-dismiss="alert"><span aria-hidden="true"></span></span>
+						**NOTE: Price for a night. Adult: 50&euro;; Child (under 12): 25&euro;
+					</div>
 					<% } %>
 				</div>
 
@@ -304,7 +332,7 @@
 			var date_input = $('input[name="date"]'); //our date input has the name "date"
 			var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
 			var options = {
-				format: 'yyyy/mm/dd',
+				dateFormat: 'yyyy/mm/dd',
 				container: container,
 				autoclose: true,
 			};
@@ -312,24 +340,43 @@
 		})
 	</script>
 	<script>
-		$('#date_checkin').datepicker({
-			orientation: "auto",
-			startDate: "+1d",
-			format: 'yyyy/mm/dd'
-		}).on('changeDate', function (selected) {
-			var minDate = new Date(selected.date.valueOf());
-			$('#date_checkout').datepicker('setStartDate', minDate);
-		});
+		$(document).ready(function () {
+			$('#date_checkin').datepicker({
+				orientation: "auto",
+				startDate: "+1d",
+				dateFormat: 'yyyy/mm/dd'
+			}).on('changeDate', function (selected) {
+				selected.date.setDate(selected.date.getDate() + 1);
+				var minDate = new Date(selected.date.valueOf());
+				$('#date_checkout').datepicker('setStartDate', minDate);
+			});
+		})
 	</script>
 	<script>
-		$('#date_checkout').datepicker({
-			orientation: "auto",
-			startDate: "+1d",
-			format: 'yyyy/mm/dd'
-		}).on('changeDate', function (selected) {
-			var maxDate = new Date(selected.date.valueOf());
-			$('#date_checkin').datepicker('setEndDate', maxDate);
-		});
+		$(document).ready(function () {
+			$('#date_checkout').datepicker({
+				orientation: "auto",
+				startDate: "+1d",
+				dateFormat: 'yyyy/mm/dd'
+			}).on('changeDate', function (selected) {
+				selected.date.setDate(selected.date.getDate() - 1);
+				var maxDate = new Date(selected.date.valueOf());
+				$('#date_checkin').datepicker('setEndDate', maxDate);
+			});
+		})
+	</script>
+
+	<!-- Set the data for the hidden inputs -->
+	<script>
+		function beforeSubmit() {
+			var checkin = document.getElementById("checkin").innerText;
+			var checkout = document.getElementById("checkout").innerText;
+			var roomid = document.getElementById("roomid").innerText;
+			document.getElementsByName('fromDate')[0].value = checkin;
+			document.getElementsByName('toDate')[0].value = checkout;
+			document.getElementsByName('roomid')[0].value = roomid;
+			return true;
+		}
 	</script>
 
 	<!-- Submit both forms with one button -->

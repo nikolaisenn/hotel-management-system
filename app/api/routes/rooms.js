@@ -10,4 +10,7 @@ router.get('/accommodation', roomsController.accommodationPage);
 /* GET availability page */
 router.post('/availability', roomsController.availabilityPage);
 
+/* POST booking */
+router.post('/booking', roomsController.booking);
+
 module.exports = router;
