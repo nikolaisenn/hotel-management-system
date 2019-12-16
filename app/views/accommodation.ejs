@@ -194,7 +194,6 @@
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-md-8 col-sm-8 col-xs-8">
-										<% include ./partials/messages %>
 										<form role="form" method="POST" action="/rooms/availability" id="form1">
 											<div class="form-group ">
 												<div class="input-group">
@@ -256,6 +255,7 @@
 						<button type="submit" class="btn btn-warning btn-md pull-right" id="btn-checkavailability"
 							onclick="submitForms()">Check Availability</button>
 					</div>
+					<% include ./partials/messages %>
 				</div>
 
 				<div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
@@ -286,17 +286,17 @@
 									<%= (Math.ceil(Math.abs(date_checkout - date_checkin) / (1000 * 60 * 60 * 24))) * (dropdown_adult * 50 + dropdown_children * 25) %>&euro;
 								</td>
 								<td class="text-center">
-									<p id="checkin"><%= date_checkin.getFullYear() + "/" + date_checkin.getMonth() + "/" +  date_checkin.getDate() %></p>
+									<p id="checkin"><%= date_checkin.getFullYear() + "/" + (date_checkin.getMonth() + 1) + "/" +  date_checkin.getDate() %></p>
 								</td>
 								<td class="text-center">
-									<p id="checkout"><%= date_checkout.getFullYear() + "/" + date_checkout.getMonth() + "/" +  date_checkout.getDate() %></p>
+									<p id="checkout"><%= date_checkout.getFullYear() + "/" + (date_checkout.getMonth() + 1) + "/" +  date_checkout.getDate() %></p>
 								</td>
 								<% if(userData != 'undefined') { %>
 								<td class="text-center">
 									<form role="form" id="book-form" action="/rooms/booking" method="POST">
-										<input type="hidden" id="fromDate_data" name="fromDate" value="" />
-										<input type="hidden" id="toDate_data" name="toDate" value="" />
-										<input type="hidden" id="roomid_data" name="roomid" value="" />
+										<input type="hidden" id="fromDate_data" name="fromDate">
+										<input type="hidden" id="toDate_data" name="toDate">
+										<input type="hidden" id="roomid_data" name="roomid">
 										<button type="submit" class="btn btn-primary" id="book-btn" onclick="return beforeSubmit()">Book Room</button>
 									</form>
 								</td>
@@ -369,13 +369,9 @@
 	<!-- Set the data for the hidden inputs -->
 	<script>
 		function beforeSubmit() {
-			var checkin = document.getElementById("checkin").innerText;
-			var checkout = document.getElementById("checkout").innerText;
-			var roomid = document.getElementById("roomid").innerText;
-			document.getElementsByName('fromDate')[0].value = checkin;
-			document.getElementsByName('toDate')[0].value = checkout;
-			document.getElementsByName('roomid')[0].value = roomid;
-			return true;
+			document.getElementById('fromDate_data').value = document.getElementById('checkin').innerText
+			document.getElementById('toDate_data').value = document.getElementById('checkout').innerText
+			document.getElementById('roomid_data').value = document.getElementById('roomid').innerText
 		}
 	</script>
 
