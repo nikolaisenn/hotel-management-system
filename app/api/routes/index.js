@@ -12,9 +12,9 @@ router.get('/dashboard', verifyToken, indexController.dashboardPage);
 
 // Verify token
 function verifyToken(req, res, next) {
-    console.log("REQUEST TO ACCESS DASHBOARD");
-    console.log(req.headers.cookie);
-    console.log(req.token);
+    // console.log("REQUEST TO ACCESS DASHBOARD");
+    // console.log(req.headers.cookie);
+    // console.log(req.token);
     // Get auth header value
     var cookieHeader = req.headers.cookie;
     // Check if bearer is undefined
@@ -24,10 +24,8 @@ function verifyToken(req, res, next) {
         // Split at the space to obtain token
         var cookie = cookieHeader.split(' ');
         var cookieToken = (cookie[1].split('='))[1];
-        console.log(cookieToken);
         // Set the token
         req.token = cookieToken;
-        console.log(req.token);
         next();
     } else {
         // Forbidden

@@ -1,12 +1,28 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Client = db.define('client', {
+const User = db.define('user', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
+    },
+    client_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
+    receptionist_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
+    manager_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
+    owner_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true
     },
     firstname: {
         type: Sequelize.STRING,
@@ -32,6 +48,10 @@ const Client = db.define('client', {
         type: Sequelize.STRING,
         allowNull: true
     },
+    usertype: {
+        type: Sequelize.STRING,
+        allowNull: true
+    }
 })
 
-module.exports = Client;
+module.exports = User;

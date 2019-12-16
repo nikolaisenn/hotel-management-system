@@ -20,4 +20,5 @@ const Room = db.define('room', {
 })
 
 Room.hasMany(Reservation, { foreignKey: 'room_id'});
+
 module.exports = Room;
