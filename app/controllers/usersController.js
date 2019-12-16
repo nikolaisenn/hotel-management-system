@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
 var Client = require('../models/Client');
+var User = require('../models/User');
 var passport = require('passport');
 var Sequelize = require('sequelize');
 var jwt = require('jsonwebtoken');
@@ -135,7 +136,7 @@ module.exports.loginAccount = function (req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
 	// Match User
-	Client.findOne({ where: {username: username} })
+	User.findOne({ where: {username: username} })
 	.then(function(user) { 
 		if(!user) {
 			errors.push({ msg: 'That username is not registered' })
@@ -143,14 +144,15 @@ module.exports.loginAccount = function (req, res) {
 				errors
 			});
 		}
-		
+		// Set user type
+		userType = user.usertype
 		// Match password
 		bcrypt.compare(password, user.password, function(err, isMatch) {
 			if(err) throw err;
 
 			if(isMatch) {
 				jwt.sign({user: user}, 'secret', function(err, token) {
-					console.log(token);
+					// console.log(token);
 					res.cookie('jwt', token, { httpOnly: true, secure: false, maxAge: 3600000 })
 					res.redirect('../dashboard');
 				})

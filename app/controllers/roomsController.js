@@ -127,6 +127,7 @@ module.exports.booking = function (req, res) {
 	var checkin = new Date(fromDate);
 	var checkout = new Date(toDate);
 	var room_id = parseInt(roomid);
+	console.log(req.body)
 	console.log(checkin)
 	console.log(checkout)
 	console.log(room_id)

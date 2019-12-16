@@ -25,5 +25,4 @@ const Reservation = db.define('reservation', {
     }
 })
 
-// Reservation.belongsTo(Room, { foreignKey: 'room_id'});
 module.exports = Reservation;

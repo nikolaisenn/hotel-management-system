@@ -58,6 +58,7 @@ app.use(flash());
 
 // Global variables
 global.userData = 'undefined';
+global.userType = 'undefined';
 
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash('success_msg');

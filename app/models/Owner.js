@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Client = db.define('client', {
+const Owner = db.define('owner', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -34,4 +34,4 @@ const Client = db.define('client', {
     },
 })
 
-module.exports = Client;
+module.exports = Owner;
