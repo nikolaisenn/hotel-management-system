@@ -44,6 +44,11 @@
 			color: rgb(0, 0, 0);
 		}
 
+		.roomInfo {
+			height: 50px;
+			font-size: 20px;
+			font-weight: bold;
+		}
 		/* Adds borders for tabs */
 		.tab-content {
 			border-left: 1px solid #ddd;
@@ -80,6 +85,11 @@
 			position: relative;
 			margin-top: 100px;
 			background-color: #f0ac4ed7;
+		}
+
+		#book-btn {
+			width: 80%;
+			height: 80%;
 		}
 
 		#btn-checkavailability {
@@ -124,6 +134,15 @@
 			/* ie7 fix */
 			zoom: 1;
 			/* hasLayout ie7 trigger */
+		}
+
+		#roomInfoBox {
+			padding-top: 50px;
+		}
+
+		#roomImage {
+			width: 100%;
+			height: 300px;
 		}
 
 		#viewrooms-btn {
@@ -264,47 +283,43 @@
 				<!-- Display available rooms -->
 				<div class="col-lg-7 col-md-7 col-sm-5 col-xs-12">
 					<% if(typeof rooms != 'undefined' && rooms.length > 0) { %>
-					<table class="table table-hover" id="availabilityTable">
-						<thead>
-							<tr>
-								<th scope="col" class="text-center">Room Number</th>
-								<th scope="col" class="text-center">Capacity</th>
-								<th scope="col" class="text-center">Price</th>
-								<th scope="col" class="text-center">Check-in</th>
-								<th scope="col" class="text-center">Check-out</th>
-								<% if(userData != 'undefined') { %>
-								<th scope="col" class="text-center">Options</th>
-								<% } %>
-							</tr>
-						</thead>
-						<tbody>
-							<% rooms.forEach(function(room) { %>
-							<tr>
-								<th scope="row" class="text-center" name="room_id"><p id="roomid"><%= room.id %></p></th>
-								<td class="text-center"><%= room.capacity %></td>
-								<td class="text-center">
-									<%= (Math.ceil(Math.abs(date_checkout - date_checkin) / (1000 * 60 * 60 * 24))) * (dropdown_adult * 50 + dropdown_children * 25) %>&euro;
-								</td>
-								<td class="text-center">
-									<p id="checkin"><%= date_checkin.getFullYear() + "/" + (date_checkin.getMonth() + 1) + "/" +  date_checkin.getDate() %></p>
-								</td>
-								<td class="text-center">
-									<p id="checkout"><%= date_checkout.getFullYear() + "/" + (date_checkout.getMonth() + 1) + "/" +  date_checkout.getDate() %></p>
-								</td>
-								<% if(userData != 'undefined') { %>
-								<td class="text-center">
-									<form role="form" id="book-form" action="/rooms/booking" method="POST">
-										<input type="hidden" id="fromDate_data" name="fromDate">
-										<input type="hidden" id="toDate_data" name="toDate">
-										<input type="hidden" id="roomid_data" name="roomid">
-										<button type="submit" class="btn btn-primary" id="book-btn" onclick="return beforeSubmit()">Book Room</button>
-									</form>
-								</td>
-								<% } %>
-							</tr>
-							<% }); %>
-						</tbody>
-					</table>
+					<div class="container-fluid" id="roomInfoBox">
+						<p hidden id="ids"><%= room_ids %></p>
+						<div class="row">
+							<div class="col-lg-8">
+								<img src="./images/hotel.jpg" id="roomImage" class="img-thumbnail" alt="Room Picture">
+							</div>
+							<div class="col-lg-4">
+								<div class="col-lg-6">
+									<div class="row"> <p class="roomInfo">Capacity : </p> </div>
+									<div class="row"> <p class="roomInfo">Price : </p> </div>
+									<div class="row"> <p class="roomInfo">Checkin : </p> </div>
+									<div class="row"> <p class="roomInfo">Checkout : </p> </div>
+								</div>
+								<div class="col-lg-6">
+									<div class="row"> <p class="roomInfo" id="capacity"><%= dropdown_adult + dropdown_children %></p> </div>
+									<div class="row"> <p class="roomInfo" id="price"><%= (Math.ceil(Math.abs(date_checkout - date_checkin) / (1000 * 60 * 60 * 24))) * (dropdown_adult * 50 + dropdown_children * 25) %>&euro;</p> </div>
+									<div class="row"> <p class="roomInfo" id="checkin"><%= date_checkin.getFullYear() + "/" + (date_checkin.getMonth() + 1) + "/" +  date_checkin.getDate() %></p> </div>
+									<div class="row"> <p class="roomInfo" id="checkout"><%= date_checkout.getFullYear() + "/" + (date_checkout.getMonth() + 1) + "/" +  date_checkout.getDate() %></p> </div>
+								</div>
+								<div class="row">
+									<td class="text-center">
+										<form role="form" id="book-form" action="/rooms/booking" method="POST">
+											<input type="hidden" id="fromDate_data" name="fromDate">
+											<input type="hidden" id="toDate_data" name="toDate">
+											<input type="hidden" id="room_ids" name="room_ids">
+											<button type="submit" class="btn btn-primary" id="book-btn" onclick="return beforeSubmit()">Book Room</button>
+										</form>
+									</td>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="alert alert-danger" role="alert">
+								There are <%= room_ids.length %> rooms available now.
+							</div>
+						</div>
+					</div>
 					<div class="alert alert-success" role="alert">
 						<span type="button" data-dismiss="alert"><span aria-hidden="true"></span></span>
 						**NOTE: Price for a night. Adult: 50&euro;; Child (under 12): 25&euro;
@@ -371,7 +386,7 @@
 		function beforeSubmit() {
 			document.getElementById('fromDate_data').value = document.getElementById('checkin').innerText
 			document.getElementById('toDate_data').value = document.getElementById('checkout').innerText
-			document.getElementById('roomid_data').value = document.getElementById('roomid').innerText
+			document.getElementById('room_ids').value = document.getElementById('ids').innerText
 		}
 	</script>
 

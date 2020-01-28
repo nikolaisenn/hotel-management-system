@@ -72,8 +72,8 @@ module.exports.availabilityPage = function (req, res) {
 				// Check for undefined because the outer for loop uses the initial length, which shortens during execution
 				for (i = 0; i < startingLength; i++) {
 					if (rooms[i-removedItemsCount] != undefined) {
-						if ((rooms[i-removedItemsCount]['reservations.date_in'] > date_checkin && rooms[i-removedItemsCount]['reservations.date_in'] < date_checkout) 
-							|| (rooms[i-removedItemsCount]['reservations.date_out'] > date_checkin && rooms[i-removedItemsCount]['reservations.date_out'] < date_checkout)) {
+						if ((rooms[i-removedItemsCount]['reservations.date_in'] >= date_checkin && rooms[i-removedItemsCount]['reservations.date_in'] < date_checkout) 
+							|| (rooms[i-removedItemsCount]['reservations.date_out'] > date_checkin && rooms[i-removedItemsCount]['reservations.date_out'] <= date_checkout)) {
 							console.log("Thе room with id " + rooms[i-removedItemsCount].id + " should not appear in results");
 							var conflictRoom = rooms[i-removedItemsCount]
 							
@@ -104,10 +104,28 @@ module.exports.availabilityPage = function (req, res) {
 					}
 
 				}
-				// console.log('Result rooms');
-				// console.log(rooms);
+				console.log('Result rooms');
+				console.log(rooms);
+				// Initialize arrays of all rooms' prices, checkin and checkout dates
+				// var price = Math.ceil(Math.abs(date_checkout - date_checkin) / (1000 * 60 * 60 * 24) * (dropdown_adult * 50 + dropdown_children * 25))
+				// var checkin_dates = []
+				// var checkout_dates = []
+				// var i = 0
+
+				// rooms.forEach(function(room) {
+				// 	checkin_dates[i] = room.
+				// })
+				
+				var room_ids = []
+				rooms.forEach(function(room) {
+					room_ids.push(room.id)
+				})
+				console.log("ALL IDS")
+				console.log(room_ids)
+
 				res.render('accommodation', {
 					rooms,
+					room_ids,
 					dropdown_adult,
 					dropdown_children,
 					date_checkin,
@@ -123,14 +141,14 @@ module.exports.availabilityPage = function (req, res) {
 
 /* POST booking */
 module.exports.booking = function (req, res) {
-	var { fromDate, toDate, roomid} = req.body;
-	var checkin = new Date(fromDate);
-	var checkout = new Date(toDate);
-	var room_id = parseInt(roomid);
+	var { fromDate, toDate, room_ids} = req.body;
+	var checkin = new Date(fromDate)
+	var checkout = new Date(toDate)
+	var ids = room_ids.split(",")
 	console.log(req.body)
 	console.log(checkin)
 	console.log(checkout)
-	console.log(room_id)
+	var randomID = ids[Math.floor(Math.random() * ids.length)];
 
 	// Reservations start and end at 12pm
 	checkin.setHours(12);
@@ -139,7 +157,7 @@ module.exports.booking = function (req, res) {
 	const newReservation = Reservation.build({
 		date_in: checkin,
 		date_out: checkout,
-		room_id: room_id
+		room_id: randomID
 	})
 	// console.log("New reservation details...");
 	// console.log(newReservation);
