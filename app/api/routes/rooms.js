@@ -13,4 +13,7 @@ router.post('/availability', roomsController.availabilityPage);
 /* POST booking */
 router.post('/booking', roomsController.booking);
 
+/* POST receptionist booking a room for a customer*/
+router.post('/receptionistBooking', roomsController.receptionistBooking);
+
 module.exports = router;

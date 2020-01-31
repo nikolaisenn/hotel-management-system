@@ -9,6 +9,10 @@ const Reservation = db.define('reservation', {
         autoIncrement: true,
         primaryKey: true
     },
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     room_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

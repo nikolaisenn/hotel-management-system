@@ -34,14 +34,31 @@
 			background-size: cover;
 		}
 
+		.booking-details {
+			font-size: 15px;
+		}
+
 		.glyphicon.glyphicon-home {
 			font-size: 20px;
 			color: black;
 		}
 
 		.jumbotron {
-			background: none;
 			color: rgb(0, 0, 0);
+			width: 50px;
+			height: 50px;
+		}
+
+		.room-component {
+			font-size: 40px;
+			padding: 30px;
+			padding-right: 20px;
+			padding-left: 20px;
+			margin: 10px;
+		}
+
+		.roomDescription {
+			font-size: 5px;
 		}
 
 		.roomInfo {
@@ -203,8 +220,9 @@
 		<!--  Accommodation page contents  -->
 		<div class="container-fluid">
 			<div class="row">
-
-				<!--  Check availability part  -->
+				<!--  Check availability part 
+					Different views for distinct user types -->
+				<% if (userType == 'client') { %>
 				<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12" id="check-availability">
 					<div class="row">
 						<p class="text-center col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -276,6 +294,126 @@
 					</div>
 					<% include ./partials/messages %>
 				</div>
+				<% } else if (userType == 'receptionist') { %>
+				<% if(typeof roomsArray != 'undefined' && roomsArray.length > 0) { %>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-7">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-lg-12">
+										<p class="h3 text-center" style="background-color: white">Room Information</p>
+									</div>
+								</div>
+								<% for(var i = 1; i <= roomsArray.length; i+=6) { %>
+								<div class="row">
+									<% roomsArray.forEach(function(room) { %>
+										<% if(room.id >= i && room.id < i+6) { %>
+										<div class="col-lg-2">
+											<% if(room.status == 'unavailable') { %>
+											<div class="container-fluid room-component" style="background-color:rgb(179, 0, 0)">
+												<div class="row">
+													<p class="text-center"><%= room.id %></p>
+												</div>
+											</div>
+											<% } else { %>
+											<div class="container-fluid room-component" style="background-color: green">
+												<div class="row">
+													<p class="text-center"><%= room.id %></p>
+												</div>
+											</div>
+											<% } %>
+										</div>
+										<% } %>
+									<% }) %>
+								</div>
+								<% } %>
+							</div>
+						</div>	
+						<div class="col-lg-3">
+							<div class="row">
+								<p class="h3 text-center" style="background-color: white">Booking</p>	
+							</div>
+							<div class="row">
+								<form role="form" id="book-form" action="/rooms/receptionistBooking" method="POST">
+									<div class="row">
+										<div class="col-lg-4">
+											<p class="booking-details">*Room number*: </p>
+										</div>
+										<div class="col-lg-8">
+											<input type="text" class="form-control" placeholder="Room Number" name="roomNumber"><br>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-4">
+											<p class="booking-details">*Date in*: </p class="booking-details">
+										</div>
+										<div class="col-lg-8">
+											<div class="input-group datepicker1">
+												<input class="form-control" id="date_checkin" name="date_checkin"
+													placeholder="DD/MM/YYYY" type="text" />
+												<span class="input-group-addon btn" for="date_checkin">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span><br>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-4">
+											<p class="booking-details">*Date out*: </p class="booking-details">
+										</div>
+										<div class="col-lg-8">
+											<div class="input-group datepicker2">
+												<input class="form-control" id="date_checkout" name="date_checkout"
+													placeholder="DD/MM/YYYY" type="text" />
+												<span class="input-group-addon btn" for="date_checkin">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span><br>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-4">
+											<p class="booking-details">Full name: </p class="booking-details">
+										</div>
+										<div class="col-lg-8">
+											<input type="text" class="form-control" placeholder="First name" name="firstname">
+											<input type="text" class="form-control" placeholder="Last Name" name="lastname"><br>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-4">
+											<div class="booking-details">*Email*: </div class="booking-details">
+										</div>
+										<div class="col-lg-8">
+											<input type="email" class="form-control" placeholder="Email" name="email"><br>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-4">
+											<p class="booking-details">Phone number: </p class="booking-details">
+										</div>
+										<div class="col-lg-8">
+											<input type="text" class="form-control" placeholder="Phone number" name="phone"><br>
+										</div>
+									</div>
+									<div class="row text-center">
+										<button type="submit" class="btn btn-primary" id="book-btn" >Book Room</button>
+									</div>
+									<div class="row text-center">
+										<% include ./partials/messages %>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="col-lg-1"></div>
+					</div>
+				</div>
+				<% } %>
+				<% } else { %>
+				<p>Please log in to view the contents of this page</p>
+				<% } %>
 
 				<div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
 				</div>
@@ -342,6 +480,13 @@
 		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
 	<!-- Datepicker functionality-->
+	<script>
+		$('.datepicker1').click(
+			function () {
+					$(this).datepicker('show');
+			}
+		);
+	</script>
 	<script>
 		$(document).ready(function () {
 			var date_input = $('input[name="date"]'); //our date input has the name "date"
