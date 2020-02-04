@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<!-- If IE use the latest rendering engine -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Set the page to the width of the device and set the zoon level -->
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+<title>Hotel Management System - Pricing</title>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+body, html {
+  height: 100%;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("data:image/jpeg;base64,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");
+
+    /* Full height */
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    left: 0;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.glyphicon.glyphicon-home {
+    font-size: 20px;
+    color: black;
+}
+
+.jumbotron {
+    background-color:#2E2D88;
+    color:white;
+}
+
+.priceInput {
+    width: 100%;
+    text-align: center;
+}
+/* Adds borders for tabs */
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
+    height: 20%;
+    margin-bottom: 0;
+}
+
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+
+}
+
+.nav>li>a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color:black;
+}
+
+#home-navbar {
+    position: relative;
+    width: 100%;
+    left: 0;
+}
+
+#login-btn {
+    padding-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+}
+
+#header-label {
+    padding-top: 10px;
+    text-align: center;
+    color: black;
+    font-size: 3em;
+}
+
+#profile-indicator {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#viewrooms-btn {
+    padding-top: 20px;
+    text-align: center;
+}
+
+#viewrooms-btn>a {
+    background-color:burlywood;
+    border:none;
+}
+</style>
+
+</head>
+<body>
+<div class="container bg">
+
+    <!-- Navigation Bar -->
+    <div class="container-fluid">
+    <div class="row" id="home-navbar">
+
+    <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
+    <ul class="nav nav-pills">
+        
+        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <li class="text-center"><a href="/">HOME</a></li>
+        </div>
+
+        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
+            <li class="text-center"><a href="accommodation">ACCOMMODATION</a></li>
+        </div>
+
+        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <li class="active text-center"><a href="pricing">PRICING</a></li>
+        </div>
+
+        <% if(userData != 'undefined') { %>
+            <div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
+                <a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
+                <p>Logged in as <%= userData.user.username %></p>
+            </div>
+            <div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
+                <a href="/users/logout"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGOUT</button></a>
+            </div>
+        <% } else { %>
+        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
+            <a href="/users/login"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGIN</button></a>
+        </div>
+        <% } %>
+    </ul>
+        
+    </div> <!-- home-navbar -->
+    </div> <!-- container-fluid // END OF TOP NAV BAR // -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 style="text-align: center; color: black;">Rooms</h2>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="./images/room.jpg" alt="Los Angeles" style="width:100%; height:500px">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 id="roomtype1"><%= roomsType[0].type %></h5>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <p>Adult: <%= roomsType[0].price_adult %>&euro;</p>
+                                    <% if (userType == 'manager') { %>
+                                        <form role="form" action="/rooms/editAdultPrice" method="POST">
+                                            <input type="hidden" name="roomType">
+                                            <input type="text" class="form-control priceInput" placeholder="New price" name="newAdultPrice"> 
+                                            <button type="submit" class="btn btn-primary" onclick="return beforeSubmit1()">Edit</button>    
+                                        </form>
+                                    <% } %>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <p>Child: <%= roomsType[0].price_child %>&euro;</p>
+                                    <% if (userType == 'manager') { %>
+                                    <form role="form" action="/rooms/editChildPrice" method="POST">
+                                        <input type="hidden" name="roomType">
+                                        <input type="text" class="form-control priceInput" placeholder="New price" name="newChildPrice"> 
+                                        <button type="submit" class="btn btn-primary" onclick="return beforeSubmit2()">Edit</button>    
+                                    </form>
+                                    <% } %>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="./images/room.jpg" alt="Chicago" style="width:100%; height:500px">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 id="roomtype2"><%= roomsType[1].type %></h5>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <p>Adult: <%= roomsType[1].price_adult %>&euro;</p>
+                                    <% if (userType == 'manager') { %>
+                                        <form role="form" action="/rooms/editAdultPrice" method="POST">
+                                            <input type="hidden" name="roomType">
+                                            <input type="text" class="form-control priceInput" placeholder="New price" name="newAdultPrice"> 
+                                            <button type="submit" class="btn btn-primary" onclick="return beforeSubmit3()">Edit</button>    
+                                        </form>
+                                    <% } %>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <p>Child: <%= roomsType[1].price_child %>&euro;</p>
+                                    <% if (userType == 'manager') { %>
+                                    <form role="form" action="/rooms/editChildPrice" method="POST">
+                                        <input type="hidden" name="roomType">
+                                        <input type="text" class="form-control priceInput" placeholder="New price" name="newChildPrice"> 
+                                        <button type="submit" class="btn btn-primary" onclick="return beforeSubmit4()">Edit</button>    
+                                    </form>
+                                    <% } %>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <img src="./images/room.jpg" alt="New york" style="width:100%; height:500px">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 id="roomtype3"><%= roomsType[2].type %></h5>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <p>Adult: <%= roomsType[2].price_adult %>&euro;</p>
+                                    <% if (userType == 'manager') { %>
+                                        <form role="form" action="/rooms/editAdultPrice" method="POST">
+                                            <input type="hidden" name="roomType">
+                                            <input type="text" class="form-control priceInput" placeholder="New price" name="newAdultPrice"> 
+                                            <button type="submit" class="btn btn-primary" onclick="return beforeSubmit5()">Edit</button>    
+                                        </form>
+                                    <% } %>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <p>Child: <%= roomsType[2].price_child %>&euro;</p>
+                                    <% if (userType == 'manager') { %>
+                                    <form role="form" action="/rooms/editChildPrice" method="POST">
+                                        <input type="hidden" name="roomType">
+                                        <input type="text" class="form-control priceInput" placeholder="New price" name="newChildPrice"> 
+                                        <button type="submit" class="btn btn-primary" onclick="return beforeSubmit6()">Edit</button>    
+                                    </form>
+                                    <% } %>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+            </div>
+        </div>
+        <% include ./partials/messages %>
+    </div>
+
+</div>
+
+<!-- Set the data for the hidden inputs -->
+<script>
+    function beforeSubmit1() {
+        document.getElementsByName('roomType')[0].value = document.getElementById('roomtype1').innerText
+    }
+</script>
+
+<script>
+    function beforeSubmit2() {
+        document.getElementsByName('roomType')[1].value = document.getElementById('roomtype1').innerText
+    }
+</script>
+
+<script>
+    function beforeSubmit3() {
+        document.getElementsByName('roomType')[2].value = document.getElementById('roomtype2').innerText
+    }
+</script>
+
+<script>
+    function beforeSubmit4() {
+        document.getElementsByName('roomType')[3].value = document.getElementById('roomtype2').innerText
+    }
+</script>
+
+<script>
+    function beforeSubmit5() {
+        document.getElementsByName('roomType')[4].value = document.getElementById('roomtype3').innerText
+    }
+</script>
+
+<script>
+    function beforeSubmit6() {
+        document.getElementsByName('roomType')[5].value = document.getElementById('roomtype3').innerText
+    }
+</script>
+
+</body>
+</html>

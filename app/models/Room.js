@@ -13,6 +13,18 @@ const Room = db.define('room', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
+    price_adult: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    price_child: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    type: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     status: {
         type: Sequelize.STRING,
         allowNull: false

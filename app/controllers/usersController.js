@@ -19,10 +19,11 @@ module.exports.loginPage = function (req, res) {
 
 /* GET - Logout */
 module.exports.logout = function (req, res) {
-	req.flash('success_msg', 'You have successfully logged out');
-	userData = 'undefined';
-	res.cookie('jwt', '', { httpOnly: true, secure: false, maxAge: 3600000 });
-	res.redirect('/users/login');
+	req.flash('success_msg', 'You have successfully logged out')
+	userData = 'undefined'
+	userType = 'undefined'
+	res.cookie('jwt', '', { httpOnly: true, secure: false, maxAge: 3600000 })
+	res.redirect('/users/login')
 };
 
 /* GET - Register page */

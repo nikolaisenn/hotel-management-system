@@ -13,6 +13,11 @@ module.exports.accommodationPage = function (req, res) {
 	loadRoomsDataAndRenderAccommodation(res)
 };
 
+/* GET - Pricing page */
+module.exports.pricingPage = function (req, res) {
+	loadRoomsDataAndRenderPricing(res)
+};
+
 /* GET - Availability page */
 module.exports.availabilityPage = function (req, res) {
 	let errors = [];
@@ -33,28 +38,34 @@ module.exports.availabilityPage = function (req, res) {
 	}
 
 	// Obtain values from input forms 
-	var { date_checkin, date_checkout, dropdown_adult, dropdown_children } = req.body;
+	var { date_checkin, date_checkout, dropdown_type, dropdown_adult, dropdown_children } = req.body;
+	console.log(req.body)
+	console.log(date_checkin)
+	console.log(date_checkout)
 	date_checkin = new Date(date_checkin)
 	date_checkin.setHours(12)
 	date_checkout = new Date(date_checkout)
 	date_checkout.setHours(12)
 	dropdown_adult = parseInt(dropdown_adult)
 	dropdown_children = parseInt(dropdown_children)
+	console.log(date_checkin)
+	console.log(date_checkout)
 
 	// Get all rooms with capacity desired by the user
 	const Op = Sequelize.Op;
 	Room.findAll({
 		raw: true,
-		attributes: [['id', 'id'],['capacity', 'capacity']],
+		attributes: [['id', 'id'],['capacity', 'capacity'],['price_adult', 'price_adult'],['price_child', 'price_child']],
 		include: [{
 			model: Reservation,
 			attributes: [['date_in', 'date_in'],['date_out', 'date_out']],
 			required: false
 		}],
 		where: {
-			'$room.capacity$': [dropdown_adult + dropdown_children]
+			'$room.capacity$': [dropdown_adult + dropdown_children],
+			'$room.type$': [dropdown_type]
 		},
-		group: ['id', 'capacity', 'date_in', 'date_out']
+		group: ['id', 'capacity', 'price_adult', 'price_child', 'date_in', 'date_out']
 	})
 		.then(rooms => {
 			if (rooms) {
@@ -76,6 +87,48 @@ module.exports.availabilityPage = function (req, res) {
 			}
 		})
 };
+
+/* POST room information */
+module.exports.roomInformation = function (req, res) {
+	var {thisRoomID} = req.body
+	console.log(req.body)
+
+	// Get all reservations with the given room id
+	const Op = Sequelize.Op;
+	Reservation.findAll({
+		raw: true,
+		where: {
+			room_id: thisRoomID
+		}
+	})
+		.then(reservations => {
+			var reservationsMap = new Map()
+			var dateinSorted = []
+			var dateoutSorted = []
+			reservations.forEach(function(reservation) {
+				dateinSorted.push(reservation.date_in)
+				dateoutSorted.push(reservation.date_out)
+			})
+			dateinSorted.sort(function(a, b) {
+				return a - b
+			})
+			dateoutSorted.sort(function(a, b) {
+				return a - b
+			})	
+			console.log("HERE")
+			dateinSorted.forEach(function(date) {
+				console.log(date)
+			})
+
+			for (var i = 0; i < dateinSorted.length; i++) {
+				var datein = dateinSorted[i].getDate() + "/" + (dateinSorted[i].getMonth() + 1) + "/" + dateinSorted[i].getFullYear()
+				var dateout = dateoutSorted[i].getDate() + "/" + (dateoutSorted[i].getMonth() + 1) + "/" + dateoutSorted[i].getFullYear()
+				reservationsMap.set(datein, dateout)
+			}
+			console.log(reservationsMap)
+			loadRoomsDataAndRenderAccommodationRoomInfo (res, reservationsMap)
+		})
+}
 
 /* POST booking */
 module.exports.booking = function (req, res) {
@@ -108,9 +161,59 @@ module.exports.booking = function (req, res) {
 		.catch(function (err) { console.log(err) });
 }
 
-/* POST booking */
+/* POST edit adult price */
+module.exports.editAdultPrice = function (req, res) {
+	var { roomType, newAdultPrice} = req.body
+	console.log(req.body)
+	let errors = [];
+	// Require valid user input (specify check-in, check-out and the number of people)
+	if(isNaN(newAdultPrice) || newAdultPrice <= 0) {
+		errors.push({ msg: 'Please enter a valid price' })
+	}
+	if (errors.length > 0) {
+		loadRoomsDataAndRenderPricingErrors (res, errors)
+	}
+
+	// Get all rooms with capacity desired by the user
+	const Op = Sequelize.Op
+	Room.update({ price_adult: newAdultPrice}, {
+		where: {
+			type: roomType
+		}
+	})
+
+	loadRoomsDataAndRenderPricing(res)
+}
+
+/* POST edit child price */
+module.exports.editChildPrice = function (req, res) {
+	var { roomType, newChildPrice} = req.body
+	console.log(req.body)
+	let errors = [];
+	// Require valid user input (specify check-in, check-out and the number of people)
+	if(isNaN(newChildPrice) || newChildPrice <= 0) {
+		errors.push({ msg: 'Please enter a valid price' })
+	}
+	if (errors.length > 0) {
+		loadRoomsDataAndRenderPricingErrors (res, errors)
+	}
+
+	// Get all rooms with capacity desired by the user
+	const Op = Sequelize.Op
+	Room.update({ price_child: newChildPrice}, {
+		where: {
+			type: roomType
+		}
+	})
+
+	loadRoomsDataAndRenderPricing(res)
+}
+
+/* POST receptionist booking */
 module.exports.receptionistBooking = function (req, res) {
-	var { roomNumber, roomCapacity, date_checkin, date_checkout, firstname, lastname, email, phone} = req.body;
+	var { roomNumber, roomCapacity, date_checkin, date_checkout, firstname, lastname, email, phone, numberOfRooms} = req.body;
+	console.log(date_checkin)
+	console.log(date_checkout)
 	var checkin = new Date(date_checkin)
 	var checkout = new Date(date_checkout)
 	console.log(req.body)
@@ -132,7 +235,7 @@ module.exports.receptionistBooking = function (req, res) {
 	if(date_checkout == '') {
 		errors.push({ msg: 'Please provide a check-out date' })
 	}
-	if(isNaN(roomNumber) || roomNumber <= 0) {
+	if(isNaN(roomNumber) || roomNumber <= 0 || roomNumber > numberOfRooms) {
 		errors.push({ msg: 'Please specify the number of people' })
 	}
 	if (errors.length > 0) {
@@ -238,10 +341,12 @@ function getAllRooms(roomCapacity) {
 			console.log("Rooms data loaded.")
 			console.log("GET ALL ROOMS")
 			console.log(roomsArray)
-
-			return roomsArray
 		})
 }
+
+/* ----------------------------------------------------------------------------------------------------------------------------------
+   -------------------------------------------------------- HELPER FUNCTIONS -------------------------------------------------------- 
+   ---------------------------------------------------------------------------------------------------------------------------------- */
 
 function getRoomsIDs (rooms) {
 	var room_ids = []
@@ -290,6 +395,75 @@ function loadRoomsDataAndRenderAccommodationErrors (res, errors) {
 
 			res.render('accommodation', {
 				roomsArray,
+				errors
+			});
+		})
+}
+
+function loadRoomsDataAndRenderAccommodationRoomInfo (res, reservationsMap) {
+	// Get all rooms 
+	const Op = Sequelize.Op;
+	Room.findAll({
+		raw: true
+	})
+		.then(rooms => {
+			var roomsArray = []
+			rooms.forEach(function(room) {
+				roomsArray.push(room)
+			})
+			console.log("Rooms data loaded.")
+			console.log("ALL ROOMS")
+			console.log(roomsArray)
+
+			res.render('accommodation', {
+				roomsArray,
+				reservationsMap
+			});
+		})
+}
+
+function loadRoomsDataAndRenderPricing (res) {
+	// Get all rooms 
+	const Op = Sequelize.Op;
+	Room.findAll({
+		raw: true,
+		attributes: [['type', 'type'],['price_adult', 'price_adult'],['price_child', 'price_child']],
+		group: ['type', 'price_adult', 'price_child']
+	})
+		.then(rooms => {
+			var roomsType = []
+			rooms.forEach(function(room) {
+				roomsType.push(room)
+			})
+			console.log("Rooms data (grouped by type) loaded.")
+			console.log("ALL ROOMS")
+			console.log(roomsType)
+
+			res.render('pricing', {
+				roomsType
+			});
+		})
+}
+
+function loadRoomsDataAndRenderPricingErrors (res, errors) {
+	// Get all rooms 
+	const Op = Sequelize.Op;
+	Room.findAll({
+		raw: true,
+		attributes: [['type', 'type'],['price_adult', 'price_adult'],['price_child', 'price_child']],
+		group: ['type', 'price_adult', 'price_child']
+	})
+		.then(rooms => {
+			var roomsType = []
+			rooms.forEach(function(room) {
+				roomsType.push(room)
+			})
+			console.log("Rooms data (grouped by type) loaded.")
+			console.log("ALL ROOMS")
+			console.log(roomsType)
+
+			res.render('pricing', {
+				roomsType,
 				errors
 			});
 		})
