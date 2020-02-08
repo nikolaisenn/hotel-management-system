@@ -173,7 +173,11 @@
 				<ul class="nav nav-pills">
 
 					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<% if(userData != 'undefined' && userType != 'client') { %>
+						<li class="text-center"><a href="../staff/schedule">SCHEDULE</a></li>
+						<% } else { %>
 						<li class="text-center"><a href="/">HOME</a></li>
+						<% } %>
 					</div>
 
 					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
@@ -185,7 +189,7 @@
 					</div>
 
 					<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
-						<a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
+						<a href="dashboard"><span class="glyphicon glyphicon-home"></span></a>
 						<p>Logged in as <%= userData.user.username %></p>
 					</div>
 					<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">

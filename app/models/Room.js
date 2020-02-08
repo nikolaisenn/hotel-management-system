@@ -28,6 +28,10 @@ const Room = db.define('room', {
     status: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    hasReservations: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
 })
 

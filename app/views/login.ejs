@@ -104,7 +104,11 @@ body, html {
             <ul class="nav nav-pills">
                 
                 <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <% if(userData != 'undefined' && userType != 'client') { %>
+                    <li class="text-center"><a href="../staff/schedule">SCHEDULE</a></li>
+                    <% } else { %>
                     <li class="text-center"><a href="/">HOME</a></li>
+                    <% } %>
                 </div>
 
                 <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
