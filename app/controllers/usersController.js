@@ -132,8 +132,8 @@ module.exports.registerAccount = function (req, res) {
 
 module.exports.loginAccount = function (req, res) {
 	let errors = [];
-	console.log("REQ BODY");
-	console.log(req.body);
+	console.log("Login attempt...");
+	// console.log(req.body);
 	var username = req.body.username;
 	var password = req.body.password;
 	// Match User

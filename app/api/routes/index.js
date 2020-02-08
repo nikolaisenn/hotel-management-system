@@ -22,10 +22,13 @@ function verifyToken(req, res, next) {
         // Header format:
         // Authorization: Bearer <access_token>
         // Split at the space to obtain token
-        var cookie = cookieHeader.split(' ');
-        var cookieToken = (cookie[1].split('='))[1];
+        var cookie = cookieHeader.split('jwt=');
+        // console.log(cookie)
+        var jwtToken = cookie[1];
+        // console.log("JWT token")
+        // console.log(jwtToken)
         // Set the token
-        req.token = cookieToken;
+        req.token = jwtToken;
         next();
     } else {
         // Forbidden

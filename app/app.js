@@ -21,11 +21,13 @@ const db = require('./config/database');
 db 
   .authenticate()
   .then(() => {
-    console.log('Connection has been established successfully.');
+    console.log('Connection with Sequelize database has been established successfully.');
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
+
+// The application
 var app = express();
 
 app.use(cors());
@@ -77,12 +79,12 @@ var usersController = require('./controllers/usersController');
 var indexRouter = require('./api/routes/index');
 var usersRouter = require('./api/routes/users');
 var roomsRouter = require('./api/routes/rooms');
-var staffRouter = require('./api/routes/staff');
+var staffRouter = require("./api/routes/staff")
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/rooms', roomsRouter);
-app.use('/staff', staffRouter)
+app.use('/staff', staffRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -99,6 +101,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.listen(3000, () => console.log('App listening on port 3000!'))
 
 module.exports = app;
 

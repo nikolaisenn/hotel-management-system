@@ -13,9 +13,8 @@ module.exports.indexPage = function(req, res) {
 
 /* GET - Dashboard page */
 module.exports.dashboardPage = function(req, res) {
-    // console.log("TOKEN: " + req.token);
-    // res.render('dashboard');
-    jwt.verify(req.token, 'secret', function(err, authData) {
+    // console.log("TOKEN: " + req.cookies.jwt);
+    jwt.verify(req.cookies.jwt, 'secret', function(err, authData) {
         if(err) {
             res.sendStatus(403);
         } else {
