@@ -11,4 +11,7 @@ var Client = require('../../models/Client');
 /* GET schedule page */
 router.get('/schedule', staffController.schedulePage)
 
+/* POST modify schedule */
+router.post('/modifySchedule', staffController.modifySchedule)
+
 module.exports = router;

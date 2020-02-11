@@ -1,31 +1,35 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Reservation = db.define('reservation', {
+const Schedule = db.define('schedule', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
-    email: {
-        type: Sequelize.STRING,
+    date: {
+        type: Sequelize.DATE,
         allowNull: false
     },
-    room_id: {
+    receptionist_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: 'rooms',
+        allowNull: true,
+        references: 'receptionist',
         referencesKey: 'id'
     },
-    date_in: {
-        type: Sequelize.DATE,
+    firstname: {
+        type: Sequelize.STRING,
         allowNull: true
     },
-    date_out: {
-        type: Sequelize.DATE,
+    lastname: {
+        type: Sequelize.STRING,
         allowNull: true
+    },
+    shift: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
 })
 
-module.exports = Reservation;
+module.exports = Schedule

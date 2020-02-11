@@ -336,12 +336,12 @@
 				<% } else if (userType == 'receptionist' || userType == 'manager') { %>
 				<% if(typeof roomsArray != 'undefined' && roomsArray.length > 0) { %>
 				<p hidden id="roomsCount"><%= roomsArray.length %></p>
-				<div class="container-fluid">
-					<div class="row">
+				<div class="container-fluid" style="margin-top: 10px">
+					<div class="row" style="background-color: rgb(14, 12, 12, 0.9); color:white">
 						<div class="col-lg-2">
 							<div class="container-fluid">
 								<div id="roominfo">
-									<p class="h3 text-center" style="background-color: white">Reservations</p>
+									<p class="h3 text-center" style="font-family: 'Brush Script MT';">Reservations</p>
 									<div class="row">
 										<form role="form" id="roomInfo-form" action="/rooms/roomInformation" method="POST">
 											<div class="col-lg-8">
@@ -370,10 +370,10 @@
 							</div>
 						</div>
 						<div class="col-lg-7">
-							<div class="container-fluid">
+							<div class="container-fluid" style="background-color: rgba(9, 2, 12, 0.5);">
 								<div class="row">
 									<div class="col-lg-12">
-										<p class="h3 text-center" style="background-color: white">Room Information</p>
+										<p class="h3 text-center" style="font-family: 'Brush Script MT';">Room Information</p>
 									</div>
 								</div>
 								<% for(var i = 1; i <= roomsArray.length; i+=6) { %>
@@ -382,13 +382,13 @@
 										<% if(room.id >= i && room.id < i+6) { %>
 										<div class="col-lg-2">
 											<% if(room.status == 'unavailable') { %>
-											<div class="container-fluid room-component" style="background-color:rgb(179, 0, 0)">
+											<div class="container-fluid room-component" style="background-color:rgba(100, 0, 0, 0.9)">
 												<div class="row text-center">
 													<%= room.id %>
 												</div>
 											</div>
 											<% } else { %>
-											<div class="container-fluid room-component" style="background-color:green">
+											<div class="container-fluid room-component" style="background-color:rgba(0, 100, 0, 0.9)">
 												<div class="row text-center">
 													<%= room.id %>
 												</div>
@@ -403,7 +403,7 @@
 						</div>	
 						<div class="col-lg-3">
 							<div class="row">
-								<p class="h3 text-center" style="background-color: white">Booking</p>	
+								<p class="h3 text-center" style="font-family: 'Brush Script MT';">Booking</p>	
 							</div>
 							<div class="row">
 								<form role="form" id="book-form" action="/rooms/receptionistBooking" method="POST">
