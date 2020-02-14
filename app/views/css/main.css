@@ -1,0 +1,64 @@
+body,
+html {
+    height: 100%;
+}
+
+.row {
+    margin: 0px;
+}
+
+.container-fluid {
+    padding: 0px;
+}
+
+.glyphicon.glyphicon-home {
+    font-size: 20px;
+    color: rgba(189, 211, 21, 0.9);
+}
+
+.nav-tabs,
+.nav-pills {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    height: 20%;
+    margin-bottom: 0;
+}
+
+.nav-tabs>li,
+.nav-pills>li {
+    float: none;
+    display: inline-block;
+    *display: inline;
+    /* ie7 fix */
+    zoom: 1;
+    /* hasLayout ie7 trigger */
+
+}
+
+/* Main menu options */
+.nav>li>a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: whitesmoke;
+}
+
+.nav>li>a:hover {
+    background-color: rgba(189, 211, 21, 0.9);
+}
+
+#header {
+    background-color:rgba(0, 0, 0, 0.9);
+    position: relative;
+    width: 100%;
+    left: 0;
+}
+
+#login-btn {
+    margin-top:12%;
+    display: inline-block;
+}
+
+#profile-indicator {
+    padding-top: 10px;
+    text-align: center;
+}

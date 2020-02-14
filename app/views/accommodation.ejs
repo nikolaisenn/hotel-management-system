@@ -11,31 +11,114 @@
 	<meta name="viewport" content="width = device-width, initial-scale = 1">
 	<title>Hotel Management System - Accommodation</title>
 	<!--  jQuery -->
-	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	<link
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
+		rel="stylesheet" />
 
 	<!-- Bootstrap Date-Picker Plugin -->
-	
+
 
 	<style>
+		/* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
 		body,
 		html {
 			height: 100%;
 		}
 
-		.bg {
-			/* The image used */
-			background-image: url("images/room.jpg");
+		.row {
+			margin: 0px;
+		}
 
-			/* Full height */
-			height: 100%;
-			position: absolute;
+		.container-fluid {
+			padding: 0px;
+		}
+
+		.glyphicon.glyphicon-home {
+			font-size: 20px;
+			color: rgba(189, 211, 21, 0.9);
+		}
+
+		.nav-tabs,
+		.nav-pills {
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
+			text-align: center;
+			height: 20%;
+			margin-bottom: 0;
+		}
+
+		.nav-tabs>li,
+		.nav-pills>li {
+			float: none;
+			display: inline-block;
+			*display: inline;
+			/* ie7 fix */
+			zoom: 1;
+			/* hasLayout ie7 trigger */
+
+		}
+
+		/* Main menu options */
+		.nav>li>a {
+			padding-top: 20px;
+			padding-bottom: 20px;
+			color: whitesmoke;
+		}
+
+		.nav>li>a:hover {
+			background-color: rgba(189, 211, 21, 0.9);
+		}
+
+		#header {
+			background-color: rgba(0, 0, 0, 0.9);
+			position: relative;
 			width: 100%;
 			left: 0;
+		}
+
+		#login-btn {
+			margin-top: 12%;
+			display: inline-block;
+		}
+
+		#profile-indicator {
+			padding-top: 10px;
+			text-align: center;
+		}
+
+		/* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
+
+		/* div[class="container-fluid"] {
+         outline: 4px dotted rgba(0, 0, 0, 1);
+         background-color: rgb(100, 0, 0, 0.2);
+      }
+
+      div[class="row"] {
+         outline: 3px dotted rgb(234, 0, 255);
+      }
+
+      div[class^="col"] {
+         outline: 3px dotted rgb(189, 255, 6);
+      } */
+
+		.bg {
+			/* The image used */
+			background-image: url("https://danw.hotglue.me/?webdesign.head.14452090501");
+
+			/* Full height */
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			left: 0;
+
+			margin: 0px;
+			padding: 0px;
 
 			/* Center and scale the image nicely */
 			background-position: center;
@@ -54,17 +137,6 @@
 			color: black;
 		}
 
-		.glyphicon.glyphicon-home {
-			font-size: 20px;
-			color: black;
-		}
-
-		.jumbotron {
-			color: rgb(0, 0, 0);
-			width: 50px;
-			height: 50px;
-		}
-
 		.room-component {
 			font-size: 40px;
 			padding: 30px;
@@ -81,37 +153,6 @@
 			height: 50px;
 			font-size: 20px;
 			font-weight: bold;
-		}
-		/* Adds borders for tabs */
-		.tab-content {
-			border-left: 1px solid #ddd;
-			border-right: 1px solid #ddd;
-			border-bottom: 1px solid #ddd;
-			padding: 10px;
-		}
-
-		.nav-tabs,
-		.nav-pills {
-			text-align: center;
-			height: 20%;
-			margin-bottom: 0;
-		}
-
-		.nav-tabs>li,
-		.nav-pills>li {
-			float: none;
-			display: inline-block;
-			*display: inline;
-			/* ie7 fix */
-			zoom: 1;
-			/* hasLayout ie7 trigger */
-
-		}
-
-		.nav>li>a {
-			padding-top: 20px;
-			padding-bottom: 20px;
-			color: black;
 		}
 
 		#availabilityTable {
@@ -141,35 +182,6 @@
 			width: 40%;
 		}
 
-		#home-navbar {
-			position: relative;
-			width: 100%;
-			left: 0;
-		}
-
-		#header-label {
-			padding-top: 10px;
-			text-align: center;
-			color: black;
-			font-size: 3em;
-		}
-
-		#profile-indicator {
-			padding-top: 10px;
-			text-align: center;
-		}
-
-		#login-btn {
-			padding-top: 5px;
-			margin-top: 10px;
-			margin-bottom: 10px;
-			display: inline-block;
-			*display: inline;
-			/* ie7 fix */
-			zoom: 1;
-			/* hasLayout ie7 trigger */
-		}
-
 		#roomInfoBox {
 			padding-top: 50px;
 		}
@@ -197,7 +209,7 @@
 
 		<!-- Navigation Bar -->
 		<div class="container-fluid">
-			<div class="row" id="home-navbar">
+			<div class="row" id="header">
 
 				<!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
 				<ul class="nav nav-pills">
@@ -221,14 +233,17 @@
 					<% if(userData != 'undefined') { %>
 					<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
 						<a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
-						<p>Logged in as <%= userData.user.username %></p>
+						<p style="margin-bottom: 5px; color:rgba(189, 211, 21, 0.9);">Logged in as <%= userData.user.username %></p>
 					</div>
 					<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
 						<a href="/users/logout"><button type="submit" class="btn btn-danger" role="button"
 								id="login-btn">LOGOUT</button></a>
 					</div>
 					<% } else { %>
-					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
+					<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					
+					</div>
+					<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
 						<a href="../users/login"><button type="submit" class="btn btn-danger" role="button"
 								id="login-btn">LOGIN</button></a>
 					</div>
@@ -242,7 +257,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<!--  Check availability part 
-					Different views for distinct user types -->
+Different views for distinct user types -->
 				<% if (userType == 'client') { %>
 				<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12" id="check-availability">
 					<div class="row">
@@ -260,7 +275,8 @@
 													</div>
 													<div class="form-group" style="height: 5px">
 														<div class='input-group date' id='datetimepicker1'>
-															<input type='text' class="form-control" name="date_checkin" placeholder="DD/MM/YYYY" onkeydown="return false" />
+															<input type='text' class="form-control" name="date_checkin"
+																placeholder="DD/MM/YYYY" onkeydown="return false" />
 															<span class="input-group-addon">
 																<span class="glyphicon glyphicon-calendar"></span>
 															</span>
@@ -273,7 +289,8 @@
 													</div>
 													<div class="form-group" style="height: 5px">
 														<div class='input-group date' id='datetimepicker2'>
-															<input type='text' class="form-control" name="date_checkout" placeholder="DD/MM/YYYY" onkeydown="return false" />
+															<input type='text' class="form-control" name="date_checkout"
+																placeholder="DD/MM/YYYY" onkeydown="return false" />
 															<span class="input-group-addon">
 																<span class="glyphicon glyphicon-calendar"></span>
 															</span>
@@ -343,28 +360,31 @@
 								<div id="roominfo">
 									<p class="h3 text-center" style="font-family: 'Brush Script MT';">Reservations</p>
 									<div class="row">
-										<form role="form" id="roomInfo-form" action="/rooms/roomInformation" method="POST">
+										<form role="form" id="roomInfo-form" action="/rooms/roomInformation"
+											method="POST">
 											<div class="col-lg-8">
-												<input type="text" class="form-control" placeholder="Room Number" id="thisRoomID" name="thisRoomID">
+												<input type="text" class="form-control" placeholder="Room Number"
+													id="thisRoomID" name="thisRoomID">
 											</div>
 											<div class="col-lg-4">
-												<button type="submit" class="btn btn-primary" id="roomInfo-btn">Check</button>
+												<button type="submit" class="btn btn-primary"
+													id="roomInfo-btn">Check</button>
 											</div>
 										</form>
 									</div>
 									<% if(typeof reservationsMap != 'undefined') { %>
-										<table style="width:100%">
-											<tr>
-												<th class="text-center">Date in</th>
-												<th class="text-center">Date out</th>
-											</tr>
+									<table style="width:100%">
+										<tr>
+											<th class="text-center">Date in</th>
+											<th class="text-center">Date out</th>
+										</tr>
 										<% reservationsMap.forEach(function(key, value) { %>
-											<tr>
-												<td class="text-center"><%= value %></td>
-												<td class="text-center"><%= key %></td>
-											</tr>
+										<tr>
+											<td class="text-center"><%= value %></td>
+											<td class="text-center"><%= key %></td>
+										</tr>
 										<% }) %>
-										</table>
+									</table>
 									<% } %>
 								</div>
 							</div>
@@ -373,37 +393,40 @@
 							<div class="container-fluid" style="background-color: rgba(9, 2, 12, 0.5);">
 								<div class="row">
 									<div class="col-lg-12">
-										<p class="h3 text-center" style="font-family: 'Brush Script MT';">Room Information</p>
+										<p class="h3 text-center" style="font-family: 'Brush Script MT';">Room
+											Information</p>
 									</div>
 								</div>
 								<% for(var i = 1; i <= roomsArray.length; i+=6) { %>
 								<div class="row">
 									<% roomsArray.forEach(function(room) { %>
-										<% if(room.id >= i && room.id < i+6) { %>
-										<div class="col-lg-2">
-											<% if(room.status == 'unavailable') { %>
-											<div class="container-fluid room-component" style="background-color:rgba(100, 0, 0, 0.9)">
-												<div class="row text-center">
-													<%= room.id %>
-												</div>
+									<% if(room.id >= i && room.id < i+6) { %>
+									<div class="col-lg-2">
+										<% if(room.status == 'unavailable') { %>
+										<div class="container-fluid room-component"
+											style="background-color:rgba(100, 0, 0, 0.9)">
+											<div class="row text-center">
+												<%= room.id %>
 											</div>
-											<% } else { %>
-											<div class="container-fluid room-component" style="background-color:rgba(0, 100, 0, 0.9)">
-												<div class="row text-center">
-													<%= room.id %>
-												</div>
+										</div>
+										<% } else { %>
+										<div class="container-fluid room-component"
+											style="background-color:rgba(0, 100, 0, 0.9)">
+											<div class="row text-center">
+												<%= room.id %>
 											</div>
-											<% } %>
 										</div>
 										<% } %>
+									</div>
+									<% } %>
 									<% }) %>
 								</div>
 								<% } %>
 							</div>
-						</div>	
+						</div>
 						<div class="col-lg-3">
 							<div class="row">
-								<p class="h3 text-center" style="font-family: 'Brush Script MT';">Booking</p>	
+								<p class="h3 text-center" style="font-family: 'Brush Script MT';">Booking</p>
 							</div>
 							<div class="row">
 								<form role="form" id="book-form" action="/rooms/receptionistBooking" method="POST">
@@ -412,7 +435,8 @@
 											<p class="booking-details">*Room number*: </p>
 										</div>
 										<div class="col-lg-8">
-											<input type="text" class="form-control" placeholder="Room Number" name="roomNumber"><br>
+											<input type="text" class="form-control" placeholder="Room Number"
+												name="roomNumber"><br>
 										</div>
 									</div>
 									<div class="row">
@@ -422,7 +446,8 @@
 										<div class="col-lg-8">
 											<div class="form-group" style="height: 5px">
 												<div class='input-group date' id='datetimepicker3'>
-													<input type='text' class="form-control" name="date_checkin" placeholder="DD/MM/YYYY" onkeydown="return false" />
+													<input type='text' class="form-control" name="date_checkin"
+														placeholder="DD/MM/YYYY" onkeydown="return false" />
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
@@ -437,7 +462,8 @@
 										<div class="col-lg-8">
 											<div class="form-group" style="height: 5px">
 												<div class='input-group date' id='datetimepicker4'>
-													<input type='text' class="form-control" name="date_checkin" placeholder="DD/MM/YYYY" onkeydown="return false" />
+													<input type='text' class="form-control" name="date_checkin"
+														placeholder="DD/MM/YYYY" onkeydown="return false" />
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
@@ -450,8 +476,10 @@
 											<p class="booking-details">Full name: </p class="booking-details">
 										</div>
 										<div class="col-lg-8">
-											<input type="text" class="form-control" placeholder="First name" name="firstname">
-											<input type="text" class="form-control" placeholder="Last Name" name="lastname"><br>
+											<input type="text" class="form-control" placeholder="First name"
+												name="firstname">
+											<input type="text" class="form-control" placeholder="Last Name"
+												name="lastname"><br>
 										</div>
 									</div>
 									<div class="row">
@@ -459,7 +487,8 @@
 											<div class="booking-details">*Email*: </div class="booking-details">
 										</div>
 										<div class="col-lg-8">
-											<input type="email" class="form-control" placeholder="Email" name="email"><br>
+											<input type="email" class="form-control" placeholder="Email"
+												name="email"><br>
 										</div>
 									</div>
 									<div class="row">
@@ -467,12 +496,14 @@
 											<p class="booking-details">Phone number: </p class="booking-details">
 										</div>
 										<div class="col-lg-8">
-											<input type="text" class="form-control" placeholder="Phone number" name="phone"><br>
+											<input type="text" class="form-control" placeholder="Phone number"
+												name="phone"><br>
 										</div>
 									</div>
 									<div class="row text-center">
 										<input type="hidden" id="numberOfRooms" name="numberOfRooms">
-										<button type="submit" class="btn btn-primary" id="book-btn" onclick="return beforeSubmit3()">Book Room</button>
+										<button type="submit" class="btn btn-primary" id="book-btn"
+											onclick="return beforeSubmit3()">Book Room</button>
 									</div>
 									<div class="row text-center">
 										<% include ./partials/messages %>
@@ -501,16 +532,38 @@
 							</div>
 							<div class="col-lg-4">
 								<div class="col-lg-6">
-									<div class="row"> <p class="roomInfo">Capacity : </p> </div>
-									<div class="row"> <p class="roomInfo">Price : </p> </div>
-									<div class="row"> <p class="roomInfo">Checkin : </p> </div>
-									<div class="row"> <p class="roomInfo">Checkout : </p> </div>
+									<div class="row">
+										<p class="roomInfo">Capacity : </p>
+									</div>
+									<div class="row">
+										<p class="roomInfo">Price : </p>
+									</div>
+									<div class="row">
+										<p class="roomInfo">Checkin : </p>
+									</div>
+									<div class="row">
+										<p class="roomInfo">Checkout : </p>
+									</div>
 								</div>
 								<div class="col-lg-6">
-									<div class="row"> <p class="roomInfo" id="capacity"><%= dropdown_adult + dropdown_children %></p> </div>
-									<div class="row"> <p class="roomInfo" id="price"><%= (Math.ceil(Math.abs(date_checkout - date_checkin) / (1000 * 60 * 60 * 24))) * (dropdown_adult * rooms[0].price_adult + dropdown_children * rooms[0].price_child) %>&euro;</p> </div>
-									<div class="row"> <p class="roomInfo" id="checkin"><%= date_checkin.getDate() + "/" + (date_checkin.getMonth() + 1) + "/" +  date_checkin.getFullYear() %></p> </div>
-									<div class="row"> <p class="roomInfo" id="checkout"><%= date_checkout.getDate() + "/" + (date_checkout.getMonth() + 1) + "/" +  date_checkout.getFullYear() %></p> </div>
+									<div class="row">
+										<p class="roomInfo" id="capacity"><%= dropdown_adult + dropdown_children %></p>
+									</div>
+									<div class="row">
+										<p class="roomInfo" id="price">
+											<%= (Math.ceil(Math.abs(date_checkout - date_checkin) / (1000 * 60 * 60 * 24))) * (dropdown_adult * rooms[0].price_adult + dropdown_children * rooms[0].price_child) %>&euro;
+										</p>
+									</div>
+									<div class="row">
+										<p class="roomInfo" id="checkin">
+											<%= date_checkin.getDate() + "/" + (date_checkin.getMonth() + 1) + "/" +  date_checkin.getFullYear() %>
+										</p>
+									</div>
+									<div class="row">
+										<p class="roomInfo" id="checkout">
+											<%= date_checkout.getDate() + "/" + (date_checkout.getMonth() + 1) + "/" +  date_checkout.getFullYear() %>
+										</p>
+									</div>
 								</div>
 								<div class="row">
 									<td class="text-center">
@@ -518,7 +571,8 @@
 											<input type="hidden" id="fromDate_data" name="fromDate">
 											<input type="hidden" id="toDate_data" name="toDate">
 											<input type="hidden" id="room_ids" name="room_ids">
-											<button type="submit" class="btn btn-primary" id="book-btn" onclick="return beforeSubmit()">Book Room</button>
+											<button type="submit" class="btn btn-primary" id="book-btn"
+												onclick="return beforeSubmit()">Book Room</button>
 										</form>
 									</td>
 								</div>
@@ -546,7 +600,7 @@
 	<script>
 		var dateNow = new Date()
 		var currentTime = dateNow.getHours()
-		if(currentTime < 12) {
+		if (currentTime < 12) {
 			$('#datetimepicker1').datetimepicker({
 				format: 'YYYY/MM/DD',
 				minDate: moment().millisecond(0).second(0).minute(0).hour(0)
@@ -557,9 +611,9 @@
 				minDate: moment().add(1, "days").millisecond(0).second(0).minute(0).hour(0)
 			})
 		}
-		
 
-		if(currentTime < 12) {
+
+		if (currentTime < 12) {
 			$('#datetimepicker2').datetimepicker({
 				format: 'YYYY/MM/DD',
 				minDate: moment().millisecond(0).second(0).minute(0).hour(0)
@@ -571,7 +625,7 @@
 			})
 		}
 
-		$('#datetimepicker1').on("dp.change", function(e) {
+		$('#datetimepicker1').on("dp.change", function (e) {
 			$('#datetimepicker2').data("DateTimePicker").minDate(e.date);
 		})
 
@@ -593,7 +647,7 @@
 			useCurrent: false
 		})
 
-		$('#datetimepicker3').on("dp.change", function(e) {
+		$('#datetimepicker3').on("dp.change", function (e) {
 			$('#datetimepicker4').data("DateTimePicker").minDate(e.date);
 		})
 

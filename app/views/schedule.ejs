@@ -1,497 +1,521 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+   <meta charset="UTF-8">
 
-<!-- If IE use the latest rendering engine -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- If IE use the latest rendering engine -->
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Set the page to the width of the device and set the zoon level -->
-<meta name="viewport" content="width = device-width, initial-scale = 1">
-<title>Hotel Management System - Home</title>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   <!-- Set the page to the width of the device and set the zoon level -->
+   <meta name="viewport" content="width = device-width, initial-scale = 1">
+   <title>Hotel Management System - Schedule</title>
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<style>
-body, html {
-  height: 100%;
-}
+   <style>
+      /* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
+      body,
+      html {
+         height: 100%;
+      }
 
-.bg {
-    /* The image used */
-    background-image: url("/images/hotel.jpg");
+      .row {
+         margin: 0px;
+      }
 
-    /* Full height */
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    left: 0;
+      .container {
+         padding-right: 0px;
+         padding-left: 0px;
+      }
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+      .container-fluid {
+         padding: 0px;
+      }
 
-.available-slot {
-    background-color:rgb(0, 100, 0, 0.5);
-}
+      .glyphicon.glyphicon-home {
+         font-size: 20px;
+         color: rgba(189, 211, 21, 0.9);
+      }
 
-.unavailable-slot {
-    background-color: rgba(100, 0, 0, 0.5);
-}
+      .nav-tabs,
+      .nav-pills {
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
+         text-align: center;
+         height: 20%;
+         margin-bottom: 0;
+      }
 
-.glyphicon.glyphicon-home {
-    font-size: 20px;
-    color: black;
-}
+      .nav-tabs>li,
+      .nav-pills>li {
+         float: none;
+         display: inline-block;
+         *display: inline;
+         /* ie7 fix */
+         zoom: 1;
+         /* hasLayout ie7 trigger */
 
-.jumbotron{
-    background-color:#2E2D88;
-    color:white;
-}
-/* Adds borders for tabs */
-.tab-content {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
-}
+      }
 
-.nav-tabs, .nav-pills {
-    text-align:center;
-    height: 20%;
-    margin-bottom: 0;
-}
+      /* Main menu options */
+      .nav>li>a {
+         padding-top: 20px;
+         padding-bottom: 20px;
+         color: whitesmoke;
+      }
 
-.nav-tabs > li, .nav-pills > li {
-    float:none;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
+      .nav>li>a:hover {
+         background-color: rgba(189, 211, 21, 0.9);
+      }
 
-}
+      #header {
+         background-color: rgba(0, 0, 0, 0.9);
+         position: relative;
+         width: 100%;
+         left: 0;
+      }
 
-.nav>li>a {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color:black;
-}
+      #login-btn {
+         margin-top: 12%;
+         display: inline-block;
+      }
 
-#home-navbar {
-    position: relative;
-    width: 100%;
-    left: 0;
-}
+      #profile-indicator {
+         padding-top: 10px;
+         text-align: center;
+      }
 
-#login-btn {
-    padding-top: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
-}
+      /* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
+      /* Make grid visible */
+      /* div[class="container-fluid"] {
+         outline: 4px dotted rgba(0, 0, 0, 1);
+         background-color: rgb(100, 0, 0, 0.2);
+      }
 
-#header-label {
-    padding-top: 10px;
-    text-align: center;
-    color: black;
-    font-size: 3em;
-}
+      div[class="row"] {
+         outline: 3px dotted rgb(234, 0, 255);
+      }
 
-#profile-indicator {
-    padding-top: 10px;
-    text-align: center;
-}
+      div[class^="col"] {
+         outline: 3px dotted rgb(189, 255, 6);
+      } */
 
-#viewrooms-btn {
-    padding-top: 20px;
-    text-align: center;
-}
+      .bg {
+         /* The image used */
+         background-image: url("https://danw.hotglue.me/?webdesign.head.14452090501");
+         /* Full height */
+         position: absolute;
+         height: 100%;
+         width: 100%;
+         left: 0;
 
-#viewrooms-btn>a {
-    background-color:burlywood;
-    border:none;
-}
-</style>
+         padding: 0px;
+         margin: 0px;
+
+         /* Center and scale the image nicely */
+         background-position: center;
+         background-repeat: no-repeat;
+         background-size: cover;
+      }
+
+      .available-slot {
+         background-color: rgb(0, 100, 0, 0.5);
+      }
+
+
+      .unavailable-slot {
+         background-color: rgba(100, 0, 0, 0.5);
+      }
+      
+   </style>
 
 </head>
+
 <body>
-<div class="container bg">
+   <div class="container bg">
 
-    <!-- Navigation Bar -->
-    <div class="container-fluid">
-    <div class="row" id="home-navbar">
+      <!-- Navigation Bar -->
+      <div class="container-fluid">
+         <div class="row" id="header">
 
-    <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
-    <ul class="nav nav-pills">
-        
-        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-            <li class="active text-center"><a href="schedule">SCHEDULE</a></li>
-        </div>
+            <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
+            <ul class="nav nav-pills">
 
-        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
-            <li class="text-center"><a href="../rooms/accommodation">ACCOMMODATION</a></li>
-        </div>
+               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 nav nav-pills ">
+                  <li class="active text-center"><a href="schedule">SCHEDULE</a></li>
+               </div>
 
-        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-            <li class="text-center"><a href="../rooms/pricing">PRICING</a></li>
-        </div>
+               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 nav nav-pills">
+                  <li class="text-center"><a href="../rooms/accommodation">ACCOMMODATION</a></li>
+               </div>
 
-        <% if(userData != 'undefined') { %>
-            <div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
-                <a href="../dashboard"><span class="glyphicon glyphicon-home"></span></a>
-                <p>Logged in as <%= userData.user.username %></p>
-            </div>
-            <div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
-                <a href="/users/logout"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGOUT</button></a>
-            </div>
-        <% } else { %>
-        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
-            <a href="users/login"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGIN</button></a>
-        </div>
-        <% } %>
-    </ul>
-        
-    </div> <!-- home-navbar -->
-    </div> <!-- container-fluid // END OF TOP NAV BAR // -->
+               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 nav nav-pills">
+                  <li class="text-center"><a href="../rooms/pricing">PRICING</a></li>
+               </div>
 
-    <div class="container-fluid">
-        <div class="row">
+               <% if(userData != 'undefined') { %>
+               <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 nav nav-pills" id="profile-indicator">
+                  <a href="../dashboard"><span class="glyphicon glyphicon-home"></span></a>
+                  <p style="margin-bottom: 5px; color:rgba(189, 211, 21, 0.9);">Logged in as
+                     <%= userData.user.username %></p>
+               </div>
+               <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 nav nav-pills">
+                  <a href="/users/logout"><button type="submit" class="btn btn-danger" role="button"
+                        id="login-btn">LOGOUT</button></a>
+               </div>
+               <% } else { %>l-lg-3 col-md-3 col-sm-3 col-xs-2 nav nav-pills">
+               <a href="users/login"><button type="submit" class="btn btn-danger" role="button"
+                     id="login-btn">LOGIN</button></a>
+               <% } %>
+            </ul>
+
+         </div> <!-- header -->
+      </div> <!-- container-fluid -->
+
+      <div class="container-fluid" id="content">
+         <div class="row">
+
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
+               <!-- Indicators -->
+               <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+               </ol>
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <img src="./images/room.jpg" alt="" style="width:100%; height:500px">
-                        <div class="carousel-caption d-none d-md-block">
-
-                            <% if (userType == 'manager' || userType == 'owner') { %>
-                                <div class="container-fluid" style="background-color: rgb(14, 12, 12, 0.9);">
-                                    <div class="row">
-                                        <form role="form" method="POST" action="/staff/modifySchedule" id="form1">
-                                            <div class="form-group">
-                                                <div class="col-lg-3">
-                                                    <select class="form-control pull-right" id="dropdown_receptionist" name="dropdown_receptionist">
-                                                        <option disabled>Receptionist</option>
-                                                        <% receptionistMap.forEach(function(value, key) { %>
-                                                            <option><%= key %></option>
-                                                        <% }) %>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <select class="form-control pull-right" id="dropdown_date" name="dropdown_date">
-                                                        <option disabled>Date</option>
-                                                        <% datesarray.forEach(function(date) { %>
-                                                            <option><%= date %></option>
-                                                        <% }) %>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <select class="form-control pull-right" id="dropdown_shift" name="dropdown_shift">
-                                                        <option disabled>Shift</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <button type="submit" class="btn btn-warning btn-md pull-right" id="btn-update">Update</button>
-                                                </div>
-                                            </div>
-                                        </form>
+               <!-- Wrapper for slides -->
+               <div class="carousel-inner">
+                  <div class="item active">
+                     <img src="./images/room.jpg" alt="" style="width:100%; height:500px">
+                     <div class="carousel-caption d-none d-md-block">
+                        <% if (userType == 'manager' || userType == 'owner') { %>
+                        <div style="background-color: rgb(14, 12, 12, 0.9);">
+                           <div class="row">
+                              <form role="form" method="POST" action="/staff/modifySchedule" id="form1">
+                                 <div class="form-group">
+                                    <div class="col-lg-3">
+                                       <select class="form-control pull-right" id="dropdown_receptionist"
+                                          name="dropdown_receptionist">
+                                          <option disabled>Receptionist</option>
+                                          <% receptionistMap.forEach(function(value, key) { %>
+                                          <option><%= key %></option>
+                                          <% }) %>
+                                       </select>
                                     </div>
-                                </div>
-                            <% } %>
-                            
-                            <table class="table" style="background-color: rgb(14, 12, 12, 0.9);">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">Shift 1 (08:00 - 16:00)</th>
-                                    <th scope="col">Shift 2 (16:00 - 24:00)</th>
-                                    <th scope="col">Shift 3 (00:00 - 08:00)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <% if (typeof workshifts != 'undefined') { %>
-                                    <% for (var i = 0; i < 21; i+=3) { %>
-                                        <tr>
-                                            <th scope="row"><%= workshifts[i].date + " " + workshifts[i].day %></th>
-
-                                            <% if(workshifts[i].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i].firstname + " " + workshifts[i].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-
-
-                                            <% if(workshifts[i+1].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i+1].firstname + " " + workshifts[i+1].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-
-
-                                            <% if(workshifts[i+2].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i+2].firstname + " " + workshifts[i+2].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-                                        </tr>
-                                    <% } %>
-                                <% } %>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <img src="./images/room.jpg" alt="" style="width:100%; height:500px">
-                        <div class="carousel-caption d-none d-md-block">
-
-                            <% if (userType == 'manager' || userType == 'owner') { %>
-                                <div class="container-fluid" style="background-color: rgb(14, 12, 12, 0.9);">
-                                    <div class="row">
-                                        <form role="form" method="POST" action="/staff/modifySchedule" id="form1">
-                                            <div class="form-group">
-                                                <div class="col-lg-3">
-                                                    <select class="form-control pull-right" id="dropdown_receptionist" name="dropdown_receptionist">
-                                                        <option disabled>Receptionist</option>
-                                                        <% receptionistMap.forEach(function(value, key) { %>
-                                                            <option><%= key %></option>
-                                                        <% }) %>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <select class="form-control pull-right" id="dropdown_date" name="dropdown_date">
-                                                        <option disabled>Date</option>
-                                                        <% datesarray.forEach(function(date) { %>
-                                                            <option><%= date %></option>
-                                                        <% }) %>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <select class="form-control pull-right" id="dropdown_shift" name="dropdown_shift">
-                                                        <option disabled>Shift</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <button type="submit" class="btn btn-warning btn-md pull-right" id="btn-update">Update</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                    <div class="col-lg-4">
+                                       <select class="form-control pull-right" id="dropdown_date" name="dropdown_date">
+                                          <option disabled>Date</option>
+                                          <% datesarray.forEach(function(date) { %>
+                                          <option><%= date %></option>
+                                          <% }) %>
+                                       </select>
                                     </div>
-                                </div>
-                            <% } %>
-
-                            <table class="table" style="background-color: rgb(14, 12, 12, 0.9);">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">Shift 1 (08:00 - 16:00)</th>
-                                    <th scope="col">Shift 2 (16:00 - 24:00)</th>
-                                    <th scope="col">Shift 3 (00:00 - 08:00)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <% if (typeof workshifts != 'undefined') { %>
-                                    <% for (var i = 21; i < 42; i+=3) { %>
-                                        <tr>
-                                            <th scope="row"><%= workshifts[i].date + " " + workshifts[i].day %></th>
-
-                                            <% if(workshifts[i].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i].firstname + " " + workshifts[i].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-
-
-                                            <% if(workshifts[i+1].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i+1].firstname + " " + workshifts[i+1].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-
-
-                                            <% if(workshifts[i+2].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i+2].firstname + " " + workshifts[i+2].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-                                        </tr>
-                                    <% } %>
-                                <% } %>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <img src="./images/room.jpg" alt="" style="width:100%; height:500px">
-                        <div class="carousel-caption d-none d-md-block">
-
-                            <% if (userType == 'manager' || userType == 'owner') { %>
-                                <div class="container-fluid" style="background-color: rgb(14, 12, 12, 0.9);">
-                                    <div class="row">
-                                        <form role="form" method="POST" action="/staff/modifySchedule" id="form1">
-                                            <div class="form-group">
-                                                <div class="col-lg-3">
-                                                    <select class="form-control pull-right" id="dropdown_receptionist" name="dropdown_receptionist">
-                                                        <option disabled>Receptionist</option>
-                                                        <% receptionistMap.forEach(function(value, key) { %>
-                                                            <option><%= key %></option>
-                                                        <% }) %>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <select class="form-control pull-right" id="dropdown_date" name="dropdown_date">
-                                                        <option disabled>Date</option>
-                                                        <% datesarray.forEach(function(date) { %>
-                                                            <option><%= date %></option>
-                                                        <% }) %>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <select class="form-control pull-right" id="dropdown_shift" name="dropdown_shift">
-                                                        <option disabled>Shift</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <button type="submit" class="btn btn-warning btn-md pull-right" id="btn-update">Update</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                    <div class="col-lg-2">
+                                       <select class="form-control pull-right" id="dropdown_shift"
+                                          name="dropdown_shift">
+                                          <option disabled>Shift</option>
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                       </select>
                                     </div>
-                                </div>
-                            <% } %>
-
-                            <table class="table" style="background-color: rgb(14, 12, 12, 0.9);">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">Shift 1 (08:00 - 16:00)</th>
-                                    <th scope="col">Shift 2 (16:00 - 24:00)</th>
-                                    <th scope="col">Shift 3 (00:00 - 08:00)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <% if (typeof workshifts != 'undefined') { %>
-                                    <% for (var i = 42; i < 63; i+=3) { %>
-                                        <tr>
-                                            <th scope="row"><%= workshifts[i].date + " " + workshifts[i].day %></th>
-
-                                            <% if(workshifts[i].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i].firstname + " " + workshifts[i].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-
-
-                                            <% if(workshifts[i+1].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i+1].firstname + " " + workshifts[i+1].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-
-
-                                            <% if(workshifts[i+2].firstname != null) { %>
-                                            <td class="unavailable-slot">
-                                                <div>
-                                                    <%= workshifts[i+2].firstname + " " + workshifts[i+2].lastname %>
-                                                </div>
-                                            </td>
-                                            <% } else { %>
-                                                <td class="available-slot">
-                                                    <div>-</div>
-                                                </td>
-                                            <% } %>
-                                        </tr>
-                                    <% } %>
-                                <% } %>
-                                </tbody>
-                            </table>
+                                    <div class="col-lg-3">
+                                       <button type="submit" class="btn btn-warning btn-md pull-right"
+                                          id="btn-update">Update</button>
+                                    </div>
+                                 </div>
+                              </form>
+                           </div>
                         </div>
-                    </div>
-                </div> <!-- /carousel-inner -->
+                        <% } %>
 
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-                </a>
+                        <table class="table" style="background-color: rgb(14, 12, 12, 0.9);">
+                           <thead class="thead-dark">
+                              <tr>
+                                 <th scope="col"></th>
+                                 <th scope="col">Shift 1 (08:00 - 16:00)</th>
+                                 <th scope="col">Shift 2 (16:00 - 24:00)</th>
+                                 <th scope="col">Shift 3 (00:00 - 08:00)</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <% if (typeof workshifts != 'undefined') { %>
+                              <% for (var i = 0; i < 21; i+=3) { %>
+                              <tr>
+                                 <th scope="row"><%= workshifts[i].date + " " + workshifts[i].day %></th>
 
-            </div> <!-- /carousel --> 
-        </div> 
-    </div>
+                                 <% if(workshifts[i].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i].firstname + " " + workshifts[i].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
 
-<script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.2/sweetalert2.all.min.js"></script>
+
+                                 <% if(workshifts[i+1].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i+1].firstname + " " + workshifts[i+1].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
+
+
+                                 <% if(workshifts[i+2].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i+2].firstname + " " + workshifts[i+2].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
+                              </tr>
+                              <% } %>
+                              <% } %>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+
+                  <div class="item">
+                     <img src="./images/room.jpg" alt="" style="width:100%; height:500px">
+                     <div class="carousel-caption d-none d-md-block">
+                        <% if (userType == 'manager' || userType == 'owner') { %>
+                        <div style="background-color: rgb(14, 12, 12, 0.9);">
+                           <div class="row">
+                              <form role="form" method="POST" action="/staff/modifySchedule" id="form1">
+                                 <div class="form-group">
+                                    <div class="col-lg-3">
+                                       <select class="form-control pull-right" id="dropdown_receptionist"
+                                          name="dropdown_receptionist">
+                                          <option disabled>Receptionist</option>
+                                          <% receptionistMap.forEach(function(value, key) { %>
+                                          <option><%= key %></option>
+                                          <% }) %>
+                                       </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                       <select class="form-control pull-right" id="dropdown_date" name="dropdown_date">
+                                          <option disabled>Date</option>
+                                          <% datesarray.forEach(function(date) { %>
+                                          <option><%= date %></option>
+                                          <% }) %>
+                                       </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                       <select class="form-control pull-right" id="dropdown_shift"
+                                          name="dropdown_shift">
+                                          <option disabled>Shift</option>
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                       </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                       <button type="submit" class="btn btn-warning btn-md pull-right"
+                                          id="btn-update">Update</button>
+                                    </div>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                        <% } %>
+
+                        <table class="table" style="background-color: rgb(14, 12, 12, 0.9);">
+                           <thead class="thead-dark">
+                              <tr>
+                                 <th scope="col"></th>
+                                 <th scope="col">Shift 1 (08:00 - 16:00)</th>
+                                 <th scope="col">Shift 2 (16:00 - 24:00)</th>
+                                 <th scope="col">Shift 3 (00:00 - 08:00)</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <% if (typeof workshifts != 'undefined') { %>
+                              <% for (var i = 21; i < 42; i+=3) { %>
+                              <tr>
+                                 <th scope="row"><%= workshifts[i].date + " " + workshifts[i].day %></th>
+
+                                 <% if(workshifts[i].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i].firstname + " " + workshifts[i].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
+
+
+                                 <% if(workshifts[i+1].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i+1].firstname + " " + workshifts[i+1].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
+
+
+                                 <% if(workshifts[i+2].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i+2].firstname + " " + workshifts[i+2].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
+                              </tr>
+                              <% } %>
+                              <% } %>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+
+                  <div class="item">
+                     <img src="./images/room.jpg" alt="" style="width:100%; height:500px">
+                     <div class="carousel-caption d-none d-md-block">
+
+                        <% if (userType == 'manager' || userType == 'owner') { %>
+                        <div style="background-color: rgb(14, 12, 12, 0.9);">
+                           <div class="row">
+                              <form role="form" method="POST" action="/staff/modifySchedule" id="form1">
+                                 <div class="form-group">
+                                    <div class="col-lg-3">
+                                       <select class="form-control pull-right" id="dropdown_receptionist"
+                                          name="dropdown_receptionist">
+                                          <option disabled>Receptionist</option>
+                                          <% receptionistMap.forEach(function(value, key) { %>
+                                          <option><%= key %></option>
+                                          <% }) %>
+                                       </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                       <select class="form-control pull-right" id="dropdown_date" name="dropdown_date">
+                                          <option disabled>Date</option>
+                                          <% datesarray.forEach(function(date) { %>
+                                          <option><%= date %></option>
+                                          <% }) %>
+                                       </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                       <select class="form-control pull-right" id="dropdown_shift"
+                                          name="dropdown_shift">
+                                          <option disabled>Shift</option>
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                       </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                       <button type="submit" class="btn btn-warning btn-md pull-right"
+                                          id="btn-update">Update</button>
+                                    </div>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                        <% } %>
+
+                        <table class="table" style="background-color: rgb(14, 12, 12, 0.9);">
+                           <thead class="thead-dark">
+                              <tr>
+                                 <th scope="col"></th>
+                                 <th scope="col">Shift 1 (08:00 - 16:00)</th>
+                                 <th scope="col">Shift 2 (16:00 - 24:00)</th>
+                                 <th scope="col">Shift 3 (00:00 - 08:00)</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <% if (typeof workshifts != 'undefined') { %>
+                              <% for (var i = 42; i < 63; i+=3) { %>
+                              <tr>
+                                 <th scope="row"><%= workshifts[i].date + " " + workshifts[i].day %></th>
+
+                                 <% if(workshifts[i].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i].firstname + " " + workshifts[i].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
+
+
+                                 <% if(workshifts[i+1].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i+1].firstname + " " + workshifts[i+1].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
+
+
+                                 <% if(workshifts[i+2].firstname != null) { %>
+                                 <td class="unavailable-slot">
+                                    <div>
+                                       <%= workshifts[i+2].firstname + " " + workshifts[i+2].lastname %>
+                                    </div>
+                                 </td>
+                                 <% } else { %>
+                                 <td class="available-slot">
+                                    <div>-</div>
+                                 </td>
+                                 <% } %>
+                              </tr>
+                              <% } %>
+                              <% } %>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div> <!-- /carousel-inner -->
+
+               <!-- Left and right controls -->
+               <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                  <span class="sr-only">Previous</span>
+               </a>
+               <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <span class="sr-only">Next</span>
+               </a>
+
+            </div> <!-- /carousel -->
+         </div>
+      </div>
+   </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.2/sweetalert2.all.min.js"></script>
 </body>
-</html>
+
+</h>

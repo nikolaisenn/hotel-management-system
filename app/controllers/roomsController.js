@@ -178,9 +178,6 @@ module.exports.booking = function (req, res) {
 module.exports.editAdultPrice = async function (req, res) {
 	var { roomType, newAdultPrice} = req.body
 	console.log(req.body)
-
-	// Load data
-	var roomsType = await loadRoomsData_pricing()
 	
 	let errors = [];
 	// Require valid user input (specify check-in, check-out and the number of people)
@@ -196,11 +193,14 @@ module.exports.editAdultPrice = async function (req, res) {
 
 	// Get all rooms with capacity desired by the user
 	const Op = Sequelize.Op
-	Room.update({ price_adult: newAdultPrice}, {
+	await Room.update({ price_adult: newAdultPrice}, {
 		where: {
 			type: roomType
 		}
 	})
+
+	// Load data
+	var roomsType = await loadRoomsData_pricing()
 
 	res.render('pricing', {
 		roomsType
@@ -211,9 +211,6 @@ module.exports.editAdultPrice = async function (req, res) {
 module.exports.editChildPrice = async function (req, res) {
 	var { roomType, newChildPrice} = req.body
 	console.log(req.body)
-
-	// Load data
-	var roomsType = await loadRoomsData_pricing()
 
 	let errors = [];
 	// Require valid user input (specify check-in, check-out and the number of people)
@@ -229,7 +226,7 @@ module.exports.editChildPrice = async function (req, res) {
 
 	// Get all rooms with capacity desired by the user
 	const Op = Sequelize.Op
-	Room.update({ price_child: newChildPrice}, {
+	await Room.update({ price_child: newChildPrice}, {
 		where: {
 			type: roomType
 		}

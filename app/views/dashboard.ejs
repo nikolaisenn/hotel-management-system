@@ -13,61 +13,28 @@
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
 	<style>
+		/* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
 		body,
 		html {
 			height: 100%;
 		}
 
-		.bg {
-			/* The image used */
-			background-image: url("images/room.jpg");
-
-			/* Full height */
-			height: 100%;
-			position: absolute;
-			width: 100%;
-			left: 0;
-
-			/* Center and scale the image nicely */
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
+		.row {
+			margin: 0px;
 		}
 
-		.details-component {
-			margin-top: 15px;
-			font-size: 2em;
+		.container-fluid {
+			padding: 0px;
 		}
 
 		.glyphicon.glyphicon-home {
 			font-size: 20px;
-			color: black;
-		}
-
-		.glyphicon.glyphicon-user {
-			font-size: 150px;
-		}
-
-		.jumbotron {
-			background: none;
-			color: rgb(0, 0, 0);
-		}
-
-		/* Adds borders for tabs */
-		.tab-content {
-			border-left: 1px solid #ddd;
-			border-right: 1px solid #ddd;
-			border-bottom: 1px solid #ddd;
-			padding: 10px;
-		}
-
-		.nav-item {
-			margin-left: 50px;
-			font-size: 20px;
+			color: rgba(189, 211, 21, 0.9);
 		}
 
 		.nav-tabs,
 		.nav-pills {
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
 			text-align: center;
 			height: 20%;
 			margin-bottom: 0;
@@ -84,10 +51,80 @@
 
 		}
 
+		/* Main menu options */
 		.nav>li>a {
 			padding-top: 20px;
 			padding-bottom: 20px;
-			color: black;
+			color: whitesmoke;
+		}
+
+		.nav>li>a:hover {
+			background-color: rgba(189, 211, 21, 0.9);
+		}
+
+		#header {
+			background-color: rgba(0, 0, 0, 0.9);
+			position: relative;
+			width: 100%;
+			left: 0;
+		}
+
+		#login-btn {
+			margin-top: 12%;
+			display: inline-block;
+		}
+
+		#profile-indicator {
+			padding-top: 10px;
+			text-align: center;
+		}
+
+		/* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
+
+		/* div[class="container-fluid"] {
+         outline: 4px dotted rgba(0, 0, 0, 1);
+         background-color: rgb(100, 0, 0, 0.2);
+      }
+
+      div[class="row"] {
+         outline: 3px dotted rgb(234, 0, 255);
+      }
+
+      div[class^="col"] {
+         outline: 3px dotted rgb(189, 255, 6);
+      } */
+
+		.bg {
+			/* The image used */
+			background-image: url("https://danw.hotglue.me/?webdesign.head.14452090501");
+
+			/* Full height */
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			left: 0;
+
+			margin: 0px;
+            padding: 0px;
+
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		.details-component {
+			margin-top: 15px;
+			font-size: 2em;
+		}
+
+		.glyphicon.glyphicon-user {
+			font-size: 150px;
+		}
+
+		.nav-item {
+			margin-left: 50px;
+			font-size: 20px;
 		}
 
 		#btn-checkavailability {
@@ -105,37 +142,10 @@
 			width: 25%;
 		}
 
-		#home-navbar {
-			position: relative;
-			width: 100%;
-			left: 0;
-		}
-
-		#header-label {
-			padding-top: 10px;
-			text-align: center;
-			color: black;
-			font-size: 3em;
-		}
-
-		#login-btn {
-			padding-top: 5px;
-			margin-top: 10px;
-			margin-bottom: 10px;
-			display:inline-block;
-			*display:inline; /* ie7 fix */
-			zoom:1; /* hasLayout ie7 trigger */
-		}
-
 		#personalDetails {
 			padding-top: 30px;
 			text-align: center;
 			font-size: 3em;
-		}
-
-		#profile-indicator {
-			padding-top: 10px;
-			text-align: center;
 		}
 
 		#userIndicator {
@@ -167,7 +177,7 @@
 
 		<!-- Navigation Bar -->
 		<div class="container-fluid">
-			<div class="row" id="home-navbar">
+			<div class="row" id="header">
 
 				<!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
 				<ul class="nav nav-pills">
@@ -190,10 +200,11 @@
 
 					<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
 						<a href="dashboard"><span class="glyphicon glyphicon-home"></span></a>
-						<p>Logged in as <%= userData.user.username %></p>
+						<p style="margin-bottom: 5px; color:rgba(189, 211, 21, 0.9);">Logged in as <%= userData.user.username %></p>
 					</div>
 					<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
-						<a href="/users/logout"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGOUT</button></a>
+						<a href="/users/logout"><button type="submit" class="btn btn-danger" role="button"
+								id="login-btn">LOGOUT</button></a>
 					</div>
 
 				</ul>

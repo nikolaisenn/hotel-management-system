@@ -1,166 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<!-- If IE use the latest rendering engine -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- If IE use the latest rendering engine -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Set the page to the width of the device and set the zoon level -->
-<meta name="viewport" content="width = device-width, initial-scale = 1">
-<title>Hotel Management System - Home</title>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Set the page to the width of the device and set the zoon level -->
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <title>Hotel Management System - Home</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-<style>
-body, html {
-  height: 100%;
+    <style>
+        /* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
+        body,
+        html {
+            height: 100%;
+        }
+
+        .row {
+            margin: 0px;
+        }
+
+        .container-fluid {
+            padding: 0px;
+        }
+
+        .glyphicon.glyphicon-home {
+            font-size: 20px;
+            color: rgba(189, 211, 21, 0.9);
+        }
+
+        .nav-tabs,
+        .nav-pills {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: center;
+            height: 20%;
+            margin-bottom: 0;
+        }
+
+        .nav-tabs>li,
+        .nav-pills>li {
+            float: none;
+            display: inline-block;
+            *display: inline;
+            /* ie7 fix */
+            zoom: 1;
+            /* hasLayout ie7 trigger */
+
+        }
+
+        /* Main menu options */
+        .nav>li>a {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: whitesmoke;
+        }
+
+        .nav>li>a:hover {
+            background-color: rgba(189, 211, 21, 0.9);
+        }
+
+        #header {
+            background-color: rgba(0, 0, 0, 0.9);
+            position: relative;
+            width: 100%;
+            left: 0;
+        }
+
+        #login-btn {
+            margin-top: 12%;
+            display: inline-block;
+        }
+
+        #profile-indicator {
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        /* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
+
+        /* div[class="container-fluid"] {
+outline: 4px dotted green;
+background-color: rgb(100, 0, 0, 0.2);
 }
 
-.bg {
-    /* The image used */
-    background-image: url("images/hotel.jpg");
-
-    /* Full height */
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    left: 0;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+div[class="row"] {
+outline: 3px dotted rgb(234, 0, 255);
 }
 
-.glyphicon.glyphicon-home {
-    font-size: 20px;
-    color: black;
-}
+      div[class^="col"] {
+outline: 3px dotted rgb(189, 255, 6);
+} */
 
-.jumbotron{
-    background-color:#2E2D88;
-    color:white;
-}
-/* Adds borders for tabs */
-.tab-content {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
-}
+        .bg {
+            /* The image used */
+            background-image: url("https://danw.hotglue.me/?webdesign.head.14452090501");
 
-.nav-tabs, .nav-pills {
-    text-align:center;
-    height: 20%;
-    margin-bottom: 0;
-}
+            /* Full height */   
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
 
-.nav-tabs > li, .nav-pills > li {
-    float:none;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
+            margin: 0px;
+            padding: 0px;
 
-}
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-.nav>li>a {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color:black;
-}
+        #viewrooms-btn {
+            padding-top: 20px;
+            text-align: center;
+        }
 
-#home-navbar {
-    position: relative;
-    width: 100%;
-    left: 0;
-}
-
-#login-btn {
-    padding-top: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display:inline-block;
-    *display:inline; /* ie7 fix */
-    zoom:1; /* hasLayout ie7 trigger */
-}
-
-#header-label {
-    padding-top: 10px;
-    text-align: center;
-    color: black;
-    font-size: 3em;
-}
-
-#profile-indicator {
-    padding-top: 10px;
-    text-align: center;
-}
-
-#viewrooms-btn {
-    padding-top: 20px;
-    text-align: center;
-}
-
-#viewrooms-btn>a {
-    background-color:burlywood;
-    border:none;
-}
-</style>
+        #viewrooms-btn>a {
+            background-color: burlywood;
+            border: none;
+        }
+    </style>
 
 </head>
+
 <body>
-<div class="container bg">
+    <div class="container bg">
 
-    <!-- Navigation Bar -->
-    <div class="container-fluid">
-    <div class="row" id="home-navbar">
+        <!-- Navigation Bar -->
+        <div class="container-fluid">
+            <div class="row" id="header">
 
-    <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
-    <ul class="nav nav-pills">
-        
-        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-            <li class="active text-center"><a href="/">HOME</a></li>
+                <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
+                <ul class="nav nav-pills">
+
+                    <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <li class="active text-center"><a href="/">HOME</a></li>
+                    </div>
+
+                    <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
+                        <li class="text-center"><a href="rooms/accommodation">ACCOMMODATION</a></li>
+                    </div>
+
+                    <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <li class="text-center"><a href="rooms/pricing">PRICING</a></li>
+                    </div>
+
+                    <% if(userData != 'undefined') { %>
+                    <div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
+                        <a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
+                        <p style="margin-bottom: 5px; color:rgba(189, 211, 21, 0.9);">Logged in as <%= userData.user.username %></p>
+                    </div>
+                    <div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
+                        <a href="/users/logout"><button type="submit" class="btn btn-danger" role="button"
+                                id="login-btn">LOGOUT</button></a>
+                    </div>
+                    <% } else { %>
+                    <div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    
+                    </div>
+                    <div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
+                        <a href="users/login"><button type="submit" class="btn btn-danger" role="button"
+                                id="login-btn">LOGIN</button></a>
+                    </div>
+                    <% } %>
+                </ul>
+
+            </div> <!-- home-navbar -->
+        </div> <!-- container-fluid // END OF TOP NAV BAR // -->
+
+        <div class="container-fluid">
+            <p>
+                <h4 id="header-label">LUXURIOUS EXPERIENCE</h4>
+            </p>
         </div>
 
-        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
-            <li class="text-center"><a href="rooms/accommodation">ACCOMMODATION</a></li>
+        <div class="container-fluid">
+            <p id="viewrooms-btn">
+                <a href="#" class="btn btn-primary btn-lg">View Rooms <span class="glyphicon glyphicon-lamp"></span></a>
+            </p>
         </div>
 
-        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-            <li class="text-center"><a href="rooms/pricing">PRICING</a></li>
-        </div>
-
-        <% if(userData != 'undefined') { %>
-            <div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
-                <a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a>
-                <p>Logged in as <%= userData.user.username %></p>
-            </div>
-            <div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
-                <a href="/users/logout"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGOUT</button></a>
-            </div>
-        <% } else { %>
-        <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
-            <a href="users/login"><button type="submit" class="btn btn-danger" role="button" id="login-btn">LOGIN</button></a>
-        </div>
-        <% } %>
-    </ul>
-        
-    </div> <!-- home-navbar -->
-    </div> <!-- container-fluid // END OF TOP NAV BAR // -->
-
-    <div class="container-fluid">
-        <p><h4 id="header-label">LUXURIOUS EXPERIENCE</h4></p>
     </div>
 
-    <div class="container-fluid">
-        <p id="viewrooms-btn">
-        <a href="#" class="btn btn-primary btn-lg">View Rooms <span class="glyphicon glyphicon-lamp"></span></a>
-        </p>
-    </div>
 
-</div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.12.0/d3.min.js"></script>
 </body>
+
 </html>

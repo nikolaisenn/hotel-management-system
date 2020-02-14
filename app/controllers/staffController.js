@@ -24,11 +24,6 @@ module.exports.schedulePage = async function (req, res) {
 
 /* POST - Modify schedule */
 module.exports.modifySchedule = async function (req, res) {
-	var values = await loadTimetable()
-	var workshifts = values[0]
-	var datesarray = values[1]
-	var receptionistMap = await loadReceptionists()
-
 	var { dropdown_receptionist, dropdown_date, dropdown_shift } = req.body
 	var firstName = dropdown_receptionist.split(' ')[0]
 	var lastName = dropdown_receptionist.split(' ')[1]
@@ -45,7 +40,7 @@ module.exports.modifySchedule = async function (req, res) {
 	
 	// Get all rooms with capacity desired by the user
 	const Op = Sequelize.Op
-	Schedule.update({
+	await Schedule.update({
 		receptionist_id: id,
 		firstname: firstName,
 		lastname: lastName}, 
@@ -56,6 +51,11 @@ module.exports.modifySchedule = async function (req, res) {
 		}
 	})
 	
+	var values = await loadTimetable()
+	var workshifts = values[0]
+	var datesarray = values[1]
+	var receptionistMap = await loadReceptionists()
+
 	res.render("schedule", {
 		workshifts,
 		datesarray,

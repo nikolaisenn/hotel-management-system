@@ -13,20 +13,100 @@
    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
    <style>
+      /* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
       body,
       html {
          height: 100%;
       }
 
+      .row {
+         margin: 0px;
+      }
+
+      .container-fluid {
+         padding: 0px;
+      }
+
+      .glyphicon.glyphicon-home {
+         font-size: 20px;
+         color: rgba(189, 211, 21, 0.9);
+      }
+
+      .nav-tabs,
+      .nav-pills {
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
+         text-align: center;
+         height: 20%;
+         margin-bottom: 0;
+      }
+
+      .nav-tabs>li,
+      .nav-pills>li {
+         float: none;
+         display: inline-block;
+         *display: inline;
+         /* ie7 fix */
+         zoom: 1;
+         /* hasLayout ie7 trigger */
+
+      }
+
+      /* Main menu options */
+      .nav>li>a {
+         padding-top: 20px;
+         padding-bottom: 20px;
+         color: whitesmoke;
+      }
+
+      .nav>li>a:hover {
+         background-color: rgba(189, 211, 21, 0.9);
+      }
+
+      #header {
+         background-color: rgba(0, 0, 0, 0.9);
+         position: relative;
+         width: 100%;
+         left: 0;
+      }
+
+      #login-btn {
+         margin-top: 12%;
+         display: inline-block;
+      }
+
+      #profile-indicator {
+         padding-top: 10px;
+         text-align: center;
+      }
+
+      /* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
+
+       /* Make grid visible */
+      div[class="container-fluid"] {
+         outline: 4px dotted rgba(0, 0, 0, 1);
+         background-color: rgb(100, 0, 0, 0.2);
+      }
+
+      div[class="row"] {
+         outline: 3px dotted rgb(234, 0, 255);
+      }
+
+      div[class^="col"] {
+         outline: 3px dotted rgb(189, 255, 6);
+      }
+
       .bg {
          /* The image used */
-         background-image: url("images/hotel.jpg");
+         background-image: url("https://danw.hotglue.me/?webdesign.head.14452090501");
 
          /* Full height */
          height: 100%;
          position: absolute;
          width: 100%;
          left: 0;
+
+         margin: 0px;
+         padding: 0px;
 
          /* Center and scale the image nicely */
          background-position: center;
@@ -47,55 +127,6 @@
          position: relative;
          padding-top: 15px;
       }
-
-      /* Adds borders for tabs */
-      .tab-content {
-         border-left: 1px solid #ddd;
-         border-right: 1px solid #ddd;
-         border-bottom: 1px solid #ddd;
-         padding: 10px;
-      }
-
-      .nav-tabs,
-      .nav-pills {
-         text-align: center;
-         height: 20%;
-         margin-bottom: 0;
-      }
-
-      .nav-tabs>li,
-      .nav-pills>li {
-         float: none;
-         display: inline-block;
-         *display: inline;
-         /* ie7 fix */
-         zoom: 1;
-         /* hasLayout ie7 trigger */
-
-      }
-
-      .nav>li>a {
-         padding-top: 20px;
-         padding-bottom: 20px;
-         color: black;
-      }
-
-      #home-navbar {
-         position: relative;
-         width: 100%;
-         left: 0;
-      }
-
-      #login-btn {
-         padding-top: 5px;
-         margin-top: 10px;
-         margin-bottom: 10px;
-         display: inline-block;
-         *display: inline;
-         /* ie7 fix */
-         zoom: 1;
-         /* hasLayout ie7 trigger */
-      }
    </style>
 
 </head>
@@ -105,12 +136,12 @@
 
       <!-- Navigation Bar -->
       <div class="container-fluid">
-         <div class="row" id="home-navbar">
+         <div class="row" id="header">
 
             <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
             <ul class="nav nav-pills">
 
-               <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 nav nav-pills">
                   <% if(userData != 'undefined' && userType != 'client') { %>
                   <li class="text-center"><a href="../staff/schedule">SCHEDULE</a></li>
                   <% } else { %>
@@ -118,17 +149,19 @@
                   <% } %>
                </div>
 
-               <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
+               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 nav nav-pills">
                   <li class="text-center"><a href="../rooms/accommodation">ACCOMMODATION</a></li>
                </div>
 
-               <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 nav nav-pills">
                   <li class="text-center"><a href="#booking">BOOKING</a></li>
                </div>
 
-               <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-2">
-                  <li class="text-center"><a href="login"><button type="submit" class="btn btn-danger" role="button"
-                           id="login-btn">LOGIN</button></a></li>
+               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2 nav nav-pills">
+                  <li class="text-center">
+                     <a href="login"></a><button type="submit" class="btn btn-danger" role="button"
+                        id="login-btn">LOGIN</button>
+                  </li>
                </div>
             </ul>
 
