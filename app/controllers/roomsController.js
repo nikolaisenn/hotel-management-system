@@ -19,6 +19,7 @@ module.exports.accommodationPage = async function (req, res) {
 /* GET - Pricing page */
 module.exports.pricingPage = async function (req, res) {
 	var roomsType = await loadRoomsData_pricing()
+	console.log(roomsType)
 	res.render('pricing', {
 		roomsType
 	})
@@ -175,30 +176,51 @@ module.exports.booking = function (req, res) {
 }
 
 /* POST edit adult price */
-module.exports.editAdultPrice = async function (req, res) {
-	var { roomType, newAdultPrice} = req.body
+module.exports.editPrice = async function (req, res) {
+	var { dropdown_type, dropdown_priceClass, newPrice} = req.body
+	console.log("REQ BODY")
 	console.log(req.body)
+	console.log(dropdown_type == undefined)
+	console.log(dropdown_priceClass == undefined)
 	
 	let errors = [];
 	// Require valid user input (specify check-in, check-out and the number of people)
-	if(isNaN(newAdultPrice) || newAdultPrice <= 0) {
+	if(isNaN(newPrice) || newPrice <= 0) {
 		errors.push({ msg: 'Please enter a valid price' })
 	}
+	if(dropdown_type == undefined || dropdown_priceClass == undefined) {
+		errors.push({ msg: 'Please select a value for all inputs'})
+	}
 	if (errors.length > 0) {
+		// Load data
+		var roomsType = await loadRoomsData_pricing()
+
 		res.render('pricing', {
 			roomsType,
 			errors
 		})
 	}
-
+	
 	// Get all rooms with capacity desired by the user
 	const Op = Sequelize.Op
-	await Room.update({ price_adult: newAdultPrice}, {
-		where: {
-			type: roomType
-		}
-	})
 
+	if(dropdown_priceClass == 'Price Adult' && dropdown_priceClass != undefined) {
+		await Room.update({ price_adult: newPrice}, {
+			where: {
+				type: dropdown_type
+			}
+		})
+			.catch(function (err) { console.log(err) });
+	}
+	if (dropdown_priceClass == 'Price Child' && dropdown_priceClass != undefined) {
+		await Room.update({ price_child: newPrice}, {
+			where: {
+				type: dropdown_type
+			}
+		})
+			.catch(function (err) { console.log(err) });
+	}
+	
 	// Load data
 	var roomsType = await loadRoomsData_pricing()
 
@@ -207,54 +229,25 @@ module.exports.editAdultPrice = async function (req, res) {
 	})
 }
 
-/* POST edit child price */
-module.exports.editChildPrice = async function (req, res) {
-	var { roomType, newChildPrice} = req.body
-	console.log(req.body)
-
-	let errors = [];
-	// Require valid user input (specify check-in, check-out and the number of people)
-	if(isNaN(newChildPrice) || newChildPrice <= 0) {
-		errors.push({ msg: 'Please enter a valid price' })
-	}
-	if (errors.length > 0) {
-		res.render('pricing', {
-			roomsType,
-			errors
-		})
-	}
-
-	// Get all rooms with capacity desired by the user
-	const Op = Sequelize.Op
-	await Room.update({ price_child: newChildPrice}, {
-		where: {
-			type: roomType
-		}
-	})
-
-	var roomsType = await loadRoomsData_pricing()
-	res.render('pricing', {
-		roomsType
-	})
-}
-
 /* POST receptionist booking */
 module.exports.receptionistBooking = async function (req, res) {
 	var { roomNumber, roomCapacity, date_checkin, date_checkout, firstname, lastname, email, phone, numberOfRooms} = req.body;
+	roomNumber = parseInt(roomNumber)
+	console.log("DATES")
 	console.log(date_checkin)
+	console.log("DATES")
 	console.log(date_checkout)
 	var checkin = new Date(date_checkin)
 	var checkout = new Date(date_checkout)
+	console.log("REQ BODY")
 	console.log(req.body)
-	console.log(typeof roomNumber)
+	console.log(roomNumber)
+	console.log(typeof (roomNumber))
 	console.log(isNaN(roomNumber))
 	var checkin = new Date(date_checkin)
 	var checkout = new Date(date_checkout)
 	console.log(checkin)
 	console.log(checkout)
-
-	// Load data 
-	var roomsArray = await loadRoomsData_accommodation()
 
 	let errors = [];
 	// Require valid user input (specify check-in, check-out and the number of people)
@@ -268,7 +261,7 @@ module.exports.receptionistBooking = async function (req, res) {
 		errors.push({ msg: 'Please provide a check-out date' })
 	}
 	if(isNaN(roomNumber) || roomNumber <= 0 || roomNumber > numberOfRooms) {
-		errors.push({ msg: 'Please specify the number of people' })
+		errors.push({ msg: 'Please select an existing room' })
 	}
 	if (errors.length > 0) {
 		res.render('accommodation', {
@@ -293,11 +286,15 @@ module.exports.receptionistBooking = async function (req, res) {
 	})
 
 	newReservation.save()
-		.then(function (user) {
+		.then(async function(user) {
+			// Load data 
+			var roomsArray = await loadRoomsData_accommodation()
 			// Create a flash message
-			req.flash('success_msg', 'Your room was booked successfully');
-			res.redirect('accommodation');
+			res.render('accommodation', {
+				roomsArray
+			});
 		})
+	
 }
 
 function getAvailableRooms(rooms, date_checkin, date_checkout) {

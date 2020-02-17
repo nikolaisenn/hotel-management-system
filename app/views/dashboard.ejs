@@ -17,6 +17,7 @@
 		body,
 		html {
 			height: 100%;
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
 		}
 
 		.row {
@@ -127,8 +128,28 @@
 			font-size: 20px;
 		}
 
+		.nav>li>a.active {
+			background-color: rgba(0, 0, 0, 0.9);
+		}
+
+		.nav-link {
+			border-radius: 10px;
+		}
+
 		#btn-checkavailability {
 			margin-right: 15px;
+		}
+
+		#content {
+			/* Rounded corners */
+			border-radius: 75px;
+
+			padding-top:20px; 
+			padding-bottom:20px; 
+			margin-top: 20px;
+			margin-left:5%; 
+			margin-right:5%;
+			background-color: rgba(49, 3, 9, 0.3)
 		}
 
 		#userMenu {
@@ -212,9 +233,9 @@
 			</div> <!-- home-navbar -->
 		</div> <!-- container-fluid // END OF TOP NAV BAR // -->
 
-		<!--  Accommodation page contents  -->
-		<div class="container-fluid">
-			<div class="row">
+		<!--  Dashboard page contents  -->
+		<div class="container-fluid" id="content">
+			<div class="row" style="color:white;">
 
 				<!--  Profile menu part  -->
 				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" id="userMenu">
@@ -248,11 +269,6 @@
 					<div class="row" id="personalDetails">
 						<div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<p><span class="glyphicon glyphicon-edit">&nbsp;PERSONAL DETAILS</p>
-						</div>
-					</div>
-					<div class="row details-component">
-						<div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<p><span class="glyphicon glyphicon-info-sign">&nbsp;User ID: <%= userData.user.id %></p>
 						</div>
 					</div>
 					<div class="row details-component">

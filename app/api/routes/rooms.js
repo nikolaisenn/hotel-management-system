@@ -13,11 +13,8 @@ router.get('/pricing', roomsController.pricingPage);
 /* POST get availability page */
 router.post('/availability', roomsController.availabilityPage);
 
-/* POST edit adult room price */
-router.post('/editAdultPrice', roomsController.editAdultPrice);
-
-/* POST edit price room price */
-router.post('/editChildPrice', roomsController.editChildPrice);
+/* POST edit room price */
+router.post('/editPrice', roomsController.editPrice);
 
 /* POST room information */
 router.post('/roomInformation', roomsController.roomInformation);

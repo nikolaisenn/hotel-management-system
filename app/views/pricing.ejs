@@ -19,6 +19,7 @@
       body,
       html {
          height: 100%;
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
       }
 
       .row {
@@ -69,6 +70,10 @@
          background-color: rgba(189, 211, 21, 0.9);
       }
 
+      #change-price {
+        padding-bottom: 30px;
+      }
+
       #header {
          background-color: rgba(0, 0, 0, 0.9);
          position: relative;
@@ -88,16 +93,16 @@
 
       /* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
 
-      /* div[class="row"] {
+        /* div[class="row"] {
 outline: 3px dotted rgb(234, 0, 255);
-}
+}  */
 
-div[class="container"] {
+/* div[class="container"] {
 outline: 4px dotted rgba(0, 0, 0, 1);
 background-color: rgb(100, 0, 0, 0.2);
-} */
-
-      /* div[class^="col"] {
+}  */
+/* 
+      div[class^="col"] {
 outline: 3px dotted rgb(189, 255, 6);
 } */
 
@@ -119,10 +124,32 @@ outline: 3px dotted rgb(189, 255, 6);
             background-size: cover;
         }
 
-        .priceInput {
-            width: 100%;
+        .input-fields {
+            width: 40%;
             text-align: center;
         }
+
+        #btn-update {
+            margin-top: 5px;
+            background-color: black;
+            border-color:rgba(189, 211, 21, 0.65);
+        }
+
+        #content {
+			/* Rounded corners */
+			border-radius: 75px;
+
+			padding-top:20px; 
+			padding-bottom:20px; 
+			margin-top: 20px;
+			margin-left:5%; 
+			margin-right:5%;
+			background-color: rgba(49, 3, 9, 0.3)
+		}
+
+        #roomsTable {
+			margin-bottom: 0px;
+		}
 
         #viewrooms-btn {
             padding-top: 20px;
@@ -186,189 +213,67 @@ outline: 3px dotted rgb(189, 255, 6);
             </div> <!-- header -->
         </div> <!-- container-fluid -->
 
-        <div class="container-fluid">
-                <div class="row">
-                <div class="col-lg-12">
-                    
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="./images/room.jpg" alt="" style="width:100%; height:200px">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 id="roomtype1"><%= roomsType[0].type %></h5>
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-4">
-                                            <p>Adult: <%= roomsType[0].price_adult %>&euro;</p>
-                                            <% if (userType == 'manager') { %>
-                                            <form role="form" action="/rooms/editAdultPrice" method="POST">
-                                                <input type="hidden" name="roomType">
-                                                <input type="text" class="form-control priceInput"
-                                                    placeholder="New price" name="newAdultPrice">
-                                                <button type="submit" class="btn btn-primary"
-                                                    onclick="return beforeSubmit1()">Edit</button>
-                                            </form>
-                                            <% } %>
-                                        </div>
-                                        <div class="col-lg-4"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-4">
-                                            <p>Child: <%= roomsType[0].price_child %>&euro;</p>
-                                            <% if (userType == 'manager') { %>
-                                            <form role="form" action="/rooms/editChildPrice" method="POST">
-                                                <input type="hidden" name="roomType">
-                                                <input type="text" class="form-control priceInput"
-                                                    placeholder="New price" name="newChildPrice">
-                                                <button type="submit" class="btn btn-primary"
-                                                    onclick="return beforeSubmit2()">Edit</button>
-                                            </form>
-                                            <% } %>
-                                        </div>
-                                        <div class="col-lg-4"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 id="roomtype2"><%= roomsType[1].type %></h5>
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-4">
-                                            <p>Adult: <%= roomsType[1].price_adult %>&euro;</p>
-                                            <% if (userType == 'manager') { %>
-                                            <form role="form" action="/rooms/editAdultPrice" method="POST">
-                                                <input type="hidden" name="roomType">
-                                                <input type="text" class="form-control priceInput"
-                                                    placeholder="New price" name="newAdultPrice">
-                                                <button type="submit" class="btn btn-primary"
-                                                    onclick="return beforeSubmit3()">Edit</button>
-                                            </form>
-                                            <% } %>
-                                        </div>
-                                        <div class="col-lg-4"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-4">
-                                            <p>Child: <%= roomsType[1].price_child %>&euro;</p>
-                                            <% if (userType == 'manager') { %>
-                                            <form role="form" action="/rooms/editChildPrice" method="POST">
-                                                <input type="hidden" name="roomType">
-                                                <input type="text" class="form-control priceInput"
-                                                    placeholder="New price" name="newChildPrice">
-                                                <button type="submit" class="btn btn-primary"
-                                                    onclick="return beforeSubmit4()">Edit</button>
-                                            </form>
-                                            <% } %>
-                                        </div>
-                                        <div class="col-lg-4"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 id="roomtype3"><%= roomsType[2].type %></h5>
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-4">
-                                            <p>Adult: <%= roomsType[2].price_adult %>&euro;</p>
-                                            <% if (userType == 'manager') { %>
-                                            <form role="form" action="/rooms/editAdultPrice" method="POST">
-                                                <input type="hidden" name="roomType">
-                                                <input type="text" class="form-control priceInput"
-                                                    placeholder="New price" name="newAdultPrice">
-                                                <button type="submit" class="btn btn-primary"
-                                                    onclick="return beforeSubmit5()">Edit</button>
-                                            </form>
-                                            <% } %>
-                                        </div>
-                                        <div class="col-lg-4"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-4">
-                                            <p>Child: <%= roomsType[2].price_child %>&euro;</p>
-                                            <% if (userType == 'manager') { %>
-                                            <form role="form" action="/rooms/editChildPrice" method="POST">
-                                                <input type="hidden" name="roomType">
-                                                <input type="text" class="form-control priceInput"
-                                                    placeholder="New price" name="newChildPrice">
-                                                <button type="submit" class="btn btn-primary"
-                                                    onclick="return beforeSubmit6()">Edit</button>
-                                            </form>
-                                            <% } %>
-                                        </div>
-                                        <div class="col-lg-4"></div>
-                                    </div>
-                                </div>
+        <div class="container-fluid" id="content">
+            <div class="row" style="color: white">
+                <div class="col-lg-4 col-lg-offset-2" style="padding-top: 50px; padding-bottom: 200px;">
+                    <div class="container-fluid" style="background-color: rgba(0, 0, 0, 0.7);">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="h3 text-center">Room Pricing</p>
                             </div>
                         </div>
-
-                        <!-- Left and right controls -->
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                        <table class="table table-sm table-dark text-center" id="roomsTable">
+                            <thead>
+                              <tr>
+                                <th scope="col" class="text-center">Room Type</th>
+                                <th scope="col" class="text-center">Price Adult</th>
+                                <th scope="col" class="text-center">Price Child</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            <% roomsType.forEach(function(roomType) { %>
+                                <tr style="background-color:rgba(189, 211, 21, 0.65)">
+                                    <th scope="row" class="text-center"><%= roomType.type %></th>
+                                    <td><%= roomType.price_adult %>&euro;</td>
+                                    <td><%= roomType.price_child %>&euro;</td>
+                                </tr>
+                            <% }) %>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+                <div class="col-lg-4 col-lg-offset-1" style="padding-top: 50px;">
+                    <div id="change-price">
+                        <% if (userType == 'manager' || userType == 'owner') { %>
+                            <form role="form" method="POST" action="/rooms/editPrice" id="form1">
+                                <div class="form-group">
+                                    <select class="form-control pull-left input-fields" id="dropdown_type"
+                                        name="dropdown_type">
+                                        <option disabled selected>Type</option>
+                                        <% roomsType.forEach(function(roomType) { %>
+                                        <option><%= roomType.type %></option>
+                                        <% }) %>
+                                    </select> <br><br>
+                                    <select class="form-control pull-left input-fields" id="dropdown_priceClass" name="dropdown_priceClass">
+                                        <option disabled selected>Price Class</option>
+                                        <option>Price Adult</option>
+                                        <option>Price Child</option>
+                                    </select> <br><br>
+                                    <input type="text" class="form-control priceInput input-fields" placeholder="New price" name="newPrice">
+                                    <button type="submit" class="btn btn-warning btn-md pull-left input-fields"
+                                        id="btn-update">Update</button>
+                                </div>
+                             </form>
+                        <% } %>
+                    </div>
+                    <div style="width: 60%;"><% include ./partials/messages %></div>
+                </div>
             </div>
-            <% include ./partials/messages %>
         </div>
 
     </div>
 
     <!-- Set the data for the hidden inputs -->
-    <script>
-        function beforeSubmit1() {
-            document.getElementsByName('roomType')[0].value = document.getElementById('roomtype1').innerText
-        }
-    </script>
-
-    <script>
-        function beforeSubmit2() {
-            document.getElementsByName('roomType')[1].value = document.getElementById('roomtype1').innerText
-        }
-    </script>
-
-    <script>
-        function beforeSubmit3() {
-            document.getElementsByName('roomType')[2].value = document.getElementById('roomtype2').innerText
-        }
-    </script>
-
-    <script>
-        function beforeSubmit4() {
-            document.getElementsByName('roomType')[3].value = document.getElementById('roomtype2').innerText
-        }
-    </script>
-
-    <script>
-        function beforeSubmit5() {
-            document.getElementsByName('roomType')[4].value = document.getElementById('roomtype3').innerText
-        }
-    </script>
-
-    <script>
-        function beforeSubmit6() {
-            document.getElementsByName('roomType')[5].value = document.getElementById('roomtype3').innerText
-        }
-    </script>
 
 </body>
 

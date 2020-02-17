@@ -10,17 +10,23 @@
 	<!-- Set the page to the width of the device and set the zoon level -->
 	<meta name="viewport" content="width = device-width, initial-scale = 1">
 	<title>Hotel Management System - Accommodation</title>
+
+	<!-- JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
+
 	<!--  jQuery -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"
 		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	<link
-		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"
-		rel="stylesheet" />
+	
 
 	<!-- Bootstrap Date-Picker Plugin -->
 
@@ -30,6 +36,7 @@
 		body,
 		html {
 			height: 100%;
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
 		}
 
 		.row {
@@ -97,13 +104,13 @@
 		/* div[class="container-fluid"] {
          outline: 4px dotted rgba(0, 0, 0, 1);
          background-color: rgb(100, 0, 0, 0.2);
-      }
+      } */
 
-      div[class="row"] {
+      /* div[class="row"] {
          outline: 3px dotted rgb(234, 0, 255);
-      }
+      } */
 
-      div[class^="col"] {
+      /* div[class^="col"] {
          outline: 3px dotted rgb(189, 255, 6);
       } */
 
@@ -122,12 +129,32 @@
 
 			/* Center and scale the image nicely */
 			background-position: center;
-			background-repeat: no-repeat;
 			background-size: cover;
 		}
 
+		.booking {
+			background-color:rgb(0, 0, 0, 0.2); 
+			padding-bottom: 30px;
+		}
+
+		.checkAvailability {
+			background-color:rgb(0, 0, 0, 0.2); 
+			padding-bottom: 18px;
+		}
+
+		.roomAvailabilityInfo {
+			background-color:rgb(0, 0, 0, 0.2);
+			margin-bottom: 30px;
+			padding-top: 5px; 
+			padding-bottom: 30px;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
 		.booking-details {
-			font-size: 15px;
+			margin-top: 0px;
+			margin-bottom:20px;
+			text-align: center;
 		}
 
 		.clickable-rooms {
@@ -155,6 +182,13 @@
 			font-weight: bold;
 		}
 
+		.table-headings {
+			font-size: small;
+			background-color:rgb(0, 0, 0, 0.7);
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
 		#availabilityTable {
 			position: relative;
 			margin-top: 100px;
@@ -162,12 +196,32 @@
 		}
 
 		#book-btn {
-			width: 80%;
-			height: 80%;
+			width: 90%;
+			height: 90%;
 		}
 
 		#btn-checkavailability {
 			margin-right: 15px;
+			background-color: black;
+            border-color:rgba(189, 211, 21, 0.65);
+		}
+
+		#check-btn {
+			width: 90%;
+			height: 90%;
+			margin-top: 10px;
+		}
+
+		#content {
+			/* Rounded corners */
+			border-radius: 75px;
+
+			padding-top:20px; 
+			padding-bottom:20px; 
+			margin-top: 20px;
+			margin-left:5%; 
+			margin-right:5%;
+			background-color: rgba(49, 3, 9, 0.3)
 		}
 
 		#check-availability {
@@ -189,6 +243,10 @@
 		#roomImage {
 			width: 100%;
 			height: 300px;
+		}
+
+		#roomsTable {
+			margin-bottom: 0px;
 		}
 
 		#viewrooms-btn {
@@ -259,7 +317,7 @@
 				<!--  Check availability part 
 Different views for distinct user types -->
 				<% if (userType == 'client') { %>
-				<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12" id="check-availability">
+				<div class="col-lg-5 col-md-4 col-sm-5 col-xs-12" id="check-availability">
 					<div class="row">
 						<p class="text-center col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						</p>
@@ -270,7 +328,7 @@ Different views for distinct user types -->
 										<form role="form" method="POST" action="/rooms/availability" id="form1">
 											<div class="form-group ">
 												<div class="input-group">
-													<div class="input-group-addon">
+													<div class="input-group-addon" style="width: 27.3%;">
 														Check-in
 													</div>
 													<div class="form-group" style="height: 5px">
@@ -339,111 +397,80 @@ Different views for distinct user types -->
 												</p>
 											</div>
 										</form>
+										<div class="row">
+											<button type="submit" class="btn btn-warning btn-md pull-right" id="btn-checkavailability"
+												onclick="submitForms()">Check Availability</button>
+										</div>
+										<div class="pull-right" style="margin-top: 10px; width: 100%;"><% include ./partials/messages %></div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<button type="submit" class="btn btn-warning btn-md pull-right" id="btn-checkavailability"
-							onclick="submitForms()">Check Availability</button>
-					</div>
-					<% include ./partials/messages %>
+					
 				</div>
 				<% } else if (userType == 'receptionist' || userType == 'manager') { %>
 				<% if(typeof roomsArray != 'undefined' && roomsArray.length > 0) { %>
 				<p hidden id="roomsCount"><%= roomsArray.length %></p>
-				<div class="container-fluid" style="margin-top: 10px">
-					<div class="row" style="background-color: rgb(14, 12, 12, 0.9); color:white">
-						<div class="col-lg-2">
-							<div class="container-fluid">
-								<div id="roominfo">
-									<p class="h3 text-center" style="font-family: 'Brush Script MT';">Reservations</p>
-									<div class="row">
-										<form role="form" id="roomInfo-form" action="/rooms/roomInformation"
-											method="POST">
-											<div class="col-lg-8">
-												<input type="text" class="form-control" placeholder="Room Number"
-													id="thisRoomID" name="thisRoomID">
-											</div>
-											<div class="col-lg-4">
-												<button type="submit" class="btn btn-primary"
-													id="roomInfo-btn">Check</button>
-											</div>
-										</form>
-									</div>
-									<% if(typeof reservationsMap != 'undefined') { %>
-									<table style="width:100%">
-										<tr>
-											<th class="text-center">Date in</th>
-											<th class="text-center">Date out</th>
-										</tr>
-										<% reservationsMap.forEach(function(key, value) { %>
-										<tr>
-											<td class="text-center"><%= value %></td>
-											<td class="text-center"><%= key %></td>
-										</tr>
-										<% }) %>
-									</table>
-									<% } %>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="container-fluid" style="background-color: rgba(9, 2, 12, 0.5);">
+				<div class="container-fluid" id="content">
+					<div class="row" style="color:white">
+						<div class="col-lg-3 col-lg-offset-1">
+							<div class="container-fluid" style="background-color: rgba(0, 0, 0, 0.7);">
 								<div class="row">
 									<div class="col-lg-12">
 										<p class="h3 text-center" style="font-family: 'Brush Script MT';">Room
 											Information</p>
 									</div>
 								</div>
-								<% for(var i = 1; i <= roomsArray.length; i+=6) { %>
-								<div class="row">
+								<table class="table table-sm table-dark text-center" id="roomsTable">
+									<thead>
+									  <tr>
+										<th scope="col" class="text-center">Room #</th>
+										<th scope="col" class="text-center">Type</th>
+										<th scope="col" class="text-center">Capacity</th>
+									  </tr>
+									</thead>
+									<tbody>
 									<% roomsArray.forEach(function(room) { %>
-									<% if(room.id >= i && room.id < i+6) { %>
-									<div class="col-lg-2">
 										<% if(room.status == 'unavailable') { %>
-										<div class="container-fluid room-component"
-											style="background-color:rgba(100, 0, 0, 0.9)">
-											<div class="row text-center">
-												<%= room.id %>
-											</div>
-										</div>
+											<tr style="background-color:rgba(100, 0, 0, 0.7)">
+												<th scope="row" class="text-center"><%= room.id %></th>
+												<td><%= room.type %></td>
+												<td><%= room.capacity %></td>
+											</tr>
 										<% } else { %>
-										<div class="container-fluid room-component"
-											style="background-color:rgba(0, 100, 0, 0.9)">
-											<div class="row text-center">
-												<%= room.id %>
-											</div>
-										</div>
+											<tr style="background-color:rgba(0, 100, 0, 0.7)">
+												<th scope="row" class="text-center"><%= room.id %></th>
+												<td><%= room.type %></td>
+												<td><%= room.capacity %></td>
+											</tr>
 										<% } %>
-									</div>
-									<% } %>
 									<% }) %>
-								</div>
-								<% } %>
+								</tbody>
+							</table>
 							</div>
 						</div>
-						<div class="col-lg-3">
+						<div class="col-lg-5">
+							<div class="booking">
 							<div class="row">
 								<p class="h3 text-center" style="font-family: 'Brush Script MT';">Booking</p>
 							</div>
 							<div class="row">
 								<form role="form" id="book-form" action="/rooms/receptionistBooking" method="POST">
 									<div class="row">
-										<div class="col-lg-4">
-											<p class="booking-details">*Room number*: </p>
+										<div class="col-lg-4 text-center">
+											*Room # :
 										</div>
-										<div class="col-lg-8">
+										<div class="col-lg-8" style="height:40px;">
 											<input type="text" class="form-control" placeholder="Room Number"
 												name="roomNumber"><br>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-lg-4">
-											<p class="booking-details">*Date in*: </p class="booking-details">
+										<div class="col-lg-4 booking-details">
+											*Date in : 
 										</div>
-										<div class="col-lg-8">
+										<div class="col-lg-8 booking-details">
 											<div class="form-group" style="height: 5px">
 												<div class='input-group date' id='datetimepicker3'>
 													<input type='text' class="form-control" name="date_checkin"
@@ -456,13 +483,13 @@ Different views for distinct user types -->
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-lg-4">
-											<p class="booking-details">*Date out*: </p class="booking-details">
+										<div class="col-lg-4 booking-details">
+											*Date out :
 										</div>
-										<div class="col-lg-8">
+										<div class="col-lg-8 booking-details">
 											<div class="form-group" style="height: 5px">
 												<div class='input-group date' id='datetimepicker4'>
-													<input type='text' class="form-control" name="date_checkin"
+													<input type='text' class="form-control" name="date_checkout"
 														placeholder="DD/MM/YYYY" onkeydown="return false" />
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
@@ -472,30 +499,30 @@ Different views for distinct user types -->
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-lg-4">
-											<p class="booking-details">Full name: </p class="booking-details">
+										<div class="col-lg-4 booking-details">
+											Full name :
 										</div>
-										<div class="col-lg-8">
+										<div class="col-lg-8 booking-details" style="height:60px;">
 											<input type="text" class="form-control" placeholder="First name"
 												name="firstname">
 											<input type="text" class="form-control" placeholder="Last Name"
-												name="lastname"><br>
+												name="lastname" style="margin-top: 5px;"><br>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-lg-4">
-											<div class="booking-details">*Email*: </div class="booking-details">
+										<div class="col-lg-4 text-center">
+											*Email :
 										</div>
-										<div class="col-lg-8">
+										<div class="col-lg-8" style="height:40px;">
 											<input type="email" class="form-control" placeholder="Email"
 												name="email"><br>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-lg-4">
-											<p class="booking-details">Phone number: </p class="booking-details">
+										<div class="col-lg-4 text-center">
+											Phone : 
 										</div>
-										<div class="col-lg-8">
+										<div class="col-lg-8" style="height:40px;">
 											<input type="text" class="form-control" placeholder="Phone number"
 												name="phone"><br>
 										</div>
@@ -505,11 +532,50 @@ Different views for distinct user types -->
 										<button type="submit" class="btn btn-primary" id="book-btn"
 											onclick="return beforeSubmit3()">Book Room</button>
 									</div>
-									<div class="row text-center">
-										<% include ./partials/messages %>
-									</div>
 								</form>
 							</div>
+						</div>
+							<div class="checkAvailability">
+
+								<div id="roominfo">
+									<p class="h3 text-center" style="font-family: 'Brush Script MT'; padding-top:20px;">Check Reservations</p>
+									<div class="row">
+										<form role="form" id="roomInfo-form" action="/rooms/roomInformation"
+											method="POST">
+											<div class="col-lg-4 text-center">
+												Room # :
+											</div>
+											<div class="col-lg-8">
+												<input type="text" class="form-control" placeholder="Room Number"
+													id="thisRoomID" name="thisRoomID">
+											</div>
+											<div class="row text-center">
+												<button type="submit" class="btn btn-primary" id="check-btn"
+													id="roomInfo-btn">Check</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<% if(typeof reservationsMap != 'undefined' && reservationsMap.size > 0) { %>
+								<div class="roomAvailabilityInfo">
+									<p class="h3 text-center" style="font-family: 'Brush Script MT';">Room availability</p>
+								<table style="width:100%;" >
+									<tr>
+										<th class="text-center table-headings">Date in</th>
+										<th class="text-center table-headings">Date out</th>
+									</tr>
+									<% reservationsMap.forEach(function(key, value) { %>
+									<tr>
+										<td class="text-center table-headings"><%= value %></td>
+										<td class="text-center table-headings"><%= key %></td>
+									</tr>
+									<% }) %>
+								</table>
+								</div>
+								<% } %>
 						</div>
 					</div>
 				</div>
@@ -595,6 +661,12 @@ Different views for distinct user types -->
 		</div>
 
 	</div>
+
+	<script>
+		$(document).ready(function() {
+			$('#roomsTable').DataTable();
+		} );
+	</script>
 
 	<!-- Datepicker functionality-->
 	<script>
@@ -689,5 +761,12 @@ Different views for distinct user types -->
 	</script>
 
 </body>
+
+<!-- Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Datatables -->
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </html>

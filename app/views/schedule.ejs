@@ -19,6 +19,7 @@
       body,
       html {
          height: 100%;
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
       }
 
       .row {
@@ -406,7 +407,7 @@
                                     <div class="col-lg-3">
                                        <select class="form-control pull-right" id="dropdown_receptionist"
                                           name="dropdown_receptionist">
-                                          <option disabled>Receptionist</option>
+                                          <option selected disabled>Receptionist</option>
                                           <% receptionistMap.forEach(function(value, key) { %>
                                           <option><%= key %></option>
                                           <% }) %>
@@ -414,7 +415,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                        <select class="form-control pull-right" id="dropdown_date" name="dropdown_date">
-                                          <option disabled>Date</option>
+                                          <option selected disabled>Date</option>
                                           <% datesarray.forEach(function(date) { %>
                                           <option><%= date %></option>
                                           <% }) %>
@@ -423,7 +424,7 @@
                                     <div class="col-lg-2">
                                        <select class="form-control pull-right" id="dropdown_shift"
                                           name="dropdown_shift">
-                                          <option disabled>Shift</option>
+                                          <option selected disabled>Shift</option>
                                           <option>1</option>
                                           <option>2</option>
                                           <option>3</option>
