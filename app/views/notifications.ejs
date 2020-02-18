@@ -114,7 +114,7 @@
 			background-size: cover;
 		}
 
-		.badge {
+        .badge {
             position: absolute;
             top: 22px;
             right: 42px;
@@ -156,14 +156,14 @@
 
 			padding-top:20px; 
 			padding-bottom:20px; 
-			padding-right: 15px;
+            padding-right: 15px;
 			margin-top: 20px;
 			margin-left:5%; 
 			margin-right:5%;
 			background-color: rgba(49, 3, 9, 0.3)
 		}
 
-		#content-inner {
+        #content-inner {
 			/* Rounded corners */
 			border-radius: 100px;
 			background-color: rgba(49, 3, 9, 0.3)
@@ -179,6 +179,11 @@
 			margin-right: 30px;
 			width: 25%;
 		}
+
+        #notificationsTable {
+            position: relative;
+            margin-left: 100px;
+        }
 
 		#personalDetails {
 			padding-top: 30px;
@@ -237,7 +242,7 @@
 					</div>
 
 					<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
-						<a href="dashboard"><span class="glyphicon glyphicon-home"></span></a>
+						<a href="../../dashboard"><span class="glyphicon glyphicon-home"></span></a>
 						<p style="margin-bottom: 5px; color:rgba(189, 211, 21, 0.9);">Logged in as <%= userData.user.username %></p>
 					</div>
 					<div class="nav nav-pills col-lg-1 col-md-1 col-sm-1 col-xs-2">
@@ -264,20 +269,20 @@
 					<div class="row">
 						<ul class="nav flex-column">
 							<li class="nav-item">
-								<a class="nav-link active" href="#">Profile</a>
+								<a class="nav-link" href="../../dashboard">Profile</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#">Messages</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="dashboard/notifications">
-									Notifications 
+								<a class="nav-link active" href="notifications">
+                                    Notifications 
                                     <span class="badge">
                                         <% if(typeof notificationsArray != 'undefined' && notificationsArray.length > 0) { %>
                                             <%= notificationsArray.length %>
                                         <% } %>
                                     </span>
-								</a>
+                                </a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#">Progress</a>
@@ -290,27 +295,28 @@
 				</div>
 
 				<div class="col-lg-9 col-md-6 col-sm-8 col-xs-12" id="content-inner">
-					<div class="row" id="personalDetails">
-						<div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<p><span class="glyphicon glyphicon-edit">&nbsp;PERSONAL DETAILS</p>
-						</div>
-					</div>
-					<div class="row details-component">
-						<div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<p><span class="glyphicon glyphicon-info-sign">&nbsp;Full name:
-									<%= (userData.user.firstname + ' ' + userData.user.lastname) %></p>
-						</div>
-					</div>
-					<div class="row details-component">
-						<div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<p><span class="glyphicon glyphicon-envelope">&nbsp;E-mail: <%= userData.user.email %></p>
-						</div>
-					</div>
-					<div class="row details-component">
-						<div class="text-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<p><span class="glyphicon glyphicon-earphone">&nbsp;Phone:</p>
-						</div>
-					</div>
+					<table class="table table-sm table-dark text-center" id="notificationsTable" style="width:80%;">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="text-center" style="width: 28%;">Time</th>
+                            <th scope="col" class="text-center" style="width: 65%;">Message</th>
+                            <th scope="col" class="text-center" style="width: 7%;">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <% notificationsArray.forEach(function(notification) { %>
+                            <tr>
+                                <th scope="row" class="text-left"><%= notification.issue_time.toLocaleString() %></th>
+                                <td class="text-left"><%= notification.message %></td>
+                                <td>
+                                    <form role="form" method="POST" action="/actions/deleteNotification" id="form1">
+                                        <button type="submit" class="btn btn-warning btn-xs" id="btn-read">Mark as read</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
 				</div>
 			</div>
 		</div>

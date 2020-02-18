@@ -10,6 +10,9 @@ router.get('/', indexController.indexPage);
 /* GET dashboard page */
 router.get('/dashboard', verifyToken, indexController.dashboardPage);
 
+/* GET notifications page */
+router.get('/dashboard/notifications', verifyToken, indexController.notificationsPage);
+
 // Verify token
 function verifyToken(req, res, next) {
     // console.log("REQUEST TO ACCESS DASHBOARD");

@@ -80,11 +80,13 @@ var indexRouter = require('./api/routes/index');
 var usersRouter = require('./api/routes/users');
 var roomsRouter = require('./api/routes/rooms');
 var staffRouter = require("./api/routes/staff")
+var actionsRouter = require("./api/routes/actions")
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/rooms', roomsRouter);
 app.use('/staff', staffRouter);
+app.use('/actions', actionsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

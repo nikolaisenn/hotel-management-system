@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var Room = require('../models/Room');
 var Reservation = require('../models/Reservation');
+var Notification = require('../models/Notification');
 var Sequelize = require('sequelize');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -233,21 +234,10 @@ module.exports.editPrice = async function (req, res) {
 module.exports.receptionistBooking = async function (req, res) {
 	var { roomNumber, roomCapacity, date_checkin, date_checkout, firstname, lastname, email, phone, numberOfRooms} = req.body;
 	roomNumber = parseInt(roomNumber)
-	console.log("DATES")
-	console.log(date_checkin)
-	console.log("DATES")
-	console.log(date_checkout)
 	var checkin = new Date(date_checkin)
 	var checkout = new Date(date_checkout)
-	console.log("REQ BODY")
-	console.log(req.body)
-	console.log(roomNumber)
-	console.log(typeof (roomNumber))
-	console.log(isNaN(roomNumber))
 	var checkin = new Date(date_checkin)
 	var checkout = new Date(date_checkout)
-	console.log(checkin)
-	console.log(checkout)
 
 	let errors = [];
 	// Require valid user input (specify check-in, check-out and the number of people)
@@ -264,19 +254,17 @@ module.exports.receptionistBooking = async function (req, res) {
 		errors.push({ msg: 'Please select an existing room' })
 	}
 	if (errors.length > 0) {
+		// Load data 
+		var roomsArray = await loadRoomsData_accommodation()
 		res.render('accommodation', {
 			roomsArray,
 			errors
 		})
 	}
 
-	// var rooms = getAllRooms(roomCapacity)
-	// console.log(rooms)
-	// var room_ids = getRoomsIDs(rooms)
-
 	// Reservations start and end at 12pm
 	checkin.setHours(12);
-	checkout.setHours(13);
+	checkout.setHours(12);
 
 	const newReservation = Reservation.build({
 		date_in: checkin,
@@ -284,17 +272,22 @@ module.exports.receptionistBooking = async function (req, res) {
 		email: email,
 		room_id: roomNumber
 	})
+	await newReservation.save()
 
-	newReservation.save()
-		.then(async function(user) {
-			// Load data 
-			var roomsArray = await loadRoomsData_accommodation()
-			// Create a flash message
-			res.render('accommodation', {
-				roomsArray
-			});
-		})
-	
+	// Send a notification to all managers
+	const newNotification = Notification.build({
+		recipient_class: 'manager',
+		message: 'Room ' + roomNumber + ' was booked',
+		issue_time: new Date().toLocaleString()
+	})
+	await newNotification.save()
+
+	// Load data 
+	var roomsArray = await loadRoomsData_accommodation()
+	// Create a flash message
+	res.render('accommodation', {
+		roomsArray
+	});
 }
 
 function getAvailableRooms(rooms, date_checkin, date_checkout) {
