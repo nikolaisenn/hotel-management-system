@@ -115,19 +115,17 @@ outline: 3px dotted rgb(189, 255, 6);
         }
 
         .room-item {
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding-top: 60px;
+            padding-bottom: 60px;
             text-align: center;
             background-color: rgba(189, 211, 21, 0.9);
+            border-style: solid;
         }
 
         #content {
             border-radius: 10px;
-            background-color:rgba(0, 0, 0, 0.7);
-            margin-top: 10px;
-            margin-left: 16.5%;
-            margin-right: 16.5%;
-            padding-bottom: 30px;
+            background-color:rgba(0, 0, 0, 0.9);
+            padding-bottom: 65px;
             padding-top: 30px;
         }
 
@@ -155,15 +153,13 @@ outline: 3px dotted rgb(189, 255, 6);
                 <ul class="nav nav-pills">
 
                     <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <li class="active text-center"><a href="/">HOME</a></li>
+                        <li class="text-center"><a href="/"><span class="glyphicon glyphicon-info-sign"></span></a></li>
                     </div>
 
                     <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
-                        <li class="text-center"><a href="rooms/accommodation">ACCOMMODATION</a></li>
                     </div>
 
                     <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <li class="text-center"><a href="rooms/pricing">PRICING</a></li>
                     </div>
 
                     <% if(userData != 'undefined') { %>
@@ -238,9 +234,21 @@ outline: 3px dotted rgb(189, 255, 6);
                     </div>
                     <div class="row" id="room-information">
                         <div class="col-lg-8 col-lg-offset-2">
-                            <div class="col-lg-4 room-item">Component 1</div>
-                            <div class="col-lg-4 room-item">Component 2</div>
-                            <div class="col-lg-4 room-item">Component 3</div>
+                            <div class="col-lg-4 room-item">
+                                <%= roomsType[0].type %><br>
+                                Price for adult: <%= roomsType[0].price_adult %>&euro;<br>
+                                Price for child: <%= roomsType[0].price_child %>&euro;
+                            </div>
+                            <div class="col-lg-4 room-item">
+                                <%= roomsType[1].type %><br>
+                                Price for adult: <%= roomsType[1].price_adult %>&euro;<br>
+                                Price for child: <%= roomsType[1].price_child %>&euro;
+                            </div>
+                            <div class="col-lg-4 room-item">
+                                <%= roomsType[2].type %><br>
+                                Price for adult: <%= roomsType[2].price_adult %>&euro;<br>
+                                Price for child: <%= roomsType[2].price_child %>&euro;
+                            </div>
                         </div>
                     </div>
                 </div>

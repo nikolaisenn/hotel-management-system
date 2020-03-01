@@ -4,13 +4,20 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var jwt = require('jsonwebtoken');
 var Notification = require('../models/Notification');
+var Receptionist = require('../models/Receptionist');
+var Payslip = require('../models/Payslip');
+var Room = require('../models/Room');
 var Sequelize = require('sequelize');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* GET - Index page */
-module.exports.indexPage = function(req, res) {
-    res.render('index');
+module.exports.indexPage = async function(req, res) {
+    // Load data
+	var roomsType = await loadRoomsData_pricing()
+    res.render('index', {
+        roomsType
+    });
 };
 
 /* GET - Dashboard page */
@@ -50,6 +57,30 @@ module.exports.notificationsPage = async function(req, res) {
     });
 };
 
+/* GET - Payslip page */
+module.exports.paymentPage = async function(req, res) {
+    // console.log("TOKEN: " + req.cookies.jwt);
+    jwt.verify(req.cookies.jwt, 'secret', async function(err, authData) {
+        if(err) {
+            res.sendStatus(403);
+        } else {
+            userData = authData;
+            console.log('USER DATA')
+            console.log(userData)
+
+            var monthsArray = await loadMonthsArray()
+            var receptionistMap = await loadReceptionists()
+            console.log("RESULTS")
+            console.log(monthsArray)
+            console.log(receptionistMap)
+            res.render('payment', {
+                receptionistMap,
+                monthsArray
+            })
+        }
+    });
+};
+
 async function loadNotifications () {
 	var notificationsArray
 	// Get all rooms 
@@ -80,4 +111,107 @@ async function loadNotifications () {
 		})
 
 	return notificationsArray
+}
+
+async function loadRoomsData_pricing () {
+	var roomTypes
+	// Get all rooms 
+	const Op = Sequelize.Op;
+	await Room.findAll({
+		raw: true,
+		attributes: [['type', 'type'],['price_adult', 'price_adult'],['price_child', 'price_child']],
+		group: ['type', 'price_adult', 'price_child']
+	})
+		.then(rooms => {
+			var roomsType = []
+			rooms.forEach(function(room) {
+				roomsType.push(room)
+			})
+			console.log("Rooms data (grouped by type) loaded.")
+			console.log("ALL ROOMS")
+			console.log(roomsType)
+
+			roomTypes = roomsType
+		})
+	
+	return roomTypes
+}
+
+async function loadReceptionists() {
+	var receptionistMap
+	// Get all rooms 
+	const Op = Sequelize.Op;
+	await Receptionist.findAll({
+		raw: true
+	})
+		.then(receptionistMembers => {
+			// Get all receptionist names
+			var receptionistsMap = new Map()
+			receptionistMembers.forEach(function(receptionist) {
+				var fullName = receptionist.firstname + " " + receptionist.lastname
+				var id = receptionist.id
+				receptionistsMap.set(fullName, id)
+			})
+
+			receptionistMap = receptionistsMap
+		})
+
+	return receptionistMap
+}
+
+async function loadMonthsArray() {
+    var now = new Date()
+    var monthsArray = []
+    switch (now.getMonth()) {
+        case 0: 
+            monthsArray[0] = 'December';
+            monthsArray[1] = 'January';
+            break;
+        case 1:
+            monthsArray[0] = 'January';
+            monthsArray[1] = 'February';
+            break;
+        case 2:
+            monthsArray[0] = 'February';
+            monthsArray[1] = 'March';
+            break;
+        case 3:
+            monthsArray[0] = 'March';
+            monthsArray[1] = 'April';
+            break;
+        case 4:
+            monthsArray[0] = 'April';
+            monthsArray[1] = 'May';
+            break;
+        case 5:
+            monthsArray[0] = 'May';
+            monthsArray[1] = 'June';
+            break;
+        case 6:
+            monthsArray[0] = 'June';
+            monthsArray[1] = 'July';
+            break;
+        case 7:
+            monthsArray[0] = 'July';
+            monthsArray[1] = 'August';
+            break;
+        case 8:
+            monthsArray[0] = 'August';
+            monthsArray[1] = 'September';
+            break;
+        case 9:
+            monthsArray[0] = 'September';
+            monthsArray[1] = 'October';
+            break;
+        case 10:
+            monthsArray[0] = 'October';
+            monthsArray[1] = 'November';
+            break;
+        case 11:
+            monthsArray[0] = 'November';
+            monthsArray[1] = 'December';
+            break;
+    }
+
+    return monthsArray
 }

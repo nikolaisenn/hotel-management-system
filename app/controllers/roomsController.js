@@ -221,6 +221,14 @@ module.exports.editPrice = async function (req, res) {
 		})
 			.catch(function (err) { console.log(err) });
 	}
+
+	// Send a notification to all managers
+	const newNotification = Notification.build({
+		recipient_class: 'owner',
+		message: dropdown_priceClass + ' for ' + dropdown_type + ' room was changed to ' + newPrice,
+		issue_time: new Date().toLocaleString()
+	})
+	await newNotification.save()
 	
 	// Load data
 	var roomsType = await loadRoomsData_pricing()

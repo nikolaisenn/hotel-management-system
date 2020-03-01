@@ -9,8 +9,19 @@ var Sequelize = require('sequelize');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 /* POST - Delete notification */
-module.exports.deleteNotification = function(req, res) {
+module.exports.deleteNotification = async function(req, res) {
+    var { notificationID } = req.body;
     console.log("DELETE NOTIFICATION")
     console.log(req.body)
+
+    // Get all rooms 
+	const Op = Sequelize.Op;
+	Notification.destroy({
+        where: {
+            id: notificationID
+        }
+    })
+
+    res.redirect("/dashboard/notifications")
 };
 

@@ -264,19 +264,19 @@
 					<div class="row">
 						<ul class="nav flex-column">
 							<li class="nav-item">
-								<a class="nav-link active" href="#">Profile</a>
+								<a class="nav-link active" href="dashboard">Profile</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#">Messages</a>
+								<a class="nav-link" href="dashboard/payment">Payment</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="dashboard/notifications">
 									Notifications 
-                                    <span class="badge">
-                                        <% if(typeof notificationsArray != 'undefined' && notificationsArray.length > 0) { %>
+                                    <% if(typeof notificationsArray != 'undefined' && notificationsArray.length > 0) { %>
+                                        <span class="badge">
                                             <%= notificationsArray.length %>
-                                        <% } %>
-                                    </span>
+                                        </span>
+                                    <% } %>
 								</a>
 							</li>
 							<li class="nav-item">

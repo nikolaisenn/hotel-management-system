@@ -14,4 +14,7 @@ router.get('/schedule', staffController.schedulePage)
 /* POST modify schedule */
 router.post('/modifySchedule', staffController.modifySchedule)
 
+/* POST generate payslip */
+router.post('/generatePayslip', staffController.generatePayslip);
+
 module.exports = router;
