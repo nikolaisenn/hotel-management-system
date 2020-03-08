@@ -260,68 +260,176 @@ module.exports.generatePayslip = async function(req, res) {
     var newPayslip
     // If payslip is generated for current month
     if (monthNum == now.getMonth()) {
-        var id = receptionist.id
-        var grosspay = (receptionist.hours_thismonth * receptionist.hourly_rate).toFixed(2)
-        var tax = (grosspay / 5).toFixed(2)
-        var nationalinsurance = ((grosspay - 166) / 8.5).toFixed(2)
-        console.log(grosspay)
-        console.log(tax)
-        console.log(nationalinsurance)
-        newPayslip = await Payslip.build({
-			receptionist_id: id,
-			firstname: receptionist.firstname,
-			lastname: receptionist.lastname,
-			hours: receptionist.hours_thismonth,
-			rate: receptionist.hourly_rate,
-            gross_pay: grosspay,
-            tax: tax,
-			national_insurance: nationalinsurance,
-			net_pay: grosspay - tax - nationalinsurance,
-            month: dropdown_month
-        })
-        await newPayslip.save()
+		// Check if the receptionist already has a payslip for the current month
+		var hasPayslip = await Payslip.findAll({
+			raw: true,
+			where : {
+				receptionist_id: receptionist.id,
+				month: dropdown_month
+			}
+		})
+		if (hasPayslip.length > 0) { hasPayslip = true }
+		else { hasPayslip = false }
+
+		if (hasPayslip == false) {
+			// Check if the receptionist already has a payslip for the current month
+			var hasPayslip = await Payslip.findAll({
+				raw: true,
+				where : {
+					receptionist_id: receptionist.id,
+					month: dropdown_month
+				}
+			})
+			console.log("has payslip")
+			console.log(hasPayslip)
+			var id = receptionist.id
+			var grosspay = (receptionist.hours_thismonth * receptionist.hourly_rate).toFixed(2)
+			var tax = (grosspay / 5).toFixed(2)
+			var nationalinsurance = ((grosspay - 166) / 8.5).toFixed(2)
+			if (nationalinsurance < 0) { nationalinsurance = 0 }
+			var netpay = (grosspay - tax - nationalinsurance).toFixed(2)
+			console.log(grosspay)
+			console.log(tax)
+			console.log(nationalinsurance)
+			newPayslip = await Payslip.build({
+				receptionist_id: id,
+				firstname: receptionist.firstname,
+				lastname: receptionist.lastname,
+				hours: receptionist.hours_thismonth,
+				rate: receptionist.hourly_rate,
+				gross_pay: grosspay,
+				tax: tax,
+				national_insurance: nationalinsurance,
+				net_pay: netpay,
+				month: dropdown_month
+			})
+			await newPayslip.save()
+
+			var id
+			await User.findOne({
+				where: {firstname: receptionist.firstname, lastname: receptionist.lastname, receptionist_id: receptionist.id}
+			})
+				.then(function(user) {
+					id = user.id
+				})
+
+			// Send a notification to the receptionist who will receive the payslip
+			const newNotification = Notification.build({
+				recipient_class: 'receptionist',
+				recipient_id: id,
+				message: 'You received a new payslip! Check your payment section!',
+				issue_time: new Date().toLocaleString()
+			})
+			await newNotification.save()
+
+			// Send a notification to the the boss
+			const ownerNotification = Notification.build({
+				recipient_class: 'owner',
+				message: 'Receptionist ' + receptionist.firstname + ' ' + receptionist.lastname + ' received his/her payslip for month ' + dropdown_month
+						 + ' estimated at ' + grosspay + '&pound; pre tax',
+				issue_time: new Date().toLocaleString()
+			})
+			await ownerNotification.save()
+		}
+		else {
+			// Load all the necessary data
+			var errorMessage = "This employee already has a payslip generated for the selected month"
+			var receptionist_name = dropdown_receptionist 
+			var month_p = dropdown_month
+			// Load all the necessary data
+			var monthsArray = await loadMonthsArray()
+			var receptionistMap = await loadReceptionists()
+			res.render('payment', {
+				receptionistMap,
+				monthsArray,
+				receptionist_name,
+				month_p,
+				errorMessage
+			})
+		}
     }
     
     // If payslip is generated for last month
     if (monthNum != now.getMonth()) {
-        var id = receptionist.id
-        var grosspay = (receptionist.hours_prevmonth * receptionist.hourly_rate).toFixed(2)
-        var tax = (grosspay / 5).toFixed(2)
-		var nationalinsurance = ((grosspay - 166) / 8.5).toFixed(2)
-        console.log(grosspay)
-        console.log(tax)
-        console.log(nationalinsurance)
-        newPayslip = await Payslip.build({
-			receptionist_id: id,
-			firstname: receptionist.firstname,
-			lastname: receptionist.lastname,
-			hours: receptionist.hours_prevmonth,
-			rate: receptionist.hourly_rate,
-            gross_pay: grosspay,
-            tax: tax,
-			national_insurance: nationalinsurance,
-			net_pay: grosspay - tax - nationalinsurance,
-            month: dropdown_month
-        })
-        await newPayslip.save()     
-    }
-	
-	var id
-	await User.findOne({
-		where: {firstname: receptionist.firstname, lastname: receptionist.lastname, receptionist_id: receptionist.id}
-	})
-		.then(function(user) {
-			id = user.id
+		// Check if the receptionist already has a payslip for the current month
+		var hasPayslip = await Payslip.findAll({
+			raw: true,
+			where : {
+				receptionist_id: receptionist.id,
+				month: dropdown_month
+			}
 		})
+		if (hasPayslip.length > 0) { hasPayslip = true }
+		else { hasPayslip = false }
 
-	// Send a notification to the receptionist who will receive the payslip
-	const newNotification = Notification.build({
-		recipient_class: 'receptionist',
-		recipient_id: id,
-		message: 'You received a new payslip! Check your payment section!',
-		issue_time: new Date().toLocaleString()
-	})
-	await newNotification.save()
+		if (hasPayslip == false) {
+			var id = receptionist.id
+			var grosspay = (receptionist.hours_prevmonth * receptionist.hourly_rate).toFixed(2)
+			var tax = (grosspay / 5).toFixed(2)
+			var nationalinsurance = ((grosspay - 166) / 8.5).toFixed(2)
+			if (nationalinsurance < 0) { nationalinsurance = 0 }
+			var netpay = (grosspay - tax - nationalinsurance).toFixed(2)
+			console.log(grosspay)
+			console.log(tax)
+			console.log(nationalinsurance)
+			newPayslip = await Payslip.build({
+				receptionist_id: id,
+				firstname: receptionist.firstname,
+				lastname: receptionist.lastname,
+				hours: receptionist.hours_prevmonth,
+				rate: receptionist.hourly_rate,
+				gross_pay: grosspay,
+				tax: tax,
+				national_insurance: nationalinsurance,
+				net_pay: netpay,
+				month: dropdown_month
+			})
+			await newPayslip.save()
+
+			var id
+			await User.findOne({
+				where: {firstname: receptionist.firstname, lastname: receptionist.lastname, receptionist_id: receptionist.id}
+			})
+				.then(function(user) {
+					id = user.id
+				})
+
+			// Send a notification to the receptionist who will receive the payslip
+			const newNotification = Notification.build({
+				recipient_class: 'receptionist',
+				recipient_id: id,
+				message: 'You received a new payslip! Check your payment section!',
+				issue_time: new Date().toLocaleString()
+			})
+			await newNotification.save()
+
+			// Send a notification to the the boss
+			const ownerNotification = Notification.build({
+				recipient_class: 'owner',
+				message: 'Receptionist ' + receptionist.firstname + ' ' + receptionist.lastname + ' received his/her payslip for month ' + dropdown_month
+						 + ' estimated at ' + grosspay + 'pounds pre tax',
+				issue_time: new Date().toLocaleString()
+			})
+			await ownerNotification.save()
+		}
+		else {
+			// Load all the necessary data
+			var errorMessage = "This employee already has a payslip generated for the selected month"
+			var receptionist_name = dropdown_receptionist 
+			var month_p = dropdown_month
+			// Load all the necessary data
+			var monthsArray = await loadMonthsArray()
+			var receptionistMap = await loadReceptionists()
+			res.render('payment', {
+				receptionistMap,
+				monthsArray,
+				receptionist_name,
+				month_p,
+				errorMessage
+			})
+		}
+             
+    }
 
     console.log(newPayslip)
     // Load all the necessary data
@@ -332,7 +440,44 @@ module.exports.generatePayslip = async function(req, res) {
 		monthsArray,
 		newPayslip
     })
-};
+}
+
+/* POST - Generate payslip */
+module.exports.deleteOutdatedPayslip = async function(req, res) {
+	var {receptionistName, month} = req.body
+    var firstName = receptionistName.split(' ')[0]
+	var lastName = receptionistName.split(' ')[1]
+	console.log(receptionistName)
+	console.log(month)
+	console.log(firstName)
+	console.log(lastName)
+
+	// Find the receptionist
+    var receptionist = await Receptionist.findOne({
+        where : {
+            firstname: firstName,
+            lastname: lastName
+        }
+	})
+	
+	await Payslip.destroy({
+		raw: true,
+		where : {
+			receptionist_id: receptionist.id,
+			month: month
+		}
+	})
+
+	var successfulDeletion = true
+	// Load all the necessary data
+    var monthsArray = await loadMonthsArray()
+	var receptionistMap = await loadReceptionists()
+    res.render('payment', {
+        receptionistMap,
+		monthsArray,
+		successfulDeletion
+    })
+}
 
 async function loadTimetable() {
 	var workshifts, datesarray

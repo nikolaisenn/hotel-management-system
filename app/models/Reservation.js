@@ -10,7 +10,7 @@ const Reservation = db.define('reservation', {
     },
     email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     room_id: {
         type: Sequelize.INTEGER,

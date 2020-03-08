@@ -11,6 +11,8 @@
     <meta name="viewport" content="width = device-width, initial-scale = 1">
     <title>Hotel Management System - Home</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <style>
         /* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
@@ -114,12 +116,17 @@ outline: 3px dotted rgb(189, 255, 6);
             background-size: cover;
         }
 
+        .glyphicon.glyphicon-equalizer {
+			font-size: 25px;
+		}
+
         .room-item {
-            padding-top: 60px;
-            padding-bottom: 60px;
+            padding-top: 15px;
+            padding-bottom: 40px;
             text-align: center;
             background-color: rgba(189, 211, 21, 0.9);
             border-style: solid;
+            color:black;
         }
 
         #content {
@@ -138,6 +145,13 @@ outline: 3px dotted rgb(189, 255, 6);
             background-color: burlywood;
             border: none;
         }
+
+        #welcome {
+            border-radius: 5px;
+            background-color:rgba(0, 117, 0, 0.788);
+            color: white;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
     </style>
 
 </head>
@@ -153,13 +167,11 @@ outline: 3px dotted rgb(189, 255, 6);
                 <ul class="nav nav-pills">
 
                     <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <li class="text-center"><a href="/"><span class="glyphicon glyphicon-info-sign"></span></a></li>
+                        <li class="text-center"><a href="/"><span class="glyphicon glyphicon-equalizer"></span></a></li>
                     </div>
 
-                    <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
-                    </div>
-
-                    <div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="nav nav-pills col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                        <h2 id="welcome">WELCOME</h2>
                     </div>
 
                     <% if(userData != 'undefined') { %>
@@ -185,74 +197,165 @@ outline: 3px dotted rgb(189, 255, 6);
             </div> <!-- home-navbar -->
         </div> <!-- container-fluid // END OF TOP NAV BAR // -->
 
-        <div class="container-fluid">
-            
-                <div id="content">
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            
-                            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                                </ol>
-        
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img src="./images/room.jpg" alt="d" style="width:100%; height:400px">
-                                        <div class="carousel-caption d-none d-md-block">
-                                        </div>
-                                    </div>
-        
-                                    <div class="item">
-                                        <img src="./images/hotel.jpg" alt="s" style="width:100%; height:200px">
-                                        <div class="carousel-caption d-none d-md-block">
-                                        </div>
-                                    </div>
-        
-                                    <div class="item">
-                                        <img src="./images/room2.jpg" alt="a" style="width:100%; height:200px">
-                                        <div class="carousel-caption d-none d-md-block">
-                                        </div>
-                                    </div>
+        <div class="container-fluid" id="content">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                            <li data-target="#myCarousel" data-slide-to="4"></li>
+                            <li data-target="#myCarousel" data-slide-to="5"></li>
+                            <li data-target="#myCarousel" data-slide-to="6"></li>
+                            <li data-target="#myCarousel" data-slide-to="7"></li>
+                            <li data-target="#myCarousel" data-slide-to="8"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="../images/myroom.jpg" alt="d" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
                                 </div>
-        
-                                <!-- Left and right controls -->
-                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+                            </div>
+
+                            <div class="item">
+                                <img src="../images/standard.jpg" alt="s" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="../images/ocean_view.jpg" alt="s" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="./images/standard2.jpg" alt="a" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+                            
+                            <div class="item">
+                                <img src="./images/restaurant1.jpg" alt="a" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="./images/restaurant2.png" alt="a" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="./images/bar.jpg" alt="a" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="./images/pool.jpg" alt="a" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="./images/spa.jpg" alt="a" style="width:100%; height:400px">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="room-information">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="col-lg-4 room-item">
+                        <div class="row" style="margin-bottom:23px; font-size: 25px;">
+                            <%= roomsType[0].type %>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                    Adult:
+                                </div>
+                                <div style="background-color: rgba(42, 41, 107, 0.692);">
+                                    <%= roomsType[0].price_adult %>&euro;
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                    Child:
+                                </div>
+                                <div style="background-color: rgba(22, 21, 119, 0.692);">
+                                    <%= roomsType[0].price_child %>&euro;
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="room-information">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <div class="col-lg-4 room-item">
-                                <%= roomsType[0].type %><br>
-                                Price for adult: <%= roomsType[0].price_adult %>&euro;<br>
-                                Price for child: <%= roomsType[0].price_child %>&euro;
+                    <div class="col-lg-4 room-item">
+                        <div class="row" style="margin-bottom:23px; font-size: 25px;">
+                            <%= roomsType[1].type %>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                    Adult:
+                                </div>
+                                <div style="background-color: rgba(42, 41, 107, 0.692);">
+                                    <%= roomsType[1].price_adult %>&euro;
+                                </div>
                             </div>
-                            <div class="col-lg-4 room-item">
-                                <%= roomsType[1].type %><br>
-                                Price for adult: <%= roomsType[1].price_adult %>&euro;<br>
-                                Price for child: <%= roomsType[1].price_child %>&euro;
+                            <div class="col-lg-6">
+                                <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                    Child:
+                                </div>
+                                <div style="background-color: rgba(22, 21, 119, 0.692);">
+                                    <%= roomsType[1].price_child %>&euro;
+                                </div>
                             </div>
-                            <div class="col-lg-4 room-item">
-                                <%= roomsType[2].type %><br>
-                                Price for adult: <%= roomsType[2].price_adult %>&euro;<br>
-                                Price for child: <%= roomsType[2].price_child %>&euro;
+                        </div>
+                    </div>
+                    <div class="col-lg-4 room-item">
+                        <div class="row" style="margin-bottom:23px; font-size: 25px;">
+                            <%= roomsType[2].type %>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                    Adult:
+                                </div>
+                                <div style="background-color: rgba(42, 41, 107, 0.692);">
+                                    <%= roomsType[2].price_adult %>&euro;
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                    Child:
+                                </div>
+                                <div style="background-color: rgba(22, 21, 119, 0.692);">
+                                    <%= roomsType[2].price_child %>&euro;
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+            </div>
         </div>
 
     </div>

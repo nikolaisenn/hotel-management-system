@@ -130,7 +130,7 @@ outline: 3px dotted rgb(189, 255, 6);
         }
 
         #btn-update {
-            margin-top: 5px;
+            width: 100%;
             background-color: black;
             border-color:rgba(189, 211, 21, 0.65);
         }
@@ -215,7 +215,7 @@ outline: 3px dotted rgb(189, 255, 6);
 
         <div class="container-fluid" id="content">
             <div class="row" style="color: white">
-                <div class="col-lg-4 col-lg-offset-2" style="padding-top: 50px; padding-bottom: 200px;">
+                <div class="col-lg-4 col-lg-offset-4" style="margin-top: 20px; margin-bottom: 20px;">
                     <div class="container-fluid" style="background-color: rgba(0, 0, 0, 0.7);">
                         <div class="row">
                             <div class="col-lg-12">
@@ -241,32 +241,33 @@ outline: 3px dotted rgb(189, 255, 6);
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="col-lg-4 col-lg-offset-1" style="padding-top: 50px;">
-                    <div id="change-price">
-                        <% if (userType == 'manager' || userType == 'owner') { %>
-                            <form role="form" method="POST" action="/rooms/editPrice" id="form1">
-                                <div class="form-group">
-                                    <select class="form-control pull-left input-fields" id="dropdown_type"
-                                        name="dropdown_type">
-                                        <option disabled selected>Type</option>
-                                        <% roomsType.forEach(function(roomType) { %>
-                                        <option><%= roomType.type %></option>
-                                        <% }) %>
-                                    </select> <br><br>
-                                    <select class="form-control pull-left input-fields" id="dropdown_priceClass" name="dropdown_priceClass">
-                                        <option disabled selected>Price Class</option>
-                                        <option>Price Adult</option>
-                                        <option>Price Child</option>
-                                    </select> <br><br>
-                                    <input type="text" class="form-control priceInput input-fields" placeholder="New price" name="newPrice">
-                                    <button type="submit" class="btn btn-warning btn-md pull-left input-fields"
-                                        id="btn-update">Update</button>
-                                </div>
-                             </form>
-                        <% } %>
+                    <div class="row">
+                        <div id="change-price">
+                            <% if (userType == 'manager' || userType == 'owner') { %>
+                                <form role="form" method="POST" action="/rooms/editPrice" id="form1">
+                                    <div class="form-group">
+                                        <select class="form-control pull-left input-fields" id="dropdown_type"
+                                            name="dropdown_type" style="width:35%">
+                                            <option disabled selected>Type</option>
+                                            <% roomsType.forEach(function(roomType) { %>
+                                            <option><%= roomType.type %></option>
+                                            <% }) %>
+                                        </select>
+                                        <select class="form-control pull-left input-fields" id="dropdown_priceClass"
+                                         name="dropdown_priceClass" style="width:35%">
+                                            <option disabled selected>Price Class</option>
+                                            <option>Price Adult</option>
+                                            <option>Price Child</option>
+                                        </select>
+                                        <input type="text" class="form-control priceInput input-fields" placeholder="New price" name="newPrice" style="width:30%">
+                                        <button type="submit" class="btn btn-warning btn-md pull-left input-fields"
+                                            id="btn-update">Update</button>
+                                    </div>
+                                </form>
+                            <% } %>
+                        </div>
+                        <div style="width: 60%;"><% include ./partials/messages %></div>
                     </div>
-                    <div style="width: 60%;"><% include ./partials/messages %></div>
                 </div>
             </div>
         </div>

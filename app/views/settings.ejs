@@ -137,6 +137,11 @@
 			font-size: 2em;
 		}
 
+        .input-fields {
+            width: 40%;
+            text-align: center;
+        }
+
 		.glyphicon.glyphicon-user {
 			font-size: 150px;
 		}
@@ -162,6 +167,16 @@
 			margin-right: 15px;
 		}
 
+        #btn-update {
+            width: 100%;
+            background-color: black;
+            border-color:rgba(189, 211, 21, 0.65);
+        }
+
+        #change-price {
+            padding-bottom: 30px;
+        }
+
 		#content {
 			/* Rounded corners */
 			border-radius: 75px;
@@ -175,17 +190,17 @@
 			background-color: rgba(49, 3, 9, 0.3)
 		}
 
-        #content-inner {
-			/* Rounded corners */
-			border-radius: 40px;
-			background-color: rgba(49, 3, 9, 0.3)
-		}
-
 		#content-locked {
 			background-color: rgba(168, 44, 44, 0.61);
 			border-radius: 25px;
 			padding-top: 150px;
 			padding-bottom: 150px;
+		}
+
+        #content-inner {
+			/* Rounded corners */
+			border-radius: 40px;
+			background-color: rgba(49, 3, 9, 0.3)
 		}
 
 		#userMenu {
@@ -214,7 +229,7 @@
 
         #noNotifications {
             padding-top: 5%;
-            padding-bottom: 10px;
+            padding-bottom: 5%;
             text-align: center;
             color: white;
         }
@@ -225,6 +240,10 @@
 			font-size: 3em;
 		}
 
+        #roomsTable {
+			margin-bottom: 0px;
+		}
+        
 		#userIndicator {
 			padding-top: 5px;
 			margin-top: 10px;
@@ -326,7 +345,7 @@
 								<a class="nav-link" href="../../dashboard/payment">Payment</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="notifications">
+								<a class="nav-link" href="../../dashboard/notifications">
                                     Notifications 
                                     <% if(typeof notificationsArray != 'undefined' && notificationsArray.length > 0) { %>
                                         <span class="badge">
@@ -339,46 +358,70 @@
 								<a class="nav-link" href="../../dashboard/progress">Progress</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="../../dashboard/settings">System settings</a>
+								<a class="nav-link active" href="settings">System settings</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 
 				<div class="col-lg-9 col-md-6 col-sm-8 col-xs-12" id="content-inner">
-					<% if (userType != 'client') { %>
-						<% if(typeof notificationsArray != 'undefined' && notificationsArray.length > 0) { %>
-							<table class="table table-sm table-dark text-center" id="notificationsTable" style="width:80%;">
-								<thead>
-								  <tr>
-									<th scope="col" class="text-center" style="width: 28%;">Time</th>
-									<th scope="col" class="text-center" style="width: 65%;">Message</th>
-									<th scope="col" class="text-center" style="width: 7%;">Action</th>
-								  </tr>
-								</thead>
-								<tbody>
-								<% notificationsArray.forEach(function(notification) { %>
-									<tr>
-										<th scope="row" class="text-left"><%= notification.issue_time.toLocaleString() %></th>
-										<td class="text-left"><%= notification.message %></td>
-										<td>
-											<form role="form" method="POST" action="/actions/deleteNotification" id="form1">
-												<input type="hidden" id="notificationID" name="notificationID" value='<%= notification.id %>'>
-												<button type="submit" class="btn btn-warning btn-xs" id="btn-read">
-													Got it
-												</button>
-											</form>
-										</td>
-									</tr>
-								<% }) %>
-								</tbody>
-							</table>
-						<% } else { %>
-							<h3 id="noNotifications">Looks like nothing is going on. Time to relax!</h3>
-							<div class="text-center" style="margin-bottom: 20px;">
-								<img src="../images/chill.jpg" alt="chill" style="width:60%; height:450px;">
-							</div>
-						<% } %>
+					<% if (userType == 'owner') { %>
+                    <div class="row" style="color: white">
+                        <div class="col-lg-4 col-lg-offset-4" style="margin-top: 20px; margin-bottom: 20px;">
+                            <div class="container-fluid" style="background-color: rgba(0, 0, 0, 0.7);">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p class="h3 text-center">Room Pricing</p>
+                                    </div>
+                                </div>
+                                <table class="table table-sm table-dark text-center" id="roomsTable">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" class="text-center">Room Type</th>
+                                        <th scope="col" class="text-center">Price Adult</th>
+                                        <th scope="col" class="text-center">Price Child</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% roomsType.forEach(function(roomType) { %>
+                                        <tr style="background-color:rgba(189, 211, 21, 0.65)">
+                                            <th scope="row" class="text-center"><%= roomType.type %></th>
+                                            <td><%= roomType.price_adult %>&euro;</td>
+                                            <td><%= roomType.price_child %>&euro;</td>
+                                        </tr>
+                                    <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div id="change-price">
+                                    <% if (userType == 'manager' || userType == 'owner') { %>
+                                        <form role="form" method="POST" action="/rooms/editPrice" id="form1">
+                                            <div class="form-group">
+                                                <select class="form-control pull-left input-fields" id="dropdown_type"
+                                                    name="dropdown_type" style="width:35%">
+                                                    <option disabled selected>Type</option>
+                                                    <% roomsType.forEach(function(roomType) { %>
+                                                    <option><%= roomType.type %></option>
+                                                    <% }) %>
+                                                </select>
+                                                <select class="form-control pull-left input-fields" id="dropdown_priceClass"
+                                                 name="dropdown_priceClass" style="width:35%">
+                                                    <option disabled selected>Price Class</option>
+                                                    <option>Price Adult</option>
+                                                    <option>Price Child</option>
+                                                </select>
+                                                <input type="text" class="form-control priceInput input-fields" placeholder="New price" name="newPrice" style="width:30%">
+                                                <button type="submit" class="btn btn-warning btn-md pull-left input-fields"
+                                                    id="btn-update">Update</button>
+                                            </div>
+                                        </form>
+                                    <% } %>
+                                </div>
+                                <div style="width: 60%;"><% include ./partials/messages %></div>
+                            </div>
+                        </div>
+					</div>
 					<% } else { %>
 						<div id="content-locked">
 							<div class="row">
@@ -388,7 +431,7 @@
 								</div>
 								<div class="col-lg-4 text-center">
 									<div style="font-size: 20px; color:black; padding-top: 50px;">
-										Sorry, the content of this page is not available for clients.
+										Sorry, the content of this page is only available for the owner of the hotel.
 									</div>
 								</div>
 							</div>

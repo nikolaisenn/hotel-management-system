@@ -70,13 +70,57 @@ module.exports.paymentPage = async function(req, res) {
 
             var monthsArray = await loadMonthsArray()
             var receptionistMap = await loadReceptionists()
+            var notificationsArray = await loadNotifications()
+            var payslipsArray = await loadPayslips()
             console.log("RESULTS")
             console.log(monthsArray)
             console.log(receptionistMap)
             res.render('payment', {
                 receptionistMap,
-                monthsArray
+                monthsArray,
+                notificationsArray,
+                payslipsArray
             })
+        }
+    });
+};
+
+/* GET - Progress page */
+module.exports.progressPage = async function(req, res) {
+    // console.log("TOKEN: " + req.cookies.jwt);
+    jwt.verify(req.cookies.jwt, 'secret', async function(err, authData) {
+        if(err) {
+            res.sendStatus(403);
+        } else {
+            userData = authData;
+            console.log('USER DATA')
+            console.log(userData);
+
+            var notificationsArray = await loadNotifications()
+            res.render('progress', {
+                notificationsArray
+            });
+        }
+    });
+};
+
+/* GET - Settings page */
+module.exports.settingsPage = async function(req, res) {
+    // console.log("TOKEN: " + req.cookies.jwt);
+    jwt.verify(req.cookies.jwt, 'secret', async function(err, authData) {
+        if(err) {
+            res.sendStatus(403);
+        } else {
+            userData = authData;
+            console.log('USER DATA')
+            console.log(userData);
+
+            var roomsType = await loadRoomsData_pricing()
+            var notificationsArray = await loadNotifications()
+            res.render('settings', {
+                roomsType,
+                notificationsArray
+            });
         }
     });
 };
@@ -111,6 +155,25 @@ async function loadNotifications () {
 		})
 
 	return notificationsArray
+}
+
+async function loadPayslips () {
+	var payslipsArray = []
+	// Get all rooms 
+    const Op = Sequelize.Op;
+	await Payslip.findAll({
+        raw: true,
+        where: {
+            receptionist_id: userData.user.receptionist_id
+        }
+	})
+		.then(payslips => {
+			payslips.forEach(function(payslip) {
+				payslipsArray.push(payslip)
+            })
+		})
+
+	return payslipsArray
 }
 
 async function loadRoomsData_pricing () {

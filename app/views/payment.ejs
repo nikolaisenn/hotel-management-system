@@ -95,6 +95,14 @@
          outline: 3px dotted rgb(189, 255, 6);
       } */
 
+	  	.avatar {
+			vertical-align: middle;
+			width: 50%;
+			height: 50%;
+			border-radius: 50%;
+			margin-bottom: 30px;
+		}
+
 		.bg {
 			/* The image used */
 			background-image: url("https://danw.hotglue.me/?webdesign.head.14452090501");
@@ -137,6 +145,10 @@
 			font-size: 150px;
 		}
 
+		.glyphicon.glyphicon-equalizer {
+			font-size: 25px;
+		}
+
 		.nav-item {
 			margin-left: 50px;
 			font-size: 20px;
@@ -148,6 +160,14 @@
 
 		.nav-link {
 			border-radius: 10px;
+		}
+
+		.payslip {
+			margin-top: 10px;
+			margin-bottom: 20px;
+			border-style: solid;
+			background-color: rgba(179, 185, 134, 0.9);
+			color: black;
 		}
 
 		#btn-checkavailability {
@@ -173,6 +193,13 @@
 			background-color: rgba(49, 3, 9, 0.3)
 		}
 
+		#content-locked {
+			background-color: rgba(168, 44, 44, 0.61);
+			border-radius: 25px;
+			padding-top: 150px;
+			padding-bottom: 150px;
+		}
+
 		#userMenu {
 			position: relative;
 			margin-top: 40px;
@@ -184,8 +211,25 @@
 			width: 25%;
 		}
 
+		#existingPayslip {
+			background-color: rgba(2, 0, 128, 0.692);
+			border-style: solid 1px;
+			border-radius: 5px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			margin-bottom: 20px;
+		}
+
 		#form1 {
 			margin-bottom:60px;
+		}
+		
+		#lock {
+			vertical-align: middle;
+			width: 50%;
+			height: 50%;
+			border-radius: 20%;
+			margin-bottom: 30px;
 		}
 
         #notificationsTable {
@@ -200,12 +244,17 @@
             color: black;
         }
 
-		#payslip {
+		#payslip-header {
+			margin-left: 15px;
+			margin-right: 15px;
 			margin-top: 10px;
-			margin-bottom: 20px;
-			border-style: solid;
-			background-color: rgba(179, 185, 134, 0.9);
-			color: black;
+			padding-top: 15px;
+			padding-bottom: 15px;
+			border-radius: 15px;
+			border-style: solid 1px;
+			background-color:rgba(0, 0, 0, 0.9);
+			color: white;
+			font-size: 20px;
 		}
 
 		#personalDetails {
@@ -248,21 +297,30 @@
 				<!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
 				<ul class="nav nav-pills">
 
-					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-						<% if(userData != 'undefined' && userType != 'client') { %>
-						<li class="text-center"><a href="../staff/schedule">SCHEDULE</a></li>
-						<% } else { %>
-						<li class="text-center"><a href="/">HOME</a></li>
-						<% } %>
-					</div>
-
-					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
-						<li class="text-center"><a href="../rooms/accommodation">ACCOMMODATION</a></li>
-					</div>
-
-					<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
-						<li class="text-center"><a href="../rooms/pricing">PRICING</a></li>
-					</div>
+					<% if (userType != 'owner') { %>
+						<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+							<% if(userData != 'undefined' && userType != 'client') { %>
+							<li class="text-center"><a href="../staff/schedule">SCHEDULE</a></li>
+							<% } else { %>
+							<li class="text-center"><a href="/">HOME</a></li>
+							<% } %>
+						</div>
+	
+						<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-4">
+							<li class="text-center"><a href="../rooms/accommodation">ACCOMMODATION</a></li>
+						</div>
+	
+						<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+							<li class="text-center"><a href="../rooms/pricing">PRICING</a></li>
+						</div>
+					<% } else { %>
+						<div class="nav nav-pills col-lg-3 col-md-3 col-sm-3 col-xs-3">
+							<li class="text-center"><a href="/"><span class="glyphicon glyphicon-equalizer"></span></a></li>
+						</div>
+	
+						<div class="nav nav-pills col-lg-6 col-md-8 col-sm-12 col-xs-12">
+						</div>
+					<% } %>
 
 					<div class="nav nav-pills col-lg-2 col-md-2 col-sm-2 col-xs-2" id="profile-indicator">
 						<a href="../../dashboard"><span class="glyphicon glyphicon-home"></span></a>
@@ -286,7 +344,15 @@
 				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" id="userMenu">
 					<div class="row">
 						<div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<span class="glyphicon glyphicon-user">
+							<% if (userType == 'client') { %>
+								<img src="../images/user.png" alt="Avatar" class="avatar">
+							<% } else if (userType == 'receptionist') { %>
+								<img src="../images/receptionist.png" alt="Avatar" class="avatar">
+							<% } else if (userType == 'manager') { %>
+								<img src="../images/manager.png" alt="Avatar" class="avatar">
+							<% } else if (userType == 'owner') { %>
+								<img src="../images/boss.png" alt="Avatar" class="avatar">
+							<% } %>
 						</div>
 					</div>
 					<div class="row">
@@ -308,17 +374,27 @@
                                 </a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#">Progress</a>
+								<a class="nav-link" href="../../dashboard/progress">Progress</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#">System settings</a>
+								<a class="nav-link" href="../../dashboard/settings">System settings</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 
+				<% if (typeof receptionist_name != 'undefined' && typeof month_p != 'undefined') { %>
+					<p hidden id="receptionist_name"><%= receptionist_name %></p>
+					<p hidden id="month_p"><%= month_p %></p>
+				<% } %>
+
 				<div class="col-lg-9 col-md-6 col-sm-8 col-xs-12" id="content-inner">
 					<% if (userType == 'manager' || userType == 'owner') { %>
+						<div class="row">
+							<div class="text-center" id="payslip-header">
+								Receptionists payslip generator
+							</div>
+						</div>
 						<div class="row">
 							<form role="form" method="POST" action="/staff/generatePayslip" id="form1">
 								<div class="form-group">
@@ -339,39 +415,56 @@
 											<% }) %>
 										</select>
 									 </div>
-									 <div class="col-lg-2">
+									 <div class="col-lg-2" id="generate">
 										<button type="submit" class="btn btn-warning btn-md pull-right"
-										   id="btn-update">Generate Payslip</button>
+										   id="btn-generate">Generate Payslip</button>
 									 </div>
 									 <div class="col-lg-2">
-										<% if (typeof(newPayslip) != 'undefined' ) { %>
+										<% if (typeof newPayslip != 'undefined' ) { %>
+											<div class="text-center" style="background-color:green; border-style: solid 1px; padding-top:7px; padding-bottom:7px;">Success</div>
+										<% } %>
+										<% if (typeof successfulDeletion != 'undefined' && successfulDeletion == true) { %>
 											<div class="text-center" style="background-color:green; border-style: solid 1px; padding-top:7px; padding-bottom:7px;">Success</div>
 										<% } %>
 									 </div>
 								</div>
 							</form>
 						</div>
+						<% if (typeof errorMessage != 'undefined') { %>
+						<div class="row">
+							<div class="col-lg-8 text-center">
+								<div id="existingPayslip">
+								<%= errorMessage %>
+								</div>
+							</div>
+							<div class="col-lg-2 text-center">
+								<form role="form" method="POST" action="/staff/deleteOutdatedPayslip" id="form2">
+									<input type="hidden" id="receptionistName" name="receptionistName">
+									<input type="hidden" id="month" name="month">
+									<button type="submit" class="btn btn-danger" onclick="return beforeSubmit()">Delete old payslip</button>
+								</form>
+							</div>
+						</div>
+						<% } %>
 					<% } %>
 					<% if (typeof newPayslip != 'undefined') { %>
-						<div id="payslip">
+						<div class="payslip">
 							<div class="row">
 								<div class="text-center" style="background-color: rgba(2, 0, 128, 0.692); padding-top: 3px; padding-bottom: 3px;">
 									Payslip
 								</div>
 							</div>
 							<div class="row">
-								<div class="text-left" style="padding-left: 15%; padding-top: 1%;">
-									Company name: Hotel
+								<div class="col-lg-6" style="padding-left: 15%; padding-top: 1%;">
+									Company name: Hotel Management System
 								</div>
-								<hr>
+								<div class="col-lg-4" style="padding-left: 15%; padding-top: 1%;">
+									Pay Period: <%= newPayslip.month %>
+								</div>
 							</div>
+							<hr>
 							<div class="row">
 								<div class="col-lg-6">
-									<div class="row">
-										<div class="text-center">
-											Pay Period: <%= newPayslip.month %>
-										</div>
-									</div>
 									<div class="row">
 										<div class="col-lg-6 text-center" style="background-color: rgba(2, 0, 128, 0.692);">
 											Description
@@ -466,13 +559,151 @@
 							</div>
 						</div>
 					<% } %>
+					<% if (userType == 'receptionist') { %>
+						<% if (typeof payslipsArray != 'undefined') { %>
+							<% payslipsArray.forEach(function(payslip) { %>
+								<div class="payslip">
+									<div class="row">
+										<div class="text-center" style="background-color: rgba(2, 0, 128, 0.692); padding-top: 3px; padding-bottom: 3px;">
+											Payslip
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6" style="padding-left: 15%; padding-top: 1%;">
+											Company name: Hotel Management System
+										</div>
+										<div class="col-lg-4" style="padding-left: 15%; padding-top: 1%;">
+											Pay Period: <%= payslip.month %>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="row">
+												<div class="col-lg-6 text-center" style="background-color: rgba(2, 0, 128, 0.692);">
+													Description
+												</div>
+												<div class="col-lg-5 col-lg-offset-1 text-center" style="background-color: rgba(2, 0, 128, 0.692);">
+													Amount
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													Hours
+												</div>
+												<div class="col-lg-5 col-lg-offset-1 text-center">
+													<%= payslip.hours %>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													Rate
+												</div>
+												<div class="col-lg-5 col-lg-offset-1 text-center">
+													<%= payslip.rate %>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													Gross pay
+												</div>
+												<div class="col-lg-5 col-lg-offset-1 text-center">
+													<%= payslip.gross_pay %>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													Tax
+												</div>
+												<div class="col-lg-5 col-lg-offset-1 text-center">
+													<%= payslip.tax %>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													Nat Insurance
+												</div>
+												<div class="col-lg-5 col-lg-offset-1 text-center">
+													<%= payslip.national_insurance %>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													EE Pension
+												</div>
+												<div class="col-lg-5 col-lg-offset-1 text-center">
+													0.00
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													ER Pesnion
+												</div>
+												<div class="col-lg-5 col-lg-offset-1 text-center">
+													0.00
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="row">
+												<div class="col-lg-6 text-center" style="margin-top: 40px;">
+													Employee ID
+												</div>
+												<div class="col-lg-6 text-center" style="margin-top: 40px;">
+													<%= payslip.receptionist_id %>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													Employee name
+												</div>
+												<div class="col-lg-6 text-center">
+													<%= payslip.firstname %>&nbsp;<%= payslip.lastname %> 
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 text-center">
+													Net pay
+												</div>
+												<div class="col-lg-6 text-center">
+													<%= payslip.net_pay %>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							<% }) %>
+						<% } %>
+					<% } %>
+					<% if (userType == 'client') { %>
+						<div id="content-locked">
+							<div class="row">
+								<div class="col-lg-4 col-lg-offset-2 text-center">
+									<img src="../images/lock.png" alt="Lock" id="lock"><br>
+									<div style="font-size: 20px; color:black;">Restricted resource</div>
+								</div>
+								<div class="col-lg-4 text-center">
+									<div style="font-size: 20px; color:black; padding-top: 50px;">
+										Sorry, the content of this page is not available for clients.
+									</div>
+								</div>
+							</div>
+						</div>
+					<% } %>
 				</div>
 				
 			</div>
 		</div>
 
     </div>
-    
+	
+	<!-- Set the data for the hidden inputs -->
+	<script>
+		function beforeSubmit() {
+			document.getElementById('receptionistName').value = document.getElementById('receptionist_name').innerText
+			document.getElementById('month').value = document.getElementById('month_p').innerText
+		}
+	</script>
 </body>
 
 </html>

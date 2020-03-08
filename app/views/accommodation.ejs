@@ -9,14 +9,9 @@
 
 	<!-- Set the page to the width of the device and set the zoon level -->
 	<meta name="viewport" content="width = device-width, initial-scale = 1">
-	<title>Hotel Management System - Accommodation</title>
-
-	<!-- JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	
+	<title>Hotel Management System - Accommodation</title>	
 
 	<!-- CSS -->
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
 
@@ -38,20 +33,16 @@
 			height: 100%;
 			font-family: Verdana, Geneva, Tahoma, sans-serif;
 		}
-
 		.row {
 			margin: 0px;
 		}
-
 		.container-fluid {
 			padding: 0px;
 		}
-
 		.glyphicon.glyphicon-home {
 			font-size: 20px;
 			color: rgba(189, 211, 21, 0.9);
 		}
-
 		.nav-tabs,
 		.nav-pills {
 			font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -59,7 +50,6 @@
 			height: 20%;
 			margin-bottom: 0;
 		}
-
 		.nav-tabs>li,
 		.nav-pills>li {
 			float: none;
@@ -68,80 +58,63 @@
 			/* ie7 fix */
 			zoom: 1;
 			/* hasLayout ie7 trigger */
-
 		}
-
 		/* Main menu options */
 		.nav>li>a {
 			padding-top: 20px;
 			padding-bottom: 20px;
 			color: whitesmoke;
 		}
-
 		.nav>li>a:hover {
 			background-color: rgba(189, 211, 21, 0.9);
 		}
-
 		#header {
 			background-color: rgba(0, 0, 0, 0.9);
 			position: relative;
 			width: 100%;
 			left: 0;
 		}
-
 		#login-btn {
 			margin-top: 12%;
 			display: inline-block;
 		}
-
 		#profile-indicator {
 			padding-top: 10px;
 			text-align: center;
 		}
-
 		/* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
-
 		/* div[class="container-fluid"] {
          outline: 4px dotted rgba(0, 0, 0, 1);
          background-color: rgb(100, 0, 0, 0.2);
       } */
-
       /* div[class="row"] {
          outline: 3px dotted rgb(234, 0, 255);
       } */
-
       /* div[class^="col"] {
          outline: 3px dotted rgb(189, 255, 6);
       } */
-
 		.bg {
 			/* The image used */
 			background-image: url("https://danw.hotglue.me/?webdesign.head.14452090501");
-
 			/* Full height */
 			position: absolute;
 			height: 100%;
 			width: 100%;
 			left: 0;
-
 			margin: 0px;
 			padding: 0px;
-
 			/* Center and scale the image nicely */
 			background-position: center;
 			background-size: cover;
 		}
-
 		.booking {
 			background-color:rgb(0, 0, 0, 0.2); 
 			padding-bottom: 30px;
 		}
-
 		.checkAvailability {
 			background-color:rgb(0, 0, 0, 0.2); 
 			padding-bottom: 18px;
 		}
-
 		.roomAvailabilityInfo {
 			background-color:rgb(0, 0, 0, 0.2);
 			margin-bottom: 30px;
@@ -150,20 +123,17 @@
 			padding-left: 15px;
 			padding-right: 15px;
 		}
-
 		.booking-details {
 			margin-top: 0px;
 			margin-bottom:20px;
 			text-align: center;
 		}
-
 		.clickable-rooms {
 			background-color: rgb(179, 0, 0);
 			text-align: center;
 			font-size: 35px;
 			color: black;
 		}
-
 		.room-component {
 			font-size: 40px;
 			padding: 30px;
@@ -171,51 +141,41 @@
 			padding-left: 20px;
 			margin: 10px;
 		}
-
 		.roomDescription {
 			font-size: 5px;
 		}
-
 		.roomInfo {
 			height: 50px;
-			font-size: 20px;
-			font-weight: bold;
+			font-size: 18px;
 		}
-
 		.table-headings {
 			font-size: small;
 			background-color:rgb(0, 0, 0, 0.7);
 			padding-top: 10px;
 			padding-bottom: 10px;
 		}
-
 		#availabilityTable {
 			position: relative;
 			margin-top: 100px;
 			background-color: #f0ac4ed7;
 		}
-
 		#book-btn {
 			width: 90%;
 			height: 90%;
 		}
-
 		#btn-checkavailability {
 			margin-right: 15px;
 			background-color: black;
             border-color:rgba(189, 211, 21, 0.65);
 		}
-
 		#check-btn {
 			width: 90%;
 			height: 90%;
 			margin-top: 10px;
 		}
-
 		#content {
 			/* Rounded corners */
 			border-radius: 75px;
-
 			padding-top:20px; 
 			padding-bottom:20px; 
 			margin-top: 20px;
@@ -223,37 +183,46 @@
 			margin-right:5%;
 			background-color: rgba(49, 3, 9, 0.3)
 		}
-
 		#check-availability {
 			position: relative;
 			margin-top: 100px;
+			padding-top: 50px;
+			padding-bottom: 45px;
+			background-color: rgba(0, 0, 0, 0.5);
+			margin-left: 50px;
+			border-radius: 3px;
 		}
-
 		#dropdown_type,
 		#dropdown_adult,
 		#dropdown_children {
 			margin-right: 30px;
 			width: 40%;
 		}
-
 		#roomInfoBox {
-			padding-top: 50px;
+			margin-top: 100px;
+			margin-left: 0px;
+			padding-left: 0px;
+			color: white;
+			background-color: rgba(0, 0, 0, 0.5);
+			border-radius: 3px;
 		}
-
 		#roomImage {
 			width: 100%;
 			height: 300px;
 		}
 
+		#roomCountIndicator {
+			padding-top: 5px;
+			padding-bottom: 5px;
+			background-color: rgba(0, 0, 0, 0.692);
+		}
 		#roomsTable {
 			margin-bottom: 0px;
 		}
-
 		#viewrooms-btn {
 			padding-top: 20px;
 			text-align: center;
 		}
-
 		#viewrooms-btn>a {
 			background-color: burlywood;
 			border: none;
@@ -317,7 +286,7 @@
 				<!--  Check availability part 
 Different views for distinct user types -->
 				<% if (userType == 'client') { %>
-				<div class="col-lg-5 col-md-4 col-sm-5 col-xs-12" id="check-availability">
+				<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12" id="check-availability">
 					<div class="row">
 						<p class="text-center col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						</p>
@@ -334,7 +303,7 @@ Different views for distinct user types -->
 													<div class="form-group" style="height: 5px">
 														<div class='input-group date' id='datetimepicker1'>
 															<input type='text' class="form-control" name="date_checkin"
-																placeholder="DD/MM/YYYY" onkeydown="return false" />
+																placeholder="YYYY/MM/DD" onkeydown="return false" />
 															<span class="input-group-addon">
 																<span class="glyphicon glyphicon-calendar"></span>
 															</span>
@@ -348,7 +317,7 @@ Different views for distinct user types -->
 													<div class="form-group" style="height: 5px">
 														<div class='input-group date' id='datetimepicker2'>
 															<input type='text' class="form-control" name="date_checkout"
-																placeholder="DD/MM/YYYY" onkeydown="return false" />
+																placeholder="YYYY/MM/DD" onkeydown="return false" />
 															<span class="input-group-addon">
 																<span class="glyphicon glyphicon-calendar"></span>
 															</span>
@@ -474,7 +443,7 @@ Different views for distinct user types -->
 											<div class="form-group" style="height: 5px">
 												<div class='input-group date' id='datetimepicker3'>
 													<input type='text' class="form-control" name="date_checkin"
-														placeholder="DD/MM/YYYY" onkeydown="return false" />
+														placeholder="YYYY/MM/DD" onkeydown="return false" />
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
@@ -490,7 +459,7 @@ Different views for distinct user types -->
 											<div class="form-group" style="height: 5px">
 												<div class='input-group date' id='datetimepicker4'>
 													<input type='text' class="form-control" name="date_checkout"
-														placeholder="DD/MM/YYYY" onkeydown="return false" />
+														placeholder="YYYY/MM/DD" onkeydown="return false" />
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
@@ -536,7 +505,6 @@ Different views for distinct user types -->
 							</div>
 						</div>
 							<div class="checkAvailability">
-
 								<div id="roominfo">
 									<p class="h3 text-center" style="font-family: 'Brush Script MT'; padding-top:20px;">Check Reservations</p>
 									<div class="row">
@@ -559,6 +527,7 @@ Different views for distinct user types -->
 							</div>
 						</div>
 						<div class="col-lg-2">
+							<% include ./partials/messages %>
 							<% if(typeof reservationsMap != 'undefined' && reservationsMap.size > 0) { %>
 								<div class="roomAvailabilityInfo">
 									<p class="h3 text-center" style="font-family: 'Brush Script MT';">Room availability</p>
@@ -575,7 +544,7 @@ Different views for distinct user types -->
 									<% }) %>
 								</table>
 								</div>
-								<% } %>
+							<% } %>
 						</div>
 					</div>
 				</div>
@@ -584,31 +553,28 @@ Different views for distinct user types -->
 				<p>Please log in to view the contents of this page</p>
 				<% } %>
 
-				<div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
-				</div>
-
 				<!-- Display available rooms -->
 				<div class="col-lg-7 col-md-7 col-sm-5 col-xs-12">
 					<% if(typeof rooms != 'undefined' && rooms.length > 0) { %>
 					<div class="container-fluid" id="roomInfoBox">
 						<p hidden id="ids"><%= room_ids %></p>
 						<div class="row">
-							<div class="col-lg-8">
-								<img src="./images/hotel.jpg" id="roomImage" class="img-thumbnail" alt="Room Picture">
+							<div class="col-lg-8" style="padding-left:0px;">
+								<img src="../images/ocean_view.jpg" id="roomImage" class="img-thumbnail" alt="Room Picture">
 							</div>
-							<div class="col-lg-4">
+							<div class="col-lg-4" style="margin-top:10px;">
 								<div class="col-lg-6">
 									<div class="row">
-										<p class="roomInfo">Capacity : </p>
+										<p class="roomInfo">Capacity: </p>
 									</div>
 									<div class="row">
-										<p class="roomInfo">Price : </p>
+										<p class="roomInfo">Price: </p>
 									</div>
 									<div class="row">
-										<p class="roomInfo">Checkin : </p>
+										<p class="roomInfo">Checkin: </p>
 									</div>
 									<div class="row">
-										<p class="roomInfo">Checkout : </p>
+										<p class="roomInfo">Checkout: </p>
 									</div>
 								</div>
 								<div class="col-lg-6">
@@ -622,12 +588,12 @@ Different views for distinct user types -->
 									</div>
 									<div class="row">
 										<p class="roomInfo" id="checkin">
-											<%= date_checkin.getDate() + "/" + (date_checkin.getMonth() + 1) + "/" +  date_checkin.getFullYear() %>
+											<%= date_checkin.getFullYear() + "/" + (date_checkin.getMonth() + 1) + "/" +  date_checkin.getDate() %>
 										</p>
 									</div>
 									<div class="row">
 										<p class="roomInfo" id="checkout">
-											<%= date_checkout.getDate() + "/" + (date_checkout.getMonth() + 1) + "/" +  date_checkout.getFullYear() %>
+											<%= date_checkout.getFullYear() + "/" + (date_checkout.getMonth() + 1) + "/" +  date_checkout.getDate() %>
 										</p>
 									</div>
 								</div>
@@ -645,14 +611,10 @@ Different views for distinct user types -->
 							</div>
 						</div>
 						<div class="row">
-							<div class="alert alert-danger" role="alert">
+							<div class="alert alert-danger text-center" role="alert" style="margin-bottom:0px;">
 								There are <%= room_ids.length %> rooms available now.
 							</div>
 						</div>
-					</div>
-					<div class="alert alert-success" role="alert">
-						<span type="button" data-dismiss="alert"><span aria-hidden="true"></span></span>
-						**NOTE: Price for a night. Adult: 50&euro;; Child (under 12): 25&euro;
 					</div>
 					<% } %>
 				</div>
@@ -684,7 +646,6 @@ Different views for distinct user types -->
 			})
 		}
 
-
 		if (currentTime < 12) {
 			$('#datetimepicker2').datetimepicker({
 				format: 'YYYY/MM/DD',
@@ -696,11 +657,14 @@ Different views for distinct user types -->
 				minDate: moment().add(1, "days").millisecond(0).second(0).minute(0).hour(0)
 			})
 		}
-
+	</script>
+	<script>
 		$('#datetimepicker1').on("dp.change", function (e) {
-			$('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+			$('#datetimepicker2').datetimepicker({
+				format: 'YYYY/MM/DD',
+				minDate: moment().add(5, "days").millisecond(0).second(0).minute(0).hour(0)
+			})
 		})
-
 		$('#datetimepicker2').on("dp.change", function (e) {
 			$('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
 		});
@@ -708,21 +672,34 @@ Different views for distinct user types -->
 	<script>
 		var dateNow = new Date()
 		var currentTime = dateNow.getHours()
-		$('#datetimepicker3').datetimepicker({
-			format: 'YYYY/MM/DD',
-			minDate: moment().millisecond(0).second(0).minute(0).hour(0)
-		})
+		if (currentTime < 12) {
+			$('#datetimepicker3').datetimepicker({
+				format: 'YYYY/MM/DD',
+				minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+			})
+		} else {
+			$('#datetimepicker3').datetimepicker({
+				format: 'YYYY/MM/DD',
+				minDate: moment().add(1, "days").millisecond(0).second(0).minute(0).hour(0)
+			})
+		}
 
-		$('#datetimepicker4').datetimepicker({
-			format: 'YYYY/MM/DD',
-			minDate: moment().millisecond(0).second(0).minute(0).hour(0),
-			useCurrent: false
-		})
-
+		if (currentTime < 12) {
+			$('#datetimepicker4').datetimepicker({
+				format: 'YYYY/MM/DD',
+				minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+			})
+		} else {
+			$('#datetimepicker4').datetimepicker({
+				format: 'YYYY/MM/DD',
+				minDate: moment().add(1, "days").millisecond(0).second(0).minute(0).hour(0)
+			})
+		}
+		
 		$('#datetimepicker3').on("dp.change", function (e) {
+			console.log("DA E")
 			$('#datetimepicker4').data("DateTimePicker").minDate(e.date);
 		})
-
 		$('#datetimepicker4').on("dp.change", function (e) {
 			$('#datetimepicker3').data("DateTimePicker").maxDate(e.date);
 		});

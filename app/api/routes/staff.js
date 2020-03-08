@@ -17,4 +17,7 @@ router.post('/modifySchedule', staffController.modifySchedule)
 /* POST generate payslip */
 router.post('/generatePayslip', staffController.generatePayslip);
 
+/* POST delete outdated payslip */
+router.post('/deleteOutdatedPayslip', staffController.deleteOutdatedPayslip);
+
 module.exports = router;

@@ -16,6 +16,9 @@ router.post('/availability', roomsController.availabilityPage);
 /* POST edit room price */
 router.post('/editPrice', roomsController.editPrice);
 
+/* POST edit room price - owner */
+router.post('/editPriceOwner', roomsController.editPriceOwner);
+
 /* POST room information */
 router.post('/roomInformation', roomsController.roomInformation);
 

@@ -10,7 +10,8 @@
 	<!-- Set the page to the width of the device and set the zoon level -->
 	<meta name="viewport" content="width = device-width, initial-scale = 1">
 	<title>Hotel Management System - Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 	<style>
 		/* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
@@ -214,7 +215,7 @@
 
         #noNotifications {
             padding-top: 5%;
-            padding-bottom: 10px;
+            padding-bottom: 5%;
             text-align: center;
             color: white;
         }
@@ -326,7 +327,7 @@
 								<a class="nav-link" href="../../dashboard/payment">Payment</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="notifications">
+								<a class="nav-link" href="../../dashboard/notifications">
                                     Notifications 
                                     <% if(typeof notificationsArray != 'undefined' && notificationsArray.length > 0) { %>
                                         <span class="badge">
@@ -336,7 +337,7 @@
                                 </a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="../../dashboard/progress">Progress</a>
+								<a class="nav-link active" href="progress">Progress</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="../../dashboard/settings">System settings</a>
@@ -346,39 +347,18 @@
 				</div>
 
 				<div class="col-lg-9 col-md-6 col-sm-8 col-xs-12" id="content-inner">
-					<% if (userType != 'client') { %>
-						<% if(typeof notificationsArray != 'undefined' && notificationsArray.length > 0) { %>
-							<table class="table table-sm table-dark text-center" id="notificationsTable" style="width:80%;">
-								<thead>
-								  <tr>
-									<th scope="col" class="text-center" style="width: 28%;">Time</th>
-									<th scope="col" class="text-center" style="width: 65%;">Message</th>
-									<th scope="col" class="text-center" style="width: 7%;">Action</th>
-								  </tr>
-								</thead>
-								<tbody>
-								<% notificationsArray.forEach(function(notification) { %>
-									<tr>
-										<th scope="row" class="text-left"><%= notification.issue_time.toLocaleString() %></th>
-										<td class="text-left"><%= notification.message %></td>
-										<td>
-											<form role="form" method="POST" action="/actions/deleteNotification" id="form1">
-												<input type="hidden" id="notificationID" name="notificationID" value='<%= notification.id %>'>
-												<button type="submit" class="btn btn-warning btn-xs" id="btn-read">
-													Got it
-												</button>
-											</form>
-										</td>
-									</tr>
-								<% }) %>
-								</tbody>
-							</table>
-						<% } else { %>
-							<h3 id="noNotifications">Looks like nothing is going on. Time to relax!</h3>
-							<div class="text-center" style="margin-bottom: 20px;">
-								<img src="../images/chill.jpg" alt="chill" style="width:60%; height:450px;">
+					<% if (userType == 'owner') { %>
+						<div class="row">
+							<div class="col-lg-6">
+								<canvas id="pieChart1"></canvas>
 							</div>
-						<% } %>
+							<div class="col-lg-6">
+								<canvas id="pieChart2"></canvas>
+							</div>
+						</div>
+						<div class="row">
+							<canvas id="barChart" style="height: 300px;"></canvas>
+						</div>
 					<% } else { %>
 						<div id="content-locked">
 							<div class="row">
@@ -388,7 +368,7 @@
 								</div>
 								<div class="col-lg-4 text-center">
 									<div style="font-size: 20px; color:black; padding-top: 50px;">
-										Sorry, the content of this page is not available for clients.
+										Sorry, the content of this page is only available for the owner of the hotel.
 									</div>
 								</div>
 							</div>
@@ -400,6 +380,87 @@
 
     </div>
     
+    <!-- Pie chart -->
+    <script>
+        var ctx = document.getElementById('pieChart1').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'pie',
+
+            // The data for our dataset
+            data: {
+                labels: ['Rooms', 'Food & Beverage', 'Spa', 'Sports'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: ['rgba(255,51,0,0.7)', 'rgba(255,204,51,0.7)', 'rgba(255,102,102,0.7)', 'rgba(153,204,51,0.7)'],
+                    borderColor: 'rgba(0, 0, 0, 0.5)',
+                    data: [45225, 9075, 18355, 8325]
+                }]
+            },
+
+            // Configuration options go here
+            options: {
+                title: {
+                    display: true,
+                    text: 'Income',
+                    fontColor: 'green',
+                    fontSize: 20
+                },
+            }
+        });
+
+        var ctx = document.getElementById('pieChart2').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'pie',
+
+            // The data for our dataset
+            data: {
+                labels: ['Salaries', 'Bills', 'Housekeeping', 'Entertainment'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: ['rgb(255, 99, 132)', 'rgb(155, 199, 232)', 'rgb(165, 99, 32)', 'rgb(175, 139, 132)', 'rgb(145, 125, 222)'],
+                    borderColor: 'rgba(0, 0, 0, 0.5)',
+                    data: [16325, 3150, 4275, 2450]
+                }]
+            },
+
+            // Configuration options go here
+            options: {
+                title: {
+                    display: true,
+                    text: 'Expenses',
+                    fontColor: 'red',
+                    fontSize: 20
+                },
+            }
+        });
+
+        // Bar chart
+        new Chart(document.getElementById("barChart"), {
+            type: 'bar',
+            data: {
+            labels: ["November", "December", "January", "February", "March"],
+            datasets: [
+                {
+                label: "Net won (£)",
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                data: [38275,61725,42550,55150,7550]
+                }
+            ]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'Net profit',
+                    fontColor: 'lightblue',
+                    fontSize: 30
+                },
+                maintainAspectRatio: false
+            }
+        });
+    </script>
 </body>
 
 </html>

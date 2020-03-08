@@ -16,6 +16,12 @@ router.get('/dashboard/notifications', verifyToken, indexController.notification
 /* GET payslip page */
 router.get('/dashboard/payment', verifyToken, indexController.paymentPage);
 
+/* GET progress page */
+router.get('/dashboard/progress', verifyToken, indexController.progressPage);
+
+/* GET settings page */
+router.get('/dashboard/settings', verifyToken, indexController.settingsPage);
+
 // Verify token
 function verifyToken(req, res, next) {
     // console.log("REQUEST TO ACCESS DASHBOARD");
