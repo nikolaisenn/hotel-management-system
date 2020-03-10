@@ -6,6 +6,7 @@ var jwt = require('jsonwebtoken');
 var Notification = require('../models/Notification');
 var Receptionist = require('../models/Receptionist');
 var Reservation = require('../models/Reservation');
+var Announcement = require('../models/Announcement');
 var Payslip = require('../models/Payslip');
 var Room = require('../models/Room');
 var Sequelize = require('sequelize');
@@ -15,9 +16,11 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 /* GET - Index page */
 module.exports.indexPage = async function(req, res) {
     // Load data
-	var roomsType = await loadRoomsData_pricing()
+    var roomsType = await loadRoomsData_pricing()
+    var announcements = await loadAnnouncements()
     res.render('index', {
-        roomsType
+        roomsType,
+        announcements
     });
 };
 
@@ -103,6 +106,27 @@ module.exports.progressPage = async function(req, res) {
             var notificationsArray = await loadNotifications()
             res.render('progress', {
                 notificationsArray
+            });
+        }
+    });
+};
+
+/* GET - Reservations page */
+module.exports.reservationsPage = async function(req, res) {
+    // console.log("TOKEN: " + req.cookies.jwt);
+    jwt.verify(req.cookies.jwt, 'secret', async function(err, authData) {
+        if(err) {
+            res.sendStatus(403);
+        } else {
+            userData = authData;
+            console.log('USER DATA')
+            console.log(userData);
+
+            var notificationsArray = await loadNotifications()
+            var allReservations = await loadAllReservations()
+            res.render('reservations', {
+                notificationsArray,
+                allReservations
             });
         }
     });
@@ -241,6 +265,35 @@ async function loadUserReservations() {
     })
 
 	return userReservations
+}
+
+async function loadAllReservations() {
+	// Get all rooms 
+	const Op = Sequelize.Op;
+	var allReservations = await Reservation.findAll({
+        raw: true
+	})
+
+    allReservations.sort(function(a, b) {
+        return a.room_id - b.room_id
+    })
+
+	return allReservations
+}
+
+async function loadAnnouncements() {
+	// Get all rooms 
+	const Op = Sequelize.Op;
+	var announcements = await Announcement.findAll({
+        raw: true
+	})
+
+    announcements.sort(function(a, b) {
+        return a.publishDate - b.publishDate
+    })
+
+    console.log(announcements.slice(0,3))
+	return announcements.slice(0,3)
 }
 
 async function loadMonthsArray() {

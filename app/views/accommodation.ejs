@@ -106,6 +106,9 @@
 			/* Center and scale the image nicely */
 			background-position: center;
 			background-size: cover;
+
+			display: block;
+			overflow: auto;
 		}
 		.booking {
 			background-color:rgb(0, 0, 0, 0.2); 
@@ -208,7 +211,7 @@
 		}
 		#roomImage {
 			width: 100%;
-			height: 300px;
+			height: 400px;
 		}
 		#roomCountIndicator {
 			padding-top: 5px;
@@ -495,8 +498,15 @@ Different views for distinct user types -->
 												name="phone"><br>
 										</div>
 									</div>
+									<div class="row">
+										<div class="col-lg-8 col-lg-offset-4 form-group">
+											<label for="comment">Additional comment (optional):</label>
+											<textarea class="form-control" rows="2" maxlength="50" id="comment2"></textarea>
+										</div>
+									</div>
 									<div class="row text-center">
 										<input type="hidden" id="numberOfRooms" name="numberOfRooms">
+										<input type="hidden" id="additionalComment" name="additionalComment">
 										<button type="submit" class="btn btn-primary" id="book-btn"
 											onclick="return beforeSubmit3()">Book Room</button>
 									</div>
@@ -597,11 +607,18 @@ Different views for distinct user types -->
 									</div>
 								</div>
 								<div class="row">
+									<div class="form-group">
+										<label for="comment">Additional comment (optional):</label>
+										<textarea class="form-control" rows="2" maxlength="50" id="comment"></textarea>
+									</div>
+								</div>
+								<div class="row">
 									<td class="text-center">
 										<form role="form" id="book-form" action="/rooms/booking" method="POST">
 											<input type="hidden" id="fromDate_data" name="fromDate">
 											<input type="hidden" id="toDate_data" name="toDate">
 											<input type="hidden" id="room_ids" name="room_ids">
+											<input type="hidden" id="userComment" name="userComment">
 											<button type="submit" class="btn btn-primary" id="book-btn"
 												onclick="return beforeSubmit()">Book Room</button>
 										</form>
@@ -698,6 +715,7 @@ Different views for distinct user types -->
 			document.getElementById('fromDate_data').value = document.getElementById('checkin').innerText
 			document.getElementById('toDate_data').value = document.getElementById('checkout').innerText
 			document.getElementById('room_ids').value = document.getElementById('ids').innerText
+			document.getElementById('userComment').value = document.getElementById('comment').value
 		}
 	</script>
 
@@ -713,6 +731,7 @@ Different views for distinct user types -->
 	<script>
 		function beforeSubmit3() {
 			document.getElementById('numberOfRooms').value = document.getElementById('roomsCount').innerText
+			document.getElementById('additionalComment').value = document.getElementById('comment2').value
 		}
 	</script>
 

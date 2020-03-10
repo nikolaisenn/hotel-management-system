@@ -167,14 +167,15 @@ module.exports.roomInformation = async function (req, res) {
 
 /* POST booking */
 module.exports.booking = function (req, res) {
-	var { fromDate, toDate, room_ids} = req.body;
+	var { fromDate, toDate, room_ids, userComment} = req.body;
 	var checkin = new Date(fromDate)
 	var checkout = new Date(toDate)
 	var ids = room_ids.split(",")
 	console.log(req.body)
 	console.log(checkin)
 	console.log(checkout)
-	var randomID = ids[Math.floor(Math.random() * ids.length)];
+	var randomID = ids[Math.floor(Math.random() * ids.length)]
+	if (userComment.length == 0) { userComment = null }
 
 	// Reservations start and end at 12pm
 	checkin.setHours(12);
@@ -184,8 +185,10 @@ module.exports.booking = function (req, res) {
 		date_in: checkin,
 		date_out: checkout,
 		user_id: userData.user.id,
-		room_id: randomID
+		room_id: randomID,
+		comment: userComment
 	})
+	
 	// console.log("New reservation details...");
 	// console.log(newReservation);
 	newReservation.save()
@@ -327,10 +330,11 @@ module.exports.editPriceOwner = async function (req, res) {
 
 /* POST receptionist booking */
 module.exports.receptionistBooking = async function (req, res) {
-	var { roomNumber, roomCapacity, date_checkin, date_checkout, firstname, lastname, email, phone, numberOfRooms} = req.body;
+	var { roomNumber, roomCapacity, date_checkin, date_checkout, firstname, lastname, email, phone, numberOfRooms, additionalComment} = req.body;
 	roomNumber = parseInt(roomNumber)
 	var checkin = new Date(date_checkin)
 	var checkout = new Date(date_checkout)
+	if (additionalComment.length == 0) { additionalComment = null }
 
 	let errors = [];
 	// Require valid user input (specify check-in, check-out and the number of people)
@@ -380,7 +384,8 @@ module.exports.receptionistBooking = async function (req, res) {
 				date_in: checkin,
 				date_out: checkout,
 				email: email,
-				room_id: roomNumber
+				room_id: roomNumber,
+				comment: additionalComment
 			})
 			await newReservation.save()
 		

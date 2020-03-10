@@ -19,6 +19,9 @@ router.get('/dashboard/payment', verifyToken, indexController.paymentPage);
 /* GET progress page */
 router.get('/dashboard/progress', verifyToken, indexController.progressPage);
 
+/* GET reservations page */
+router.get('/dashboard/reservations', verifyToken, indexController.reservationsPage);
+
 /* GET settings page */
 router.get('/dashboard/settings', verifyToken, indexController.settingsPage);
 

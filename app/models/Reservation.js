@@ -29,6 +29,10 @@ const Reservation = db.define('reservation', {
     date_out: {
         type: Sequelize.DATE,
         allowNull: true
+    },
+    comment: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 })
 

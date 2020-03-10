@@ -120,6 +120,9 @@
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;
+
+			display: block;
+			overflow: auto;
 		}
 
         .badge {
@@ -163,8 +166,22 @@
 			border-radius: 10px;
 		}
 
+		#announcementHeader {
+			background-color: rgba(0, 0, 0, 0.9);
+			padding-top:20px;
+			padding-bottom: 20px;
+			margin-bottom: 0px;
+			margin-top: 0px;
+		}
+
 		#btn-checkavailability {
 			margin-right: 15px;
+		}
+
+		#btn-publish {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			width:100%;
 		}
 
         #btn-update {
@@ -354,9 +371,15 @@
                                     <% } %>
                                 </a>
 							</li>
+							<% if (userType == 'manager' || userType == 'receptionist') { %>
+							<li class="nav-item">
+								<a class="nav-link" href="../../dashboard/reservations">Reservations</a>
+							</li>
+							<% } else { %>
 							<li class="nav-item">
 								<a class="nav-link" href="../../dashboard/progress">Progress</a>
 							</li>
+							<% } %>
 							<li class="nav-item">
 								<a class="nav-link active" href="settings">System settings</a>
 							</li>
@@ -367,7 +390,7 @@
 				<div class="col-lg-9 col-md-6 col-sm-8 col-xs-12" id="content-inner">
 					<% if (userType == 'owner') { %>
                     <div class="row" style="color: white">
-                        <div class="col-lg-4 col-lg-offset-4" style="margin-top: 20px; margin-bottom: 20px;">
+                        <div class="col-lg-4 col-lg-offset-1" style="margin-top: 20px; margin-bottom: 20px; width:40%;">
                             <div class="container-fluid" style="background-color: rgba(0, 0, 0, 0.7);">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -395,7 +418,7 @@
                             </div>
                             <div class="row">
                                 <div id="change-price">
-                                    <% if (userType == 'manager' || userType == 'owner') { %>
+                                    <% if (userType == 'owner') { %>
                                         <form role="form" method="POST" action="/rooms/editPrice" id="form1">
                                             <div class="form-group">
                                                 <select class="form-control pull-left input-fields" id="dropdown_type"
@@ -418,9 +441,19 @@
                                         </form>
                                     <% } %>
                                 </div>
-                                <div style="width: 60%;"><% include ./partials/messages %></div>
                             </div>
-                        </div>
+						</div>
+						<div class="col-lg-4 col-lg-offset-1" style="margin-top: 20px; margin-bottom: 20px; width:40%;">
+							<h3 class="text-center" id="announcementHeader">Publish an announcement</h3>
+							<textarea class="form-control" rows="10" maxlength="500" id="announcement"></textarea>
+							<form role="form" method="POST" action="/actions/publishAnnouncement" id="form2">
+								<input type="hidden" id="announcementText" name="announcementText">
+								<button type="submit" class="btn btn-primary btn-xs" id="btn-publish" onclick="return beforeSubmit()"> 
+									Publish
+								</button>
+							</form>
+							<div style="width: 100%; margin-top: 10px;"><% include ./partials/messages %></div>
+						</div>
 					</div>
 					<% } else { %>
 						<div id="content-locked">
@@ -441,7 +474,13 @@
 			</div>
 		</div>
 
-    </div>
+	</div>
+	
+	<script>
+		function beforeSubmit() {
+			document.getElementById('announcementText').value = document.getElementById('announcement').value
+		}
+	</script>
     
 </body>
 

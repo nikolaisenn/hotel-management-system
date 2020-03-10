@@ -120,6 +120,9 @@
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;
+
+			display: block;
+			overflow: auto;
 		}
 
         .badge {
@@ -335,9 +338,15 @@
                                     <% } %>
                                 </a>
 							</li>
+							<% if (userType == 'manager' || userType == 'receptionist') { %>
+							<li class="nav-item">
+								<a class="nav-link" href="../../dashboard/reservations">Reservations</a>
+							</li>
+							<% } else { %>
 							<li class="nav-item">
 								<a class="nav-link" href="../../dashboard/progress">Progress</a>
 							</li>
+							<% } %>
 							<li class="nav-item">
 								<a class="nav-link" href="../../dashboard/settings">System settings</a>
 							</li>

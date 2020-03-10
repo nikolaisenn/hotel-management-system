@@ -229,6 +229,14 @@
 			font-size: 3em;
 		}
 
+        #reservationsHeader {
+			background-color:rgba(0, 0, 0, 0.9); 
+			margin-bottom:0px; 
+			padding-bottom:5px; 
+			padding-top:5px;
+			border-radius:5px;
+		}
+
 		#userIndicator {
 			padding-top: 5px;
 			margin-top: 10px;
@@ -340,14 +348,14 @@
                                 </a>
 							</li>
 							<% if (userType == 'manager' || userType == 'receptionist') { %>
-							<li class="nav-item">
-								<a class="nav-link" href="../../dashboard/reservations">Reservations</a>
-							</li>
-							<% } else { %>
-							<li class="nav-item">
-								<a class="nav-link active" href="progress">Progress</a>
-							</li>
-							<% } %>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="reservations">Reservations</a>
+                            </li>
+                            <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../dashboard/progress">Progress</a>
+                            </li>
+                            <% } %>
 							<li class="nav-item">
 								<a class="nav-link" href="../../dashboard/settings">System settings</a>
 							</li>
@@ -356,33 +364,42 @@
 				</div>
 
 				<div class="col-lg-9 col-md-6 col-sm-8 col-xs-12" id="content-inner">
-					<% if (userType == 'owner') { %>
-						<div class="row">
-							<div class="col-lg-6">
-								<canvas id="pieChart1"></canvas>
-							</div>
-							<div class="col-lg-6">
-								<canvas id="pieChart2"></canvas>
-							</div>
-						</div>
-						<div class="row">
-							<canvas id="barChart" style="height: 300px;"></canvas>
-						</div>
-					<% } else { %>
-						<div id="content-locked">
-							<div class="row">
-								<div class="col-lg-4 col-lg-offset-2 text-center">
-									<img src="../images/lock.png" alt="Lock" id="lock"><br>
-									<div style="font-size: 20px; color:black;">Restricted resource</div>
-								</div>
-								<div class="col-lg-4 text-center">
-									<div style="font-size: 20px; color:black; padding-top: 50px;">
-										Sorry, the content of this page is only available for the owner of the hotel.
-									</div>
-								</div>
-							</div>
-						</div>
-					<% } %>
+                    <h2 class="text-center" id="reservationsHeader">All Reservations</h2>
+                    <% if (typeof allReservations != 'undefined') { %>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <table class="table table-sm table-dark text-center" id="reservationsTable">
+                                    <thead style="background-color:rgba(189, 211, 21, 0.9)">
+                                        <tr>
+                                        <th scope="col" class="text-center">Room #</th>
+                                        <th scope="col" class="text-center">Date in</th>
+                                        <th scope="col" class="text-center">Date out</th>
+                                        <th scope="col" class="text-center">Comment</th>
+                                        <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% allReservations.forEach(function(reservation) { %>
+                                            <tr style="background-color:rgba(0, 0, 0, 0.5)">
+                                                <th scope="row" class="text-center"><%= reservation.room_id %></th>
+                                                <td><%= reservation.date_in.getDate() + "/" + reservation.date_in.getMonth() + "/" + reservation.date_in.getFullYear() %></td>
+                                                <td><%= reservation.date_out.getDate() + "/" + reservation.date_out.getMonth() + "/" + reservation.date_out.getFullYear() %></td>
+                                                <td><%= reservation.comment %></td>
+                                                <td>
+                                                    <form role="form" method="POST" action="/actions/cancelReservation" id="form1">
+                                                        <input type="hidden" id="reservationID" name="reservationID" value='<%= reservation.id %>'>
+                                                        <button type="submit" class="btn btn-warning btn-xs" id="btn-read">
+                                                            Cancel
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>    
+                            </div>
+                        </div>
+                    <% } %>
 				</div>
 			</div>
 		</div>

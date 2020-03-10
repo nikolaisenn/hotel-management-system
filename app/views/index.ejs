@@ -114,6 +114,32 @@ outline: 3px dotted rgb(189, 255, 6);
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+
+            display: block;
+			overflow: auto;
+        }
+
+        .announcementText {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 16px;
+            color: white;
+            background-color: rgba(243, 78, 141, 0.3);
+            margin-top: 0px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        
+        .announcementDate {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 25px;
+            color: white;
+            background-color: rgba(243, 78, 141, 0.3);
+            margin-top: 0px;
+            margin-bottom: 0px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
         .glyphicon.glyphicon-equalizer {
@@ -121,12 +147,28 @@ outline: 3px dotted rgb(189, 255, 6);
 		}
 
         .room-item {
+            margin-top: 0px;
+            margin-right: 40px;
+            margin-left: 12px;
             padding-top: 15px;
             padding-bottom: 40px;
             text-align: center;
             background-color: rgba(189, 211, 21, 0.9);
+            border-radius: 20px;
             border-style: solid;
             color:black;
+        }
+
+        #announcementsHeader {
+            color: white;
+            background-color: rgba(21, 24, 211, 0.9);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            border-radius: 5px;
+            border-style: solid;
         }
 
         #content {
@@ -199,7 +241,16 @@ outline: 3px dotted rgb(189, 255, 6);
 
         <div class="container-fluid" id="content">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-3 col-lg-offset-1">
+                    <h2 class="text-center" id="announcementsHeader">Announcements</h2>
+                    <% if (typeof announcements != 'undefined') { %>
+                        <% announcements.forEach(function(announcement) { %>
+                            <div class="announcementDate"><%= announcement.publishDate %> : </div>
+                            <div class="announcementText"><%= announcement.text %></div>
+                        <% }) %>
+                    <% } %>
+                </div>
+                <div class="col-lg-7">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -282,75 +333,71 @@ outline: 3px dotted rgb(189, 255, 6);
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="row" id="room-information">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="col-lg-4 room-item">
-                        <div class="row" style="margin-bottom:23px; font-size: 25px;">
-                            <%= roomsType[0].type %>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div style="background-color: rgba(2, 0, 128, 0.692);">
-                                    Adult:
-                                </div>
-                                <div style="background-color: rgba(42, 41, 107, 0.692);">
-                                    <%= roomsType[0].price_adult %>&euro;
-                                </div>
+                <div class="col-lg-2 room-item">
+                    <div class="row" style="margin-bottom:23px; font-size: 25px;">
+                        <%= roomsType[0].type %>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                Adult:
                             </div>
-                            <div class="col-lg-6">
-                                <div style="background-color: rgba(2, 0, 128, 0.692);">
-                                    Child:
-                                </div>
-                                <div style="background-color: rgba(22, 21, 119, 0.692);">
-                                    <%= roomsType[0].price_child %>&euro;
-                                </div>
+                            <div style="background-color: rgba(42, 41, 107, 0.692);">
+                                <%= roomsType[0].price_adult %>&euro;
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                Child:
+                            </div>
+                            <div style="background-color: rgba(22, 21, 119, 0.692);">
+                                <%= roomsType[0].price_child %>&euro;
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 room-item">
-                        <div class="row" style="margin-bottom:23px; font-size: 25px;">
-                            <%= roomsType[1].type %>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div style="background-color: rgba(2, 0, 128, 0.692);">
-                                    Adult:
-                                </div>
-                                <div style="background-color: rgba(42, 41, 107, 0.692);">
-                                    <%= roomsType[1].price_adult %>&euro;
-                                </div>
+                </div>
+                <div class="col-lg-2 room-item">
+                    <div class="row" style="margin-bottom:23px; font-size: 25px;">
+                        <%= roomsType[1].type %>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                Adult:
                             </div>
-                            <div class="col-lg-6">
-                                <div style="background-color: rgba(2, 0, 128, 0.692);">
-                                    Child:
-                                </div>
-                                <div style="background-color: rgba(22, 21, 119, 0.692);">
-                                    <%= roomsType[1].price_child %>&euro;
-                                </div>
+                            <div style="background-color: rgba(42, 41, 107, 0.692);">
+                                <%= roomsType[1].price_adult %>&euro;
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                Child:
+                            </div>
+                            <div style="background-color: rgba(22, 21, 119, 0.692);">
+                                <%= roomsType[1].price_child %>&euro;
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 room-item">
-                        <div class="row" style="margin-bottom:23px; font-size: 25px;">
-                            <%= roomsType[2].type %>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div style="background-color: rgba(2, 0, 128, 0.692);">
-                                    Adult:
-                                </div>
-                                <div style="background-color: rgba(42, 41, 107, 0.692);">
-                                    <%= roomsType[2].price_adult %>&euro;
-                                </div>
+                </div><br>
+                <div class="col-lg-2 room-item">
+                    <div class="row" style="margin-bottom:23px; font-size: 25px;">
+                        <%= roomsType[2].type %>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                Adult:
                             </div>
-                            <div class="col-lg-6">
-                                <div style="background-color: rgba(2, 0, 128, 0.692);">
-                                    Child:
-                                </div>
-                                <div style="background-color: rgba(22, 21, 119, 0.692);">
-                                    <%= roomsType[2].price_child %>&euro;
-                                </div>
+                            <div style="background-color: rgba(42, 41, 107, 0.692);">
+                                <%= roomsType[2].price_adult %>&euro;
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div style="background-color: rgba(2, 0, 128, 0.692);">
+                                Child:
+                            </div>
+                            <div style="background-color: rgba(22, 21, 119, 0.692);">
+                                <%= roomsType[2].price_child %>&euro;
                             </div>
                         </div>
                     </div>
