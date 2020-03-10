@@ -11,20 +11,20 @@
 	<meta name="viewport" content="width = device-width, initial-scale = 1">
 	<title>Hotel Management System - Accommodation</title>	
 
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
-
 	<!--  jQuery -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"
 		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	
 
-	<!-- Bootstrap Date-Picker Plugin -->
+	<!-- Bootstrap -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	<!-- Bootstrap Date-Picker -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
 
 	<style>
 		/* ------------------------------------------- MAIN.CSS --------------------------------------------------------*/
@@ -210,7 +210,6 @@
 			width: 100%;
 			height: 300px;
 		}
-
 		#roomCountIndicator {
 			padding-top: 5px;
 			padding-bottom: 5px;
@@ -624,46 +623,36 @@ Different views for distinct user types -->
 
 	</div>
 
-	<script>
-		$(document).ready(function() {
-			$('#roomsTable').DataTable();
-		} );
-	</script>
-
 	<!-- Datepicker functionality-->
-	<script>
-		var dateNow = new Date()
-		var currentTime = dateNow.getHours()
+	<script type="text/javascript">
+		var dateNow = new Date();
+		var currentTime = dateNow.getHours();
+		var date1;
 		if (currentTime < 12) {
-			$('#datetimepicker1').datetimepicker({
+			date1 = $('#datetimepicker1').datetimepicker({
 				format: 'YYYY/MM/DD',
 				minDate: moment().millisecond(0).second(0).minute(0).hour(0)
 			})
 		} else {
-			$('#datetimepicker1').datetimepicker({
+			date1 = $('#datetimepicker1').datetimepicker({
+				format: 'YYYY/MM/DD',
+				minDate: moment().add(1, "days").millisecond(0).second(0).minute(0).hour(0)
+			})
+		}
+		if (currentTime < 12) {
+			$('#datetimepicker2').datetimepicker({
+				format: 'YYYY/MM/DD',
+				minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+			})
+		} else {
+			$('#datetimepicker2').datetimepicker({
 				format: 'YYYY/MM/DD',
 				minDate: moment().add(1, "days").millisecond(0).second(0).minute(0).hour(0)
 			})
 		}
 
-		if (currentTime < 12) {
-			$('#datetimepicker2').datetimepicker({
-				format: 'YYYY/MM/DD',
-				minDate: moment().millisecond(0).second(0).minute(0).hour(0)
-			})
-		} else {
-			$('#datetimepicker2').datetimepicker({
-				format: 'YYYY/MM/DD',
-				minDate: moment().add(1, "days").millisecond(0).second(0).minute(0).hour(0)
-			})
-		}
-	</script>
-	<script>
 		$('#datetimepicker1').on("dp.change", function (e) {
-			$('#datetimepicker2').datetimepicker({
-				format: 'YYYY/MM/DD',
-				minDate: moment().add(5, "days").millisecond(0).second(0).minute(0).hour(0)
-			})
+			$('#datetimepicker2').data("DateTimePicker").minDate(e.date);
 		})
 		$('#datetimepicker2').on("dp.change", function (e) {
 			$('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
@@ -683,7 +672,6 @@ Different views for distinct user types -->
 				minDate: moment().add(1, "days").millisecond(0).second(0).minute(0).hour(0)
 			})
 		}
-
 		if (currentTime < 12) {
 			$('#datetimepicker4').datetimepicker({
 				format: 'YYYY/MM/DD',
@@ -697,7 +685,6 @@ Different views for distinct user types -->
 		}
 		
 		$('#datetimepicker3').on("dp.change", function (e) {
-			console.log("DA E")
 			$('#datetimepicker4').data("DateTimePicker").minDate(e.date);
 		})
 		$('#datetimepicker4').on("dp.change", function (e) {
@@ -738,12 +725,5 @@ Different views for distinct user types -->
 	</script>
 
 </body>
-
-<!-- Jquery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<!-- Datatables -->
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<!-- Bootstrap -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </html>

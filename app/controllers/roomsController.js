@@ -59,35 +59,47 @@ module.exports.availabilityPage = async function (req, res) {
 	console.log(date_checkin)
 	console.log(date_checkout)
 
-	// Get all rooms with capacity desired by the user
-	const Op = Sequelize.Op;
-	var rooms = await Room.findAll({
-		raw: true,
-		attributes: [['id', 'id'],['capacity', 'capacity'],['price_adult', 'price_adult'],['price_child', 'price_child']],
-		include: [{
-			model: Reservation,
-			attributes: [['date_in', 'date_in'],['date_out', 'date_out']],
-			required: false
-		}],
-		where: {
-			'$room.capacity$': [dropdown_adult + dropdown_children],
-			'$room.type$': [dropdown_type]
-		},
-		group: ['id', 'capacity', 'price_adult', 'price_child', 'date_in', 'date_out']
-	})
+	console.log(date_checkin < date_checkout)
+	if (date_checkin < date_checkout) {
+		// Get all rooms with capacity desired by the user
+		const Op = Sequelize.Op;
+		var rooms = await Room.findAll({
+			raw: true,
+			attributes: [['id', 'id'],['capacity', 'capacity'],['price_adult', 'price_adult'],['price_child', 'price_child']],
+			include: [{
+				model: Reservation,
+				attributes: [['date_in', 'date_in'],['date_out', 'date_out']],
+				required: false
+			}],
+			where: {
+				'$room.capacity$': [dropdown_adult + dropdown_children],
+				'$room.type$': [dropdown_type]
+			},
+			group: ['id', 'capacity', 'price_adult', 'price_child', 'date_in', 'date_out']
+		})
+
 		if (rooms.length > 0) {
 			rooms = getAvailableRooms(rooms, date_checkin, date_checkout)
-			var room_ids = getRoomsIDs(rooms)
-
-			res.render('accommodation', {
-				rooms,
-				room_ids,
-				dropdown_adult,
-				dropdown_children,
-				date_checkin,
-				date_checkout
-			});
+			if (rooms != 'undefined') {
+				var room_ids = getRoomsIDs(rooms)
+			}
 			
+			if (room_ids.length > 0) {
+				res.render('accommodation', {
+					rooms,
+					room_ids,
+					dropdown_adult,
+					dropdown_children,
+					date_checkin,
+					date_checkout
+				});
+			}
+			else {
+				errors.push({ msg: 'There are currently no available rooms matching the selection criteria.' })
+				res.render('accommodation', {
+					errors
+				});
+			}
 		}
 		else {
 			errors.push({ msg: 'There are currently no available rooms matching the selection criteria.' })
@@ -95,6 +107,13 @@ module.exports.availabilityPage = async function (req, res) {
 				errors
 			});
 		}
+	} 
+	else {
+		errors.push({ msg: 'Please provide valid checkin/checkout dates.' })
+		res.render('accommodation', {
+			errors
+		})
+	}
 }
 
 /* POST room information */
@@ -164,6 +183,7 @@ module.exports.booking = function (req, res) {
 	const newReservation = Reservation.build({
 		date_in: checkin,
 		date_out: checkout,
+		user_id: userData.user.id,
 		room_id: randomID
 	})
 	// console.log("New reservation details...");
@@ -340,45 +360,56 @@ module.exports.receptionistBooking = async function (req, res) {
 	checkout.setHours(12);
 	checkout.setMinutes(1);
 
-	// Check if the reservation is possible 
-	const Op = Sequelize.Op;
-	var matchingReservations = await Reservation.findAll({
-		where : {
-			room_id: roomNumber,
-			[Op.or]: {
-				date_in: {[Op.between]: [checkin, checkout]},
-				date_out: {[Op.between]: [checkin, checkout]}
+	if (checkin < checkout) {
+		// Check if the reservation is possible 
+		const Op = Sequelize.Op;
+		var matchingReservations = await Reservation.findAll({
+			where : {
+				room_id: roomNumber,
+				[Op.or]: {
+					date_in: {[Op.between]: [checkin, checkout]},
+					date_out: {[Op.between]: [checkin, checkout]}
+				}
 			}
+		})
+		console.log("MATCHING")
+		console.log(matchingReservations)
+
+		if (matchingReservations.length == 0) {
+			const newReservation = Reservation.build({
+				date_in: checkin,
+				date_out: checkout,
+				email: email,
+				room_id: roomNumber
+			})
+			await newReservation.save()
+		
+			// Send a notification to all managers
+			const newNotification = Notification.build({
+				recipient_class: 'manager',
+				message: 'Room ' + roomNumber + ' was booked',
+				issue_time: new Date().toLocaleString()
+			})
+			await newNotification.save()	
+
+			// Load data 
+			var roomsArray = await loadRoomsData_accommodation()
+			// Create a flash message
+			req.flash('success_msg', 'Your room was booked successfully');
+			res.redirect('accommodation')
+		} 
+		else {
+			errors.push({ msg: 'The room is unavailable for that period.' })
+			// Load data 
+			var roomsArray = await loadRoomsData_accommodation()
+			res.render('accommodation', {
+				roomsArray,
+				errors
+			})
 		}
-	})
-	console.log("MATCHING")
-	console.log(matchingReservations)
-
-	if (matchingReservations.length == 0) {
-		const newReservation = Reservation.build({
-			date_in: checkin,
-			date_out: checkout,
-			email: email,
-			room_id: roomNumber
-		})
-		await newReservation.save()
-	
-		// Send a notification to all managers
-		const newNotification = Notification.build({
-			recipient_class: 'manager',
-			message: 'Room ' + roomNumber + ' was booked',
-			issue_time: new Date().toLocaleString()
-		})
-		await newNotification.save()	
-
-		// Load data 
-		var roomsArray = await loadRoomsData_accommodation()
-		// Create a flash message
-		req.flash('success_msg', 'Your room was booked successfully');
-		res.redirect('accommodation')
-	} 
+	}
 	else {
-		errors.push({ msg: 'The room is unavailable for that period.' })
+		errors.push({ msg: 'Please provide valid checkin/checkout dates.' })
 		// Load data 
 		var roomsArray = await loadRoomsData_accommodation()
 		res.render('accommodation', {

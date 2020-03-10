@@ -12,6 +12,10 @@ const Reservation = db.define('reservation', {
         type: Sequelize.STRING,
         allowNull: true
     },
+    user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
     room_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

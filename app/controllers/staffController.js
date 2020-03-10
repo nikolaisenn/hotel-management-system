@@ -326,7 +326,7 @@ module.exports.generatePayslip = async function(req, res) {
 			const ownerNotification = Notification.build({
 				recipient_class: 'owner',
 				message: 'Receptionist ' + receptionist.firstname + ' ' + receptionist.lastname + ' received his/her payslip for month ' + dropdown_month
-						 + ' estimated at ' + grosspay + '&pound; pre tax',
+						 + ' estimated at ' + grosspay + 'pounds pre tax',
 				issue_time: new Date().toLocaleString()
 			})
 			await ownerNotification.save()

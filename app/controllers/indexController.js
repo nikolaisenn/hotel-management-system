@@ -5,6 +5,7 @@ var mysql = require('mysql');
 var jwt = require('jsonwebtoken');
 var Notification = require('../models/Notification');
 var Receptionist = require('../models/Receptionist');
+var Reservation = require('../models/Reservation');
 var Payslip = require('../models/Payslip');
 var Room = require('../models/Room');
 var Sequelize = require('sequelize');
@@ -72,14 +73,17 @@ module.exports.paymentPage = async function(req, res) {
             var receptionistMap = await loadReceptionists()
             var notificationsArray = await loadNotifications()
             var payslipsArray = await loadPayslips()
+            var userReservations = await loadUserReservations()
             console.log("RESULTS")
+            console.log(userReservations)
             console.log(monthsArray)
             console.log(receptionistMap)
             res.render('payment', {
                 receptionistMap,
                 monthsArray,
                 notificationsArray,
-                payslipsArray
+                payslipsArray,
+                userReservations
             })
         }
     });
@@ -220,6 +224,23 @@ async function loadReceptionists() {
 		})
 
 	return receptionistMap
+}
+
+async function loadUserReservations() {
+	// Get all rooms 
+	const Op = Sequelize.Op;
+	var userReservations = await Reservation.findAll({
+        raw: true,
+        where : {
+            user_id: userData.user.id
+        }
+	})
+
+    userReservations.sort(function(a, b) {
+        return a.room_id - b.room_id
+    })
+
+	return userReservations
 }
 
 async function loadMonthsArray() {
